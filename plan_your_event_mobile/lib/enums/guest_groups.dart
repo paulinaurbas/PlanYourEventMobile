@@ -1,0 +1,3 @@
+enum GuestType{
+  FAMILY, FRIENDS, BUISSNESS, OTHERS
+}
