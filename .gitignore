@@ -19,3 +19,11 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+.gradle
+.idea/
+*.iml
+build/
+/local.properties
+.DS_Store
+/captures
+google-services.json
