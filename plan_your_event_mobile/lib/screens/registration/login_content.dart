@@ -24,6 +24,18 @@ class _LoginContentState extends State<LoginContent> {
 
 
   @override
+  void initState() {
+    super.initState();
+    _bloc.valideAuthorization.listen((event) {
+      if(event != null ) {
+        Navigator.push(context,
+            new MaterialPageRoute(
+                builder: (context) => HomeScreen()));
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
@@ -37,7 +49,6 @@ class _LoginContentState extends State<LoginContent> {
             ),
             borderRadius: BorderRadius.all(Radius.circular(12))),
         height: isLogin ? 255 : 300,
-        width: 338,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -122,19 +133,19 @@ class _LoginContentState extends State<LoginContent> {
                             message = appStrings["weakPassword"];
                           } else if(e.toString().contains("The email address is already in use by another account.")){
                             message = appStrings["emailAlreadyRegister"];
+                          } else if(e.toString().contains("There is no user record corresponding to this identifier. The user may have been deleted.")) {
+                            message = appStrings["userNotRegister"];
                           }
                           displaySnackbar(context, message);
                         }
                           if (result != null) {
-                            Navigator.push(context,
-                                new MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
-                            setState(() {
-
-                            });
-                          }
-
-                    },
+                            if(isLogin) {
+                              _bloc.getUser();
+                              } else {
+                              _bloc.registerUser();
+                            }
+                            }
+                          },
                     color: appColors['buttons_orange'],
                     splashColor: appColors['gradinet_bright_color'],
                     child: Text(isLogin ? appStrings['login'] : appStrings['register'] ),
@@ -148,4 +159,5 @@ class _LoginContentState extends State<LoginContent> {
       ),
     );
   }
+
 }
