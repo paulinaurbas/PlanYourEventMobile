@@ -2,16 +2,16 @@
 class User {
 
   final String uid;
-  final String name;
+  final String email;
 
-  User ({ this.uid, this.name, });
+  User ({ this.uid, this.email, });
 
   User.fromJson(Map<String, dynamic> json)
       : uid = json["uid"],
-        name = json["name"];
+        email = json["name"];
 
   Map<String, dynamic> userToJson() => {
         'name': uid,
-        'email': name,
+        'email': email,
       };
 }

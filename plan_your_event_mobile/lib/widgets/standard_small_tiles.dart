@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planyoureventmobile/screens/parties/create_party_screen.dart';
+import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/create_party_screen.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 
@@ -11,9 +11,11 @@ class SmallPartyScrollTiles extends StatelessWidget {
       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-           child: Row(
-             children:
-              _buildRowWithSmallTiles,
+           child: Flexible(
+             child: Row(
+               children:
+                _buildRowWithSmallTiles,
+             ),
            ),
         )
       ]),
@@ -24,13 +26,13 @@ class SmallPartyScrollTiles extends StatelessWidget {
   List<Widget> get _buildRowWithSmallTiles {
 
     List<Widget> allTiles = [];
-    allTiles.add(SmallPartyTile(color: appColors['darkOragne'], icon: Icons.bubble_chart, title: appStrings['bithdayParty']));
-    allTiles.add(SmallPartyTile(color: appColors['sweetHoney'], icon: Icons.bubble_chart, title: appStrings['buisnessMeeting']));
-    allTiles.add(SmallPartyTile(color: appColors['dirtyOrage'], icon: Icons.bubble_chart, title: appStrings['kinderBall']));
-    allTiles.add(SmallPartyTile(color: appColors['sweetBlue'], icon: Icons.bubble_chart, title: appStrings['familyMeeting']));
-    allTiles.add(SmallPartyTile(color: appColors['seaBlue'], icon: Icons.bubble_chart, title: appStrings['babyShower']));
-    allTiles.add(SmallPartyTile(color: appColors['baptismBlue'], icon: Icons.bubble_chart, title: appStrings['baptism']));
-    allTiles.add(SmallPartyTile(color: appColors['lightBlue'], icon: Icons.bubble_chart, title: appStrings['holyCommunion']));
+    allTiles.add(SmallPartyTile(color: appColors['dark_oragne'], icon: Icons.bubble_chart, title: appStrings['bithdayParty']));
+    allTiles.add(SmallPartyTile(color: appColors['sweet_honey'], icon: Icons.bubble_chart, title: appStrings['buisnessMeeting']));
+    allTiles.add(SmallPartyTile(color: appColors['dirty_orage'], icon: Icons.bubble_chart, title: appStrings['kinderBall']));
+    allTiles.add(SmallPartyTile(color: appColors['sweet_blue'], icon: Icons.bubble_chart, title: appStrings['familyMeeting']));
+    allTiles.add(SmallPartyTile(color: appColors['sea_blue'], icon: Icons.bubble_chart, title: appStrings['babyShower']));
+    allTiles.add(SmallPartyTile(color: appColors['baptism_blue'], icon: Icons.bubble_chart, title: appStrings['baptism']));
+    allTiles.add(SmallPartyTile(color: appColors['light_blue'], icon: Icons.bubble_chart, title: appStrings['holyCommunion']));
 
     return allTiles;
   }
@@ -60,6 +62,7 @@ class SmallPartyTile extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(12))),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(2.0),
@@ -71,13 +74,16 @@ class SmallPartyTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 6.0),
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
+                Expanded(
+                  flex: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
                     child: Flexible(
                       child: Text(
                         title,
+                        style: TextStyle(fontSize: 13),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ),

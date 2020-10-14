@@ -20,4 +20,14 @@ class HttpHandler {
     Response response = await _dio.get(_endpoint, options: new Options(headers:headers),);
     return response;
   }
+
+  Future<Response> postToApi(String _endpoint) async {
+    var token = await extractToken();
+    Map<String, String> headers = {
+      "Content-type": "application/json",
+      "Authorization" :"Bearer " + token
+    };
+    Response response = await _dio.post(_endpoint, options: new Options(headers:headers));
+    return response;
+  }
 }

@@ -4,13 +4,8 @@ import 'package:planyoureventmobile/models/food_preferences.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/routes/routes.dart';
 import 'package:planyoureventmobile/screens/registration/welcome_screen.dart';
-import 'package:planyoureventmobile/styling/colors.dart';
-import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
-import 'package:planyoureventmobile/widgets/standard_add_card.dart';
-import 'package:planyoureventmobile/widgets/standard_rectangular_conctact_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'models/person.dart';
 
 void main() => runApp(MyApp());
 
@@ -41,12 +36,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  Guest ciocia = Guest(person: Person(
+  Guest ciocia = Guest(
     name: 'Ciocia',
     surname: 'Viola',
     phoneNumber: '+48 92378240',
     email: 'ciocia.viola@gmail.com',
-      ),
       foodPreferences: FoodPreferences(
         lactose: false,
         gluten:  false,

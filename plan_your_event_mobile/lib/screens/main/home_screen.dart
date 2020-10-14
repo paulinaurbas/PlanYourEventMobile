@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               decoration: BoxDecoration(
-                color: appColors['drawerOrange'],
+                color: appColors['drawer_orange'],
               ),
             ),
           ),
@@ -87,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: Icon(Icons.add),
             title: Text(appStrings['createNewParty']),
             onTap: () {
+              Navigator.pushNamed(context, '/CreateParty');
             },
           ),
           ListTile(
@@ -100,6 +101,13 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: Icon(Icons.av_timer),
             title: Text(appStrings['pastParties']),
             onTap: () {
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.info_outline),
+            title: Text(appStrings['about']),
+            onTap: () {
+
             },
           ),
           ListTile(

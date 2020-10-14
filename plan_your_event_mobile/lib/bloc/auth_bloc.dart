@@ -4,11 +4,19 @@ import 'package:planyoureventmobile/models/user.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
+// ignore: must_be_immutable
 class AuthBloc extends BlocProvider {
+  static final AuthBloc _authBloc = AuthBloc._internal();
+
+  factory AuthBloc() {
+    return _authBloc;
+  }
+
+  AuthBloc._internal();
   final AuthService auth = AuthService();
   AuthRepository _authRepository = AuthRepository();
-  final PublishSubject <User> _subject = PublishSubject();
-  Stream <User> get valideAuthorization => _subject.stream;
+  final PublishSubject<User> _subject = PublishSubject();
+  Stream<User> get valideAuthorization => _subject.stream;
 
   getUser() async {
     User currentUser = await _authRepository.getUser();
@@ -23,5 +31,4 @@ class AuthBloc extends BlocProvider {
   dispose() {
     _subject.close();
   }
-
 }

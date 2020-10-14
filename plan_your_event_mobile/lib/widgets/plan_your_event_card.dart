@@ -13,8 +13,6 @@ class PlanYourEventCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 19, right: 19, top: 25.0, bottom: 25.0),
       child: Container(
-        height: 261,
-        width: 338,
           decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(

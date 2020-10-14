@@ -29,7 +29,7 @@ class StandardContactCard extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(14, 15, 12, 12),
-                  child: Text(guest.person.name + ' ' + guest.person.surname,
+                  child: Text(guest.name + ' ' + guest.surname,
                       style: TextStyle(
                         fontSize: 20,
                       )),
@@ -64,7 +64,7 @@ class StandardContactCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(
-                    guest.person.phoneNumber,
+                    guest.phoneNumber,
                     style: TextStyle(
                       fontSize: 13,
                     ),
@@ -86,7 +86,7 @@ class StandardContactCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, top: 11),
                   child: Text(
-                    guest.person.email,
+                    guest.email,
                     style: TextStyle(
                       fontSize: 13,
                     ),
