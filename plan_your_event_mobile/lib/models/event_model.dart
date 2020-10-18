@@ -1,11 +1,11 @@
 
-import 'package:planyoureventmobile/enums/PartyType.dart';
-import 'package:planyoureventmobile/enums/PlaceType.dart';
+import 'package:planyoureventmobile/enums/party_type.dart';
+import 'package:planyoureventmobile/enums/place_type.dart';
 
 import 'address_model.dart';
 
 class Event {
-  int id;
+  String id;
   String eventName;
   String placeName;
   PlaceType placeType;
@@ -19,7 +19,7 @@ class Event {
   List<int> supliersList = List <int>();
   List<int> documentsList =List <int>();
   String inspirationUrl;
-  int  harmonogramId;
+  int harmonogramId;
 
   Event({
       this.id,
@@ -57,6 +57,7 @@ class Event {
 
 
   Map<String, dynamic> eventToJson() => {
+    'user_id': id,
     'event_name': eventName,
     'place_name': placeName,
     'place_type': placeType.toString(),

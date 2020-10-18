@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:planyoureventmobile/bloc/add_party_bloc.dart';
+import 'package:planyoureventmobile/enums/place_type.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/details_tiles.dart';
@@ -104,7 +105,6 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                 ),
                 onChanged:
                     (String newValue) {
-                  _addPartyBloc.changePlaceTypeName;
                   setState(() {
                     dropDownValue = newValue;
                     _addPartyBloc.changePlaceTypeName;
@@ -115,12 +115,13 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                   'Garden',
                   'Home',
                   'Buissness area'
-                ].map<DropdownMenuItem<String>>((String value) {
+                  ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+  value: value,
+  child: Text(value),
+  );
+  }).toList(),
+
               )
             ],
           ),
@@ -250,8 +251,11 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                           containerHeight: 210.0,
                         ),
                         showTitleActions: true, onConfirm: (time) {
-                      print('confirm $time');
-                      _time = '${time.hour} : ${time.minute}';
+                      if(time.minute < 10){
+                        _time = '${time.hour} : 0${time.minute}';
+                      } else {
+                        _time = '${time.hour} : ${time.minute}';
+                      }
                       setState(() {
                         displayTime = true;
                       });
@@ -285,7 +289,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
   );
 
   void createParty() {
-    _addPartyBloc.addParty().then((value) {
+    _addPartyBloc.addParty(_date, _time, dropDownValue).then((value) {
         Navigator.pushNamed(context, '/GuestDetails');
     });
   }

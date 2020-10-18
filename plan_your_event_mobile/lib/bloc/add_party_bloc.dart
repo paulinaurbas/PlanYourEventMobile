@@ -1,15 +1,18 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:planyoureventmobile/enums/PartyType.dart';
-import 'package:planyoureventmobile/enums/PlaceType.dart';
+import 'package:planyoureventmobile/enums/party_type.dart';
+import 'package:planyoureventmobile/enums/place_type.dart';
 import 'package:planyoureventmobile/models/address_model.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/repository/add_party_repository.dart';
+import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AddPartyBloc extends BlocProvider {
 
   final _addPartyRepository = AddPartyRepository();
+  final _authRepository = AuthRepository();
   final _streetName = BehaviorSubject<String>();
   final _cityName = BehaviorSubject<String>();
   final _placeType = BehaviorSubject<PlaceType>();
@@ -38,16 +41,24 @@ class AddPartyBloc extends BlocProvider {
 
   bool updateShouldNotify(_) => true;
 
-  Future<void> addParty() {
-    Event event = Event(
-      placeType: _placeType.value,
-      eventName: _partyName.value,
-      placeName: _placeName.value,
-      address: Address(
-        _streetName.value, _cityName.value
-      )
-    );
-    return _addPartyRepository.addEvent(event);
+  Future<void> addParty(String _date, String _time, String dropDownValue) async {
+    DateTime dateOfEvent = validateDateAndTime(_date, _time);
+    FirebaseAuth.instance.currentUser().then((FirebaseUser user) {
+      String userId;
+      if (user != null) {
+        userId = user.uid;
+      }
+      Event event = Event(
+          id: userId,
+          eventName: _partyName.value,
+          placeName: _placeName.value,
+          dateTime: dateOfEvent,
+          address: Address(
+              _streetName.value, _cityName.value
+          )
+      );
+      return _addPartyRepository.addEvent(event);
+    });
   }
 
   void dispose() async {
@@ -57,6 +68,13 @@ class AddPartyBloc extends BlocProvider {
     _partyName.close();
     _placeName.close();
   }
+
+  DateTime validateDateAndTime(String _date, String _time) {
+    _date = _date.replaceAll(' ', '');
+    _time =  _time.replaceAll(' ', '');
+    return DateTime.parse(_date + ' ' + _time );
+  }
+
 
   bool validateFields() {
     if (_streetName.value != null &&

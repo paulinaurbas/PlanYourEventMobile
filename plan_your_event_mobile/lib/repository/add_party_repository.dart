@@ -8,4 +8,5 @@ class AddPartyRepository with ChangeNotifier {
 
   Future <void> addEvent(Event event) => _addPartyApiProvider.addParty(event);
 
+
 }
