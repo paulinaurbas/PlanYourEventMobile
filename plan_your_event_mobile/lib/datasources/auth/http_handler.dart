@@ -21,13 +21,13 @@ class HttpHandler {
     return response;
   }
 
-  Future<Response> postToApi(String _endpoint) async {
+  Future<Response> postToApi(String _endpoint, {body}) async {
     var token = await extractToken();
     Map<String, String> headers = {
       "Content-type": "application/json",
       "Authorization" :"Bearer " + token
     };
-    Response response = await _dio.post(_endpoint, options: new Options(headers:headers));
+    Response response = await _dio.post(_endpoint, options: new Options(headers:headers), data: body);
     return response;
   }
 }

@@ -7,4 +7,10 @@ class Address {
         city = json["city"];
 
   Address(this.street, this.city);
+
+  Map<String, dynamic> addressToJson() =>
+      {
+        'street': street,
+        'city': city,
+      };
 }

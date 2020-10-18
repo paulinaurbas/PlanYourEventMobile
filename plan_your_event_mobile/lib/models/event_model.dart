@@ -40,22 +40,28 @@ class Event {
 
   Event.fromJson(Map<String, dynamic> json)
       :  id= json["id"],
-        eventName= json["uid"],
-        placeName= json["uid"],
-        placeType= json["uid"],
-        partyType= json["uid"],
+        eventName= json["event_name"],
+        placeName= json["place_name"],
+        placeType= json["place_type"],
+        partyType= json["party_type"],
         address= Address.fromJson(json["address"],),
-        dateTime= json["uid"],
-        guestList= json["uid"],
-        menuList= json["uid"],
-        isPastEvent= json["uid"],
-        bugdetId= json["uid"],
-        supliersList= json["uid"],
-        documentsList= json["uid"],
-        inspirationUrl= json["uid"],
-        harmonogramId= json["uid"];
+        dateTime= json["date_time"] != null ? DateTime.parse(json["date_time"]) : null,
+        guestList= json["guest_list"],
+        menuList= json["menu_list"],
+        isPastEvent= json["is_past_event"],
+        bugdetId= json["bugdet_id"],
+        supliersList= json["supliers_list"],
+        documentsList= json["documents_list"],
+        inspirationUrl= json["inspiration_url"],
+        harmonogramId= json["harmonogram_id"];
+
 
   Map<String, dynamic> eventToJson() => {
+    'event_name': eventName,
+    'place_name': placeName,
+    'place_type': placeType.toString(),
+    'place_name': address.addressToJson(),
+    'dateTime': dateTime,
 
   };
 }

@@ -1,16 +1,16 @@
 
-import 'package:planyoureventmobile/datasources/auth/auth_api_provider.dart';
-import 'package:planyoureventmobile/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
-class AuthRepository {
-  AuthApiProvider _authApiProvider = AuthApiProvider();
 
-  Future<User> getUser(){
-    return _authApiProvider.getUser();
+class AuthRepository with ChangeNotifier {
+  FirebaseUser _user;
+
+  FirebaseUser get getUser => _user;
+
+  void setUser(FirebaseUser user){
+    _user = user;
+    notifyListeners();
   }
 
-
-  Future<User> registerUser(){
-    return _authApiProvider.registerUser();
-  }
 }

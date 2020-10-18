@@ -1,15 +1,11 @@
+import 'package:flutter/foundation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:planyoureventmobile/datasources/add_party/add_party_api_provider.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
 
-class AddPartyRepository {
-  AddPartyApiProvider _addPartyApiProvider = AddPartyApiProvider();
+class AddPartyRepository with ChangeNotifier {
+  final _addPartyApiProvider = AddPartyApiProvider();
 
-  Future<Event> getParty(){
-    return _addPartyApiProvider.getParty();
-  }
+  Future <void> addEvent(Event event) => _addPartyApiProvider.addParty(event);
 
-
-  Future<int> registerUser(Event event){
-    return _addPartyApiProvider.postParty(event);
-  }
 }

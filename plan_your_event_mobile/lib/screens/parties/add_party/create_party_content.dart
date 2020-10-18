@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:planyoureventmobile/bloc/add_party_bloc.dart';
+import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/details_tiles.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
@@ -18,8 +20,11 @@ class CreatePartyContent extends StatefulWidget {
 
 class _CreatePartyContentState extends State<CreatePartyContent> {
   String dropDownValue;
+  AddPartyBloc _addPartyBloc = AddPartyBloc();
   String _date = "Not set";
   String _time = "Not set";
+  bool displayTime = false;
+  bool displayDate = false;
   List<Guest> guestList = List<Guest>();
 
   @override
@@ -71,6 +76,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                           labelText: 'Event name',
                           contentPadding: EdgeInsets.only(top: 2.0)),
                       keyboardType: TextInputType.text,
+                      onChanged: _addPartyBloc.changePartyName,
                     ),
                   ),
                   SizedBox(
@@ -82,6 +88,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                           labelText: 'Place Name',
                           contentPadding: EdgeInsets.only(top: 2.0)),
                       keyboardType: TextInputType.text,
+                      onChanged: _addPartyBloc.changePlaceName,
                     ),
                   ),
                 ]),
@@ -95,9 +102,12 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                   height: 2,
                   color: appColors['gradinet_dark_color'],
                 ),
-                onChanged: (String newValue) {
+                onChanged:
+                    (String newValue) {
+                  _addPartyBloc.changePlaceTypeName;
                   setState(() {
                     dropDownValue = newValue;
+                    _addPartyBloc.changePlaceTypeName;
                   });
                 },
                 items: <String>[
@@ -145,6 +155,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                       labelText: 'Address',
                       contentPadding: EdgeInsets.only(top: 2.0)),
                   keyboardType: TextInputType.text,
+                  onChanged: _addPartyBloc.changeStreetName,
                 ),
               ),
             ]),
@@ -159,6 +170,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                       labelText: 'City',
                       contentPadding: EdgeInsets.only(top: 0.0)),
                   keyboardType: TextInputType.text,
+                  onChanged: _addPartyBloc.changeCityName,
                 ),
               ),
             ]),
@@ -189,10 +201,10 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('Date'),
-                    Icon(
+                    Text(displayDate ?_date : 'Date' ),
+                    displayDate ?  Container() : Icon(
                       Icons.date_range,
-                    ),
+                    ) ,
                   ],
                 ),
                 onPressed: () {
@@ -203,9 +215,10 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                       showTitleActions: true,
                       minTime: DateTime(2000, 1, 1),
                       maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
-                    print('confirm $date');
                     _date = '${date.year} - ${date.month} - ${date.day}';
-                    setState(() {});
+                    setState(() {
+                      displayDate = true;
+                    });
                   }, currentTime: DateTime.now(), locale: LocaleType.en);
                 },
               ),
@@ -224,10 +237,11 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text('Time'),
+                      Text(displayTime ?  _time : 'Time'),
+                      displayTime ?  Container() :
                       Icon(
                         Icons.access_time,
-                      ),
+                      )
                     ],
                   ),
                   onPressed: () {
@@ -238,7 +252,9 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                         showTitleActions: true, onConfirm: (time) {
                       print('confirm $time');
                       _time = '${time.hour} : ${time.minute}';
-                      setState(() {});
+                      setState(() {
+                        displayTime = true;
+                      });
                     }, currentTime: DateTime.now(), locale: LocaleType.en);
                     setState(() {});
                   }),
@@ -248,8 +264,6 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
       ));
 
 
-
-
   Widget get getButton => Padding(
     padding: const EdgeInsets.all(8.0),
     child: RaisedButton(
@@ -257,12 +271,31 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
         borderRadius: BorderRadius.circular(12.0),
       ),
       onPressed: (){
-        Navigator.pushNamed(context, '/GuestDetails');
+        if (_addPartyBloc.validateFields()) {
+          createParty();
+        } else {
+          showErrorMessage();
+        }
+
       },
       color: appColors['buttons_orange'],
       splashColor: appColors['gradinet_bright_color'],
       child: Text(appStrings['next'] ),
     ),
-
   );
+
+  void createParty() {
+    _addPartyBloc.addParty().then((value) {
+        Navigator.pushNamed(context, '/GuestDetails');
+    });
+  }
+
+  void showErrorMessage() {
+    /*final snackbar = SnackBar(
+        content: Text(_addPartyBloc.StringConstant.errorMessage),
+        duration: new Duration(seconds: 2));
+    Scaffold.of(context).showSnackBar(snackbar);
+     */
+  }
 }
+

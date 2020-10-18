@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/bloc/auth_bloc.dart';
-import 'package:planyoureventmobile/datasources/auth/auth_servce.dart';
+import 'package:planyoureventmobile/datasources/auth/auth_api_provider.dart';
+import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/styling/gradient_bar.dart';
 import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
 import 'package:planyoureventmobile/widgets/standard_small_tiles.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -114,7 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: Icon(Icons.arrow_back),
             title: Text(appStrings['logOut']),
             onTap: () async {
-              await _authBloc.auth.signOut();
+              AuthRepository _authRepository = Provider.of<AuthRepository>(context, listen: false);
+              await _authBloc.auth.signOut(_authRepository);
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
 
             },
