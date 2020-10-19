@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:planyoureventmobile/models/guest.dart';
-import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/details_tiles.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/widgets/guest_tiles.dart';

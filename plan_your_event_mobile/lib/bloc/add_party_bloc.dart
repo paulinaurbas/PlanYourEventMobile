@@ -43,7 +43,7 @@ class AddPartyBloc extends BlocProvider {
 
   bool updateShouldNotify(_) => true;
 
-  Future<String> addParty(String date, String time, String placeType, String partyType) async {
+  Future<String> addParty(String date, String time, PlaceType placeType, PartyType partyType) async {
     DateTime dateOfEvent = validateDateAndTime(date, time);
     FirebaseAuth.instance.currentUser().then((FirebaseUser user) {
       String userId;
@@ -51,8 +51,8 @@ class AddPartyBloc extends BlocProvider {
         userId = user.uid;
       }
       Event event = Event(
-          partyType: getPartyType(partyType),
-          placeType: getPlaceType(placeType),
+          partyType: partyType,
+          placeType: placeType,
           id: userId,
           eventName: _partyName.value,
           placeName: _placeName.value,

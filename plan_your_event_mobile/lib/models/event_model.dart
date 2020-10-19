@@ -60,6 +60,7 @@ class Event {
     'user_id': id,
     'event_name': eventName,
     'place_name': placeName,
+    'partyType': partyType.toString(),
     'place_type': placeType.toString(),
     'place_name': address.addressToJson(),
     'dateTime': dateTime,

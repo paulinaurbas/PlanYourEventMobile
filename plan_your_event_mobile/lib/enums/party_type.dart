@@ -23,13 +23,17 @@ getPartyType(String status){
     case 'BIRTHDAY_PARTY':
       return PartyType.BIRTHDAY_PARTY;
     case 'BUISNESS_METTING':
-      return PartyType.BIRTHDAY_PARTY;
-    case 'BIRTHDAY_PARTY':
-      return PartyType.BIRTHDAY_PARTY;
-    case 'BIRTHDAY_PARTY':
-      return PartyType.BIRTHDAY_PARTY;
-    case 'BIRTHDAY_PARTY':
-      return PartyType.BIRTHDAY_PARTY;
+      return PartyType.BUISNESS_METTING;
+    case 'KINDER_BALL':
+      return PartyType.KINDER_BALL;
+    case 'FAMILY_DINNER':
+      return PartyType.FAMILY_DINNER;
+    case 'BABY_SHOWER':
+    return PartyType.BABY_SHOWER;
+    case 'BAPTISM':
+      return PartyType.BAPTISM;
+    case 'HOLY_COMMUNION':
+      return PartyType.HOLY_COMMUNION;
   }
 
 }

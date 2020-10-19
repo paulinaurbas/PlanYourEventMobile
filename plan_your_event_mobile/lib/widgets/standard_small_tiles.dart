@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planyoureventmobile/enums/party_type.dart';
 import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/create_party_screen.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
@@ -51,7 +52,7 @@ class SmallPartyTile extends StatelessWidget {
         padding: const EdgeInsets.only(left: 4.0, right: 4.0, top: 20),
         child: GestureDetector(
           onTap: () => Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => CreatePartyScreen(partyType: title))),
+              new MaterialPageRoute(builder: (context) => CreatePartyScreen(partyType: getPartyType(title.toUpperCase().replaceAll(' ', '_'))))),
           child: Container(
             height: 71,
             width: 100,

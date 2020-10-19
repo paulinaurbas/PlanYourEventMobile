@@ -8,7 +8,7 @@ const Map<String, String> appStrings = {
   'letsStart': 'Let’s start!',
   'planEvent': 'Plan your event',
   'bithdayParty': 'Bithday party',
-  'buisnessMeeting' :'Buisness meeting',
+  'buisnessMeeting' :'Buisness metting',
   'kinderBall': 'Kinder ball',
   'familyMeeting' :'Family meeting',
   'babyShower': 'Baby shower',
