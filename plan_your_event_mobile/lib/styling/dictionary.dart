@@ -8,7 +8,7 @@ const Map<String, String> appStrings = {
   'letsStart': 'Let’s start!',
   'planEvent': 'Plan your event',
   'bithdayParty': 'Bithday party',
-  'buisnessMeeting' :'Buisness meeting',
+  'buisnessMeeting' :'Buisness metting',
   'kinderBall': 'Kinder ball',
   'familyMeeting' :'Family meeting',
   'babyShower': 'Baby shower',
@@ -40,5 +40,9 @@ const Map<String, String> appStrings = {
   'emailAlreadyRegister': 'This e-mail is already registered',
   'weakPassword': 'The given password is invalid. Password should be at least 6 characters ',
   'wrongPassword': 'Wrong password ',
-  'userNotRegister': 'Your email is not register, please register'
+  'userNotRegister': 'Your email is not register, please register',
+  'next': 'Next!',
+  'plan': 'Plan',
+  'about': 'About app',
+  'allList': 'All list',
 };

@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planyoureventmobile/bloc/auth_bloc.dart';
-import 'package:planyoureventmobile/datasources/auth/auth_servce.dart';
+import 'package:planyoureventmobile/datasources/auth/auth_api_provider.dart';
+import 'package:planyoureventmobile/enums/auth_mode.dart';
+import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:planyoureventmobile/screens/main/home_screen.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/utils/standard_error_hanler.dart';
+import 'package:provider/provider.dart';
 
 class LoginContent extends StatefulWidget {
 
@@ -18,21 +22,16 @@ class LoginContent extends StatefulWidget {
 class _LoginContentState extends State<LoginContent> {
   bool isLogin = true;
   AuthBloc _bloc = AuthBloc();
-
+  AuthMode _authMode = AuthMode.LOGIN;
   String email = '';
   String password = '';
 
 
   @override
   void initState() {
+    AuthRepository authRepository = Provider.of<AuthRepository>(context, listen: false);
+    _bloc.auth.initializeCurrentUser(authRepository);
     super.initState();
-    _bloc.valideAuthorization.listen((event) {
-      if(event != null ) {
-        Navigator.push(context,
-            new MaterialPageRoute(
-                builder: (context) => HomeScreen()));
-      }
-    });
   }
 
   @override
@@ -113,39 +112,8 @@ class _LoginContentState extends State<LoginContent> {
                         borderRadius: BorderRadius.circular(12.0),
                     ),
                     onPressed: () async {
-                        dynamic result;
-                        try {
-                          if (isLogin) {
-                            result = await _bloc.auth
-                                .signInWithEmailAndPassword(
-                                email, password);
-                          } else {
-                            result = await _bloc.auth
-                                .registerWithEmailAndPassword(email, password);
-                          }
-                        } catch(e){
-                          String message = appStrings["smtWentWrong"];
-                          if(e.toString().contains("Given String is empty or null")){
-                            message = appStrings["wrongEmail"];
-                          } else if (e.toString().contains("The password is invalid or the user does not have a password.")) {
-                            message = appStrings["wrongPassword"];
-                          } else if(e.toString().contains("The given password is invalid.")){
-                            message = appStrings["weakPassword"];
-                          } else if(e.toString().contains("The email address is already in use by another account.")){
-                            message = appStrings["emailAlreadyRegister"];
-                          } else if(e.toString().contains("There is no user record corresponding to this identifier. The user may have been deleted.")) {
-                            message = appStrings["userNotRegister"];
-                          }
-                          displaySnackbar(context, message);
-                        }
-                          if (result != null) {
-                            if(isLogin) {
-                              _bloc.getUser();
-                              } else {
-                              _bloc.registerUser();
-                            }
-                            }
-                          },
+                      _submitForm();
+                      },
                     color: appColors['buttons_orange'],
                     splashColor: appColors['gradinet_bright_color'],
                     child: Text(isLogin ? appStrings['login'] : appStrings['register'] ),
@@ -160,4 +128,33 @@ class _LoginContentState extends State<LoginContent> {
     );
   }
 
+  void _submitForm(){
+    dynamic result;
+    try {
+     AuthRepository _authRepository = Provider.of<AuthRepository>(context, listen: false);
+     if(_authMode == AuthMode.LOGIN){
+       _bloc.auth.signInWithEmailAndPassword(email, password, _authRepository);
+     }
+    } catch(e){
+      String message = errorHandler(e);
+      displaySnackbar(context, message);
+    }
+
+  }
+
+  String errorHandler (dynamic e){
+    String message = appStrings["smtWentWrong"];
+    if(e.toString().contains("Given String is empty or null")){
+      message = appStrings["wrongEmail"];
+    } else if (e.toString().contains("The password is invalid or the user does not have a password.")) {
+      message = appStrings["wrongPassword"];
+    } else if(e.toString().contains("The given password is invalid.")){
+      message = appStrings["weakPassword"];
+    } else if(e.toString().contains("The email address is already in use by another account.")){
+      message = appStrings["emailAlreadyRegister"];
+    } else if(e.toString().contains("There is no user record corresponding to this identifier. The user may have been deleted.")) {
+      message = appStrings["userNotRegister"];
+    }
+    return message;
+  }
 }

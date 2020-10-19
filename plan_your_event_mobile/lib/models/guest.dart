@@ -1,12 +1,15 @@
 import 'package:planyoureventmobile/enums/guest_groups.dart';
 import 'package:planyoureventmobile/models/food_preferences.dart';
-import 'package:planyoureventmobile/models/person.dart';
 
 class Guest {
-  Person person;
+  String name;
+  String surname;
+  String phoneNumber;
+  String email;
+
   FoodPreferences foodPreferences;
   GuestType guestType;
 
-  Guest({this.person, this.foodPreferences, this.guestType});
-
+  Guest({this.name, this.surname, this.phoneNumber, this.email,
+      this.foodPreferences, this.guestType});
 }

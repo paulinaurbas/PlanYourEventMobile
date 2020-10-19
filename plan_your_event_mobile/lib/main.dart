@@ -2,23 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/enums/guest_groups.dart';
 import 'package:planyoureventmobile/models/food_preferences.dart';
 import 'package:planyoureventmobile/models/guest.dart';
+import 'package:planyoureventmobile/repository/add_party_repository.dart';
+import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:planyoureventmobile/routes/routes.dart';
+import 'package:planyoureventmobile/screens/main/home_screen.dart';
 import 'package:planyoureventmobile/screens/registration/welcome_screen.dart';
-import 'package:planyoureventmobile/styling/colors.dart';
-import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
-import 'package:planyoureventmobile/widgets/standard_add_card.dart';
-import 'package:planyoureventmobile/widgets/standard_rectangular_conctact_card.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-import 'models/person.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MultiProvider(
+  providers: [
+    ChangeNotifierProvider(create: (context) => AuthRepository(),),
+    ChangeNotifierProvider(create: (context) => AddPartyRepository(),),
+  ],
+  child: MyApp(),
+));
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Plan your party app',
       initialRoute: '/',
       routes: customRoutes,
       debugShowCheckedModeBanner: false,
@@ -26,47 +31,11 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.ruluko().fontFamily,
         primarySwatch: Colors.orange,
       ),
-      home: MyHomePage(title: 'Plan your event app'),
+      home: Consumer<AuthRepository> (
+        builder: (context, notifier, child){
+          return notifier.getUser != null ? HomeScreen() : WelcomeScreen();
+        }
+      )
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  Guest ciocia = Guest(person: Person(
-    name: 'Ciocia',
-    surname: 'Viola',
-    phoneNumber: '+48 92378240',
-    email: 'ciocia.viola@gmail.com',
-      ),
-      foodPreferences: FoodPreferences(
-        lactose: false,
-        gluten:  false,
-        meat:  false,
-        seaFood:  false,
-        vegan:  true,
-        nuts:  false,
-        eggs: false,
-        fish: false,
-      ),
-      guestType: GuestType.FAMILY);
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return WelcomeScreen();
   }
 }

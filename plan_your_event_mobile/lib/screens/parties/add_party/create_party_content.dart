@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:planyoureventmobile/bloc/add_party_bloc.dart';
+import 'package:planyoureventmobile/enums/party_type.dart';
+import 'package:planyoureventmobile/enums/place_type.dart';
 import 'package:planyoureventmobile/models/guest.dart';
-import 'package:planyoureventmobile/screens/parties/details_tiles.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
-import 'package:planyoureventmobile/widgets/guest_tiles.dart';
+import 'package:planyoureventmobile/utils/standard_error_hanler.dart';
 
 class CreatePartyContent extends StatefulWidget {
-  final String partyType;
+  final PartyType partyType;
 
   const CreatePartyContent({Key key, this.partyType}) : super(key: key);
 
@@ -18,8 +20,11 @@ class CreatePartyContent extends StatefulWidget {
 
 class _CreatePartyContentState extends State<CreatePartyContent> {
   String dropDownValue;
+  AddPartyBloc _addPartyBloc = AddPartyBloc();
   String _date = "Not set";
   String _time = "Not set";
+  bool displayTime = false;
+  bool displayDate = false;
   List<Guest> guestList = List<Guest>();
 
   @override
@@ -28,13 +33,12 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
       backgroundColor: appColors['backgroud_color'],
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(children: [
               getPlaceBox,
               getAddressBox,
               getDataTimeWidget,
-              getGuestList,
-              getDetailsList,
               getButton
             ])
           ],
@@ -44,10 +48,8 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
   }
 
   Widget get getPlaceBox => Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: Container(
-          width: 338,
-          height: 120,
           decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(
@@ -74,6 +76,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                           labelText: 'Event name',
                           contentPadding: EdgeInsets.only(top: 2.0)),
                       keyboardType: TextInputType.text,
+                      onChanged: _addPartyBloc.changePartyName,
                     ),
                   ),
                   SizedBox(
@@ -85,6 +88,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                           labelText: 'Place Name',
                           contentPadding: EdgeInsets.only(top: 2.0)),
                       keyboardType: TextInputType.text,
+                      onChanged: _addPartyBloc.changePlaceName,
                     ),
                   ),
                 ]),
@@ -98,9 +102,11 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                   height: 2,
                   color: appColors['gradinet_dark_color'],
                 ),
-                onChanged: (String newValue) {
+                onChanged:
+                    (String newValue) {
                   setState(() {
                     dropDownValue = newValue;
+                    _addPartyBloc.changePlaceTypeName;
                   });
                 },
                 items: <String>[
@@ -108,12 +114,13 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                   'Garden',
                   'Home',
                   'Buissness area'
-                ].map<DropdownMenuItem<String>>((String value) {
+                  ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+  value: value,
+  child: Text(value),
+  );
+  }).toList(),
+
               )
             ],
           ),
@@ -121,10 +128,8 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
       );
 
   Widget get getAddressBox => Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       child: Container(
-        width: 338,
-        height: 120,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
@@ -150,6 +155,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                       labelText: 'Address',
                       contentPadding: EdgeInsets.only(top: 2.0)),
                   keyboardType: TextInputType.text,
+                  onChanged: _addPartyBloc.changeStreetName,
                 ),
               ),
             ]),
@@ -164,6 +170,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                       labelText: 'City',
                       contentPadding: EdgeInsets.only(top: 0.0)),
                   keyboardType: TextInputType.text,
+                  onChanged: _addPartyBloc.changeCityName,
                 ),
               ),
             ]),
@@ -172,10 +179,8 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
       ));
 
   Widget get getDataTimeWidget => Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       child: Container(
-        width: 338,
-        height: 80,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
@@ -196,10 +201,10 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('Date'),
-                    Icon(
+                    Text(displayDate ?_date : 'Date' ),
+                    displayDate ?  Container() : Icon(
                       Icons.date_range,
-                    ),
+                    ) ,
                   ],
                 ),
                 onPressed: () {
@@ -210,9 +215,10 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                       showTitleActions: true,
                       minTime: DateTime(2000, 1, 1),
                       maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
-                    print('confirm $date');
                     _date = '${date.year} - ${date.month} - ${date.day}';
-                    setState(() {});
+                    setState(() {
+                      displayDate = true;
+                    });
                   }, currentTime: DateTime.now(), locale: LocaleType.en);
                 },
               ),
@@ -231,10 +237,11 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text('Time'),
+                      Text(displayTime ?  _time : 'Time'),
+                      displayTime ?  Container() :
                       Icon(
                         Icons.access_time,
-                      ),
+                      )
                     ],
                   ),
                   onPressed: () {
@@ -243,9 +250,14 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                           containerHeight: 210.0,
                         ),
                         showTitleActions: true, onConfirm: (time) {
-                      print('confirm $time');
-                      _time = '${time.hour} : ${time.minute}';
-                      setState(() {});
+                      if(time.minute < 10){
+                        _time = '${time.hour} : 0${time.minute}';
+                      } else {
+                        _time = '${time.hour} : ${time.minute}';
+                      }
+                      setState(() {
+                        displayTime = true;
+                      });
                     }, currentTime: DateTime.now(), locale: LocaleType.en);
                     setState(() {});
                   }),
@@ -254,76 +266,35 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
         ]),
       ));
 
-  Widget get getGuestList => Container(
-      child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            width: 338,
-            height: 120,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(12))),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 19.0, top: 5),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                            child: Text(
-                          appStrings["guest"],
-                          style: TextStyle(fontSize: 17),
-                        ))
-                      ]),
-                ),
-                GuestScrollTiles(guestList: guestList),
-              ],
-            ),
-          )));
-  Widget get getDetailsList => Container(
-      child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            width: 338,
-            height: 120,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(12))),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 19.0, top: 5),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                            child: Text(
-                              appStrings["details"],
-                              style: TextStyle(fontSize: 17),
-                            ))
-                      ]),
-                ),
-                DetailsScrollTiles(),
-              ],
-            ),
-          )));
 
   Widget get getButton => Padding(
     padding: const EdgeInsets.all(8.0),
-    child: FlatButton(
-      onPressed: () {},
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      color: appColors['buttonGrey'],
-      hoverColor:  appColors['buttonGrey'],
-      child: Text(appStrings['save']),
+    child: RaisedButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      onPressed: (){
+        if (_addPartyBloc.validateFields()) {
+          createParty();
+        } else {
+          String message = appStrings["smtWentWrong"];
+          displaySnackbar(context, message);
+        }
+
+      },
+      color: appColors['buttons_orange'],
+      splashColor: appColors['gradinet_bright_color'],
+      child: Text(appStrings['next'] ),
     ),
   );
 
+  void createParty() {
+    dropDownValue = dropDownValue.replaceAll(' ', '_');
+    PlaceType _placeType = getPlaceType(dropDownValue.replaceAll(' ', '_').toUpperCase());
+    _addPartyBloc.addParty(_date, _time, _placeType, widget.partyType).then((value) {
+        Navigator.pushNamed(context, '/GuestDetails');
+    });
+  }
+
 }
+

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/models/guest.dart';
-import 'package:planyoureventmobile/screens/parties/create_party_screen.dart';
+import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/create_party_screen.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 
@@ -13,10 +13,13 @@ class GuestScrollTiles extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 19.0),
-      child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: _buildRowWithSmallTiles,
           ),
         )
@@ -41,9 +44,9 @@ class GuestScrollTiles extends StatelessWidget {
           height: 71,
           width: 100,
           decoration: BoxDecoration(
-              color: appColors['tilesOrange'],
+              color: appColors['tiles_orange'],
               border: Border.all(
-                color: appColors['tilesOrange'],
+                color: appColors['tiles_orange'],
               ),
               borderRadius: BorderRadius.all(Radius.circular(12))),
           child: Row(
@@ -69,9 +72,9 @@ class GuestTile extends StatelessWidget {
         height: 71,
         width: 100,
         decoration: BoxDecoration(
-            color: appColors['tilesOrange'],
+            color: appColors['tiles_orange'],
             border: Border.all(
-              color: appColors['tilesOrange'],
+              color: appColors['tiles_orange'],
             ),
             borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Column(
