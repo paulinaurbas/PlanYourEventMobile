@@ -44,4 +44,5 @@ const Map<String, String> appStrings = {
   'next': 'Next!',
   'plan': 'Plan',
   'about': 'About app',
+  'allList': 'All list',
 };

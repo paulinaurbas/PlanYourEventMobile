@@ -2,13 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:planyoureventmobile/bloc/add_party_bloc.dart';
-import 'package:planyoureventmobile/enums/place_type.dart';
-import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/models/guest.dart';
-import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/details_tiles.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
-import 'package:planyoureventmobile/widgets/guest_tiles.dart';
+import 'package:planyoureventmobile/utils/standard_error_hanler.dart';
 
 class CreatePartyContent extends StatefulWidget {
   final String partyType;
@@ -278,7 +275,8 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
         if (_addPartyBloc.validateFields()) {
           createParty();
         } else {
-          showErrorMessage();
+          String message = appStrings["smtWentWrong"];
+          displaySnackbar(context, message);
         }
 
       },
@@ -289,17 +287,10 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
   );
 
   void createParty() {
-    _addPartyBloc.addParty(_date, _time, dropDownValue).then((value) {
+    _addPartyBloc.addParty(_date, _time, dropDownValue, widget.partyType).then((value) {
         Navigator.pushNamed(context, '/GuestDetails');
     });
   }
 
-  void showErrorMessage() {
-    /*final snackbar = SnackBar(
-        content: Text(_addPartyBloc.StringConstant.errorMessage),
-        duration: new Duration(seconds: 2));
-    Scaffold.of(context).showSnackBar(snackbar);
-     */
-  }
 }
 

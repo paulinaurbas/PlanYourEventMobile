@@ -6,18 +6,19 @@ import 'package:planyoureventmobile/enums/place_type.dart';
 import 'package:planyoureventmobile/models/address_model.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/repository/add_party_repository.dart';
-import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AddPartyBloc extends BlocProvider {
 
   final _addPartyRepository = AddPartyRepository();
-  final _authRepository = AuthRepository();
   final _streetName = BehaviorSubject<String>();
   final _cityName = BehaviorSubject<String>();
   final _placeType = BehaviorSubject<PlaceType>();
   final _partyName = BehaviorSubject<String>();
   final _placeName = BehaviorSubject<String>();
+  final _error = BehaviorSubject<dynamic>();
+
+  Stream <dynamic> get errorStream => _error.stream;
 
   Stream <String> get partyName => _partyName.stream;
 
@@ -39,16 +40,19 @@ class AddPartyBloc extends BlocProvider {
 
   Function(String) get changeCityName => _cityName.sink.add;
 
+
   bool updateShouldNotify(_) => true;
 
-  Future<void> addParty(String _date, String _time, String dropDownValue) async {
-    DateTime dateOfEvent = validateDateAndTime(_date, _time);
+  Future<String> addParty(String date, String time, String placeType, String partyType) async {
+    DateTime dateOfEvent = validateDateAndTime(date, time);
     FirebaseAuth.instance.currentUser().then((FirebaseUser user) {
       String userId;
       if (user != null) {
         userId = user.uid;
       }
       Event event = Event(
+          partyType: getPartyType(partyType),
+          placeType: getPlaceType(placeType),
           id: userId,
           eventName: _partyName.value,
           placeName: _placeName.value,
@@ -58,7 +62,12 @@ class AddPartyBloc extends BlocProvider {
           )
       );
       return _addPartyRepository.addEvent(event);
+    }).catchError((e){
+      print (e);
+      _error.sink.addError(e);
+      return null;
     });
+    return null;
   }
 
   void dispose() async {
@@ -67,6 +76,7 @@ class AddPartyBloc extends BlocProvider {
     _placeType.close();
     _partyName.close();
     _placeName.close();
+    _error.close();
   }
 
   DateTime validateDateAndTime(String _date, String _time) {
@@ -75,12 +85,12 @@ class AddPartyBloc extends BlocProvider {
     return DateTime.parse(_date + ' ' + _time );
   }
 
-
   bool validateFields() {
     if (_streetName.value != null &&
         _streetName.value.isNotEmpty &&
         _cityName.value != null &&
         _cityName.value.isNotEmpty) {
+      _error.sink.addError('ValueNotNull');
       return true;
     } else {
       return false;

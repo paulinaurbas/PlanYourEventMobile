@@ -62,7 +62,20 @@ class _AddGuestToPartyContentState extends State<AddGuestToPartyContent> {
                               child: Text(
                                 appStrings["guest"],
                                 style: TextStyle(fontSize: 17),
-                              ))
+                              )),
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: InkWell(
+                              child: Text(appStrings['allList'],
+                                  style: TextStyle(
+                                    color: Colors.deepOrange,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                              onTap: () {
+                              },
+                            ),
+                          )
                         ]),
                   ),
                   Padding(
@@ -82,11 +95,9 @@ class _AddGuestToPartyContentState extends State<AddGuestToPartyContent> {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Container(
-          child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                child: PlanYourEventCard(pictureName: 'assets/images/party_welocome.png', height: 218, width: 300, title: ""),
-            ))),
+          child: Container(
+            child: PlanYourEventCard(pictureName: 'assets/images/party_welocome.png', height: 218, width: 300, title: ""),
+            )),
     ],
   );
 
