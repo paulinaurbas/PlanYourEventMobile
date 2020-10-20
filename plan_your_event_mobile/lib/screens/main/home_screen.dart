@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, '/CreateParty');
             },
           ),
-          /*
+
           ListTile(
             leading: Icon(Icons.people_outline),
             title: Text(appStrings['guests']),
@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             },
           ),
-           */
+           
          /* ListTile(
             leading: Icon(Icons.av_timer),
             title: Text(appStrings['pastParties']),
