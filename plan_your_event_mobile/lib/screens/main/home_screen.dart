@@ -140,6 +140,13 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.info_outline),
+            title: Text(appStrings['about']),
+            onTap: () {
+
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.arrow_back),
             title: Text(appStrings['logOut']),
             onTap: () async {
