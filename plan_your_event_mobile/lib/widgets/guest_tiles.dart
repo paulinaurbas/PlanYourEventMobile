@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/models/guest.dart';
-import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/create_party_screen.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
-import 'package:planyoureventmobile/styling/dictionary.dart';
 
 class GuestScrollTiles extends StatelessWidget {
   final List<Guest> guestList;
@@ -29,12 +27,14 @@ class GuestScrollTiles extends StatelessWidget {
 
   List<Widget> get _buildRowWithSmallTiles {
     List<Widget> allTiles = [];
-    if (guestList.isNotEmpty) {
+    if(guestList == null || guestList.isEmpty){
+      allTiles.add(getEmptyGuestTile);
+    } else {
       guestList.forEach((element) {
         allTiles.add(GuestTile(guest: element));
       });
+      allTiles.add(getEmptyGuestTile);
     }
-    allTiles.add(getEmptyGuestTile);
     return allTiles;
   }
 

@@ -47,4 +47,11 @@ const Map<String, String> appStrings = {
   'allList': 'All list',
   'aboutAppTitle': 'App to help with party planning',
   'aboutAppResources': 'All pictures and icons are from stocks',
+  'guestGroup': 'Guests',
+  'guestGroupsLabel': 'Here you find your guest list',
+  'family': 'Family',
+  'friends': 'Friends',
+  'work': 'Work',
+  'others': 'Others',
+
 };
