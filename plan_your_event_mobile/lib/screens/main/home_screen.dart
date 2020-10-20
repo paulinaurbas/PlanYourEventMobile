@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/bloc/auth_bloc.dart';
@@ -17,6 +18,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   AuthBloc _authBloc = AuthBloc();
+  AuthRepository _authRepository;
+  FirebaseUser user;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +50,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+
+  @override
+  void initState() {
+    _authRepository = Provider.of<AuthRepository>(context, listen: false);
+    user = _authRepository.getUser;
+  }
+
   Widget get getDrawer {
+
     return Theme(
         data: Theme.of(context).copyWith(
           canvasColor: appColors['backgroud_color'],
@@ -70,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Paulina', style: TextStyle(fontSize:  20),),
+                    child: Text(user.email, style: TextStyle(fontSize:  20),),
                   ),
                 ],
               ),
@@ -92,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, '/CreateParty');
             },
           ),
+          /*
           ListTile(
             leading: Icon(Icons.people_outline),
             title: Text(appStrings['guests']),
@@ -99,17 +111,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
             },
           ),
-          ListTile(
+           */
+         /* ListTile(
             leading: Icon(Icons.av_timer),
             title: Text(appStrings['pastParties']),
             onTap: () {
             },
-          ),
+          ), */
           ListTile(
             leading: Icon(Icons.info_outline),
             title: Text(appStrings['about']),
             onTap: () {
-
+              showAboutDialog(context: context,
+                  applicationName: "Plan your event",
+                  applicationVersion: "version 1.0",
+                  useRootNavigator: true,
+                  children: <Widget> [
+                    Column(
+                      children: [
+                        Padding(padding: EdgeInsets.only(top: 15),
+                          child: Text(appStrings['aboutAppTitle']),
+                        ),
+                        Text(appStrings['aboutAppResources']),
+                      ],
+                    )
+                  ]
+              );
             },
           ),
           ListTile(
@@ -127,4 +154,5 @@ class _HomeScreenState extends State<HomeScreen> {
      )
     );
   }
+
 }

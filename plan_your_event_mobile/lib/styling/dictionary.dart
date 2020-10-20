@@ -45,4 +45,6 @@ const Map<String, String> appStrings = {
   'plan': 'Plan',
   'about': 'About app',
   'allList': 'All list',
+  'aboutAppTitle': 'App to help with party planning',
+  'aboutAppResources': 'All pictures and icons are from stocks',
 };
