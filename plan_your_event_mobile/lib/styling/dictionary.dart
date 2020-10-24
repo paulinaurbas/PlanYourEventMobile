@@ -53,5 +53,19 @@ const Map<String, String> appStrings = {
   'friends': 'Friends',
   'work': 'Work',
   'others': 'Others',
+  'addNewGuest': 'Add new guest',
+  'contactInfo': 'Contact info',
+  'name': 'Name',
+  'surname': 'Surname',
+  'group': 'Group',
+  'noMilk': 'No milk',
+  'glutenFree': 'Gluten free',
+  'noMeat':'No meat',
+  'noSeaFood':'No sea food',
+  'vegan':'Vegan',
+  'noNuts':'No nuts',
+  'noEggs':'No eggs',
+  'noFish':'No fish',
+
 
 };

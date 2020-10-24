@@ -15,7 +15,7 @@ class StandardContactCard extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> preferencesList = List<Widget>();
     return Padding(
-      padding: const EdgeInsets.only(left: 19, right: 19, top: 25.0, bottom: 25.0),
+      padding: const EdgeInsets.only(left: 19, right: 19, top: 10.0),
       child: Container(
           decoration: BoxDecoration(
               color: Colors.white,
@@ -109,21 +109,21 @@ class StandardContactCard extends StatelessWidget {
 
   List<Widget> get getGuestFoodPreferences {
     List<Widget> list = List<Widget>();
-    if (!(guest.foodPreferences.eggs))
+    if (!(guest.noEggs))
       list.add(getPreferencesIcons(MyFlutterApp.protein));
-    if (!(guest.foodPreferences.fish))
+    if (!(guest.noFish))
       list.add(getPreferencesIcons(MyFlutterApp.fish));
-    if (!(guest.foodPreferences.gluten))
+    if (!(guest.glutenFree))
       list.add(getPreferencesIcons(MyFlutterApp.wheat));
-    if (!(guest.foodPreferences.lactose))
+    if (!(guest.noMilk))
       list.add(getPreferencesIcons(MyFlutterApp.milk));
-    if (!(guest.foodPreferences.meat))
+    if (!(guest.noMeat))
       list.add(getPreferencesIcons(MyFlutterApp.meat__2_));
-    if (!(guest.foodPreferences.nuts))
+    if (!(guest.noNuts))
       list.add(getPreferencesIcons(MyFlutterApp.peanut));
-    if (!(guest.foodPreferences.seaFood))
+    if (!(guest.noSeaFood))
       list.add(getPreferencesIcons(MyFlutterApp.crab));
-    if (guest.foodPreferences.vegan)
+    if (guest.vegan)
       list.add(getPreferencesIcons(MyFlutterApp.eco_24px));
     return list;
   }

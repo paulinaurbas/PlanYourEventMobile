@@ -7,8 +7,8 @@ import 'package:planyoureventmobile/styling/gradient_bar.dart';
 
 
 class GuestGroupScreen extends StatelessWidget {
-
-  const GuestGroupScreen({Key key,}) : super(key: key);
+  final bool isEditable;
+  const GuestGroupScreen({Key key, this.isEditable,}) : super(key: key);
 
   Widget build(BuildContext context) {
     return Scaffold(

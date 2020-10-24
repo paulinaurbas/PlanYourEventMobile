@@ -5,16 +5,20 @@ class StandardBigColorfulTiles extends StatelessWidget {
   final Color color;
   final IconData icon;
   final String title;
+  final double width;
+  final double height;
+  final double iconSize;
+  final double padding;
 
-  const StandardBigColorfulTiles({Key key, this.color, this.icon, this.title}) : super(key: key);
+  const StandardBigColorfulTiles({Key key, this.color, this.icon, this.title, this.width, this.height, this.iconSize, this.padding}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(padding == null ? 10.0: padding),
       child: Container(
-        width: 124,
-        height: 111,
+        width: width == null ? 124 : width,
+        height: height == null ? 111 : height,
         decoration: BoxDecoration(
             color: color,
             border: Border.all(
@@ -30,7 +34,7 @@ class StandardBigColorfulTiles extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Icon(
                   icon,
-                  size: 50,
+                  size: iconSize == null ?  50 : iconSize,
                 ),
               ),
             ),

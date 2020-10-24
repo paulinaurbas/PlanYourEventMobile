@@ -1,4 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:planyoureventmobile/bloc/add_guest_bloc.dart';
+import 'package:planyoureventmobile/enums/guest_groups.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
@@ -14,7 +17,13 @@ class OthersGroupContent extends StatefulWidget {
 }
 
 class _OthersGroupContentState extends State<OthersGroupContent> {
-  List<Guest> list = new List();
+  AddGuestBloc _addGuestBloc = AddGuestBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    _addGuestBloc.getGuests(GuestType.OTHERS.toString());
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -24,24 +33,46 @@ class _OthersGroupContentState extends State<OthersGroupContent> {
           width: 300,
           title: appStrings['others'],),
         Column(
-          children: _buildRowWithSmallTiles,
+          children: [getGuestStream],
         )
       ]),
     );
 
   }
-  List<Widget> get _buildRowWithSmallTiles {
+
+  Widget get getGuestStream {
+    return StreamBuilder<List<Guest>>(
+      stream: _addGuestBloc.guestList.stream,
+      builder: (context, AsyncSnapshot<List<Guest>> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data != null) {
+            return  Column(
+              children: _buildGuestListWidget(snapshot.data),
+            );
+          } else if (snapshot.data.isEmpty) {
+            return StandardAddCard(route: '/AddGuest', guestType: GuestType.OTHERS);
+          } else {
+            return Container();
+          }
+        } else if (snapshot.hasError) {
+          return Container();
+        } else if(snapshot.data != null) {
+          return StandardAddCard(route: '/AddGuest', guestType: GuestType.OTHERS);
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
+  List<Widget> _buildGuestListWidget(List<Guest> data) {
     List<Widget> allTiles = [];
-    if(list == null || list.isEmpty){
-      allTiles.add(StandardAddCard());
-    } else {
-      list.forEach((element) {
-        allTiles.add(StandardContactCard(guest: element));
-      });
-      allTiles.add(StandardAddCard());
-    }
+    data.forEach((element) {
+      allTiles.add(StandardContactCard(guest: element));
+    });
+    allTiles.add(StandardAddCard(
+      route: '/AddGuest',
+      guestType: GuestType.OTHERS,
+    ));
     return allTiles;
   }
-
-
 }

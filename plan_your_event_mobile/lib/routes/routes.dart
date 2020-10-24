@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:planyoureventmobile/screens/guests/add_guest_screen.dart';
 import 'package:planyoureventmobile/screens/guests/family_group_screen.dart';
 import 'package:planyoureventmobile/screens/guests/friends_group_screen.dart';
 import 'package:planyoureventmobile/screens/guests/guest_groups_screen.dart';
 import 'package:planyoureventmobile/screens/guests/other_group_screen.dart';
 import 'package:planyoureventmobile/screens/guests/work_group_screen.dart';
 import 'package:planyoureventmobile/screens/parties/add_party/add_details_to_party_screen.dart';
-import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/create_party_screen.dart';
 import 'package:planyoureventmobile/screens/parties/add_party/add_guest_to_party_screen.dart';
+import 'package:planyoureventmobile/screens/parties/add_party/create_party_screen.dart';
 
 var customRoutes = <String, WidgetBuilder>{
    '/CreateParty': (context) => CreatePartyScreen(),
@@ -17,4 +18,5 @@ var customRoutes = <String, WidgetBuilder>{
    '/FriendGroupScreen': (context) => FriendsGroupScreen(),
    '/OthersGroupScreen': (context) => OtherGroupScreen(),
    '/WorkGroupScreen': (context) => WorkGroupScreen(),
+   '/AddGuest': (context) => AddNewGuestScreen(),
 };
