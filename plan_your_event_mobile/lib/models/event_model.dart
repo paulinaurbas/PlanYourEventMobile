@@ -64,6 +64,5 @@ class Event {
     'place_type': placeType.toString(),
     'place_name': address.addressToJson(),
     'dateTime': dateTime,
-
   };
 }

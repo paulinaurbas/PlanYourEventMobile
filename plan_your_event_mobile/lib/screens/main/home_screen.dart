@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/bloc/auth_bloc.dart';
-import 'package:planyoureventmobile/datasources/auth/auth_api_provider.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
@@ -81,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(user.email, style: TextStyle(fontSize:  20),),
+                    child: Text(user.email, style: TextStyle(fontSize:  15,)),
                   ),
                 ],
               ),
@@ -108,10 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: Icon(Icons.people_outline),
             title: Text(appStrings['guests']),
             onTap: () {
-
+              Navigator.pushNamed(context, '/GuestGroupScreen', arguments: null);
             },
           ),
-           
          /* ListTile(
             leading: Icon(Icons.av_timer),
             title: Text(appStrings['pastParties']),
@@ -137,13 +135,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   ]
               );
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text(appStrings['about']),
-            onTap: () {
-
             },
           ),
           ListTile(

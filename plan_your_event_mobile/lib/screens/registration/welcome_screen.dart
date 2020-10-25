@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
-import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
 
 import 'login_content.dart';
 

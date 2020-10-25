@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:planyoureventmobile/enums/guest_groups.dart';
-import 'package:planyoureventmobile/models/food_preferences.dart';
-import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/repository/add_party_repository.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:planyoureventmobile/routes/routes.dart';

@@ -16,6 +16,7 @@ class AddPartyBloc extends BlocProvider {
   final _placeType = BehaviorSubject<PlaceType>();
   final _partyName = BehaviorSubject<String>();
   final _placeName = BehaviorSubject<String>();
+  PublishSubject <String> partyID = PublishSubject();
   final _error = BehaviorSubject<dynamic>();
 
   Stream <dynamic> get errorStream => _error.stream;
@@ -45,7 +46,7 @@ class AddPartyBloc extends BlocProvider {
 
   Future<String> addParty(String date, String time, PlaceType placeType, PartyType partyType) async {
     DateTime dateOfEvent = validateDateAndTime(date, time);
-    FirebaseAuth.instance.currentUser().then((FirebaseUser user) {
+    FirebaseAuth.instance.currentUser().then((FirebaseUser user) async {
       String userId;
       if (user != null) {
         userId = user.uid;
@@ -61,13 +62,14 @@ class AddPartyBloc extends BlocProvider {
               _streetName.value, _cityName.value
           )
       );
-      return _addPartyRepository.addEvent(event);
+      String eventID = await _addPartyRepository.addEvent(event);
+      partyID.sink.add(eventID);
+      return eventID;
     }).catchError((e){
       print (e);
       _error.sink.addError(e);
       return null;
     });
-    return null;
   }
 
   void dispose() async {
@@ -77,6 +79,7 @@ class AddPartyBloc extends BlocProvider {
     _partyName.close();
     _placeName.close();
     _error.close();
+    partyID.close();
   }
 
   DateTime validateDateAndTime(String _date, String _time) {

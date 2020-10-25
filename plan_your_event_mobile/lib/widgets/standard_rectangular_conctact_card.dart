@@ -1,128 +1,172 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:planyoureventmobile/bloc/add_guest_bloc.dart';
+import 'package:planyoureventmobile/models/connect_guest_with_party.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/my_flutter_app_icons.dart';
 
-class StandardContactCard extends StatelessWidget {
+class StandardContactCard extends StatefulWidget {
   final Guest guest;
+  final String partyId;
+
   const StandardContactCard({
     Key key,
-    this.guest,
+    this.guest, this.partyId,
   }) : super(key: key);
 
+  @override
+  _StandardContactCardState createState() => _StandardContactCardState();
+}
+
+class _StandardContactCardState extends State<StandardContactCard> {
+  bool isAdded = false;
+  AddGuestBloc _addGuestBloc = AddGuestBloc();
+  bool isEditable = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.partyId != null){
+      setState(() {
+        isEditable = false;
+      });
+    } else{
+      setState(() {
+        isEditable = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     List<Widget> preferencesList = List<Widget>();
-    return Container(
-        height: 132,
-        width: 338,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
+    return Padding(
+      padding: const EdgeInsets.only(left: 19, right: 19, top: 10.0),
+      child: Container(
+          decoration: BoxDecoration(
               color: Colors.white,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(12))),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(14, 15, 12, 12),
-                  child: Text(guest.name + ' ' + guest.surname,
-                      style: TextStyle(
-                        fontSize: 20,
-                      )),
-                ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 5, 15, 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      final snackBar = SnackBar(content: Text("hejoo"));
-                      Scaffold.of(context).showSnackBar(snackBar);
-                    },
-                    child: Icon(
-                      MyFlutterApp.edit,
-                      size: 20,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Icon(
-                    MyFlutterApp.phone_handset,
-                    size: 14.0,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    guest.phoneNumber,
-                    style: TextStyle(
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0, top: 12),
-                  child: Icon(
-                    Icons.mail_outline,
-                    size: 15.0,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0, top: 11),
-                  child: Text(
-                    guest.email,
-                    style: TextStyle(
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: getGuestFoodPreferences,
+              border: Border.all(
+                color: Colors.white,
               ),
-            )
-          ],
-        ));
+              borderRadius: BorderRadius.all(Radius.circular(12))),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(14, 15, 12, 12),
+                    child: Text(widget.guest.name + ' ' + widget.guest.surname,
+                        style: TextStyle(
+                          fontSize: 20,
+                        )),
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 5, 15, 10),
+                    child: isEditable ? editGuest : addToPartyGuest,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: Icon(
+                      MyFlutterApp.phone_handset,
+                      size: 14.0,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      widget.guest.phoneNumber,
+                      style: TextStyle(
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0, top: 12),
+                    child: Icon(
+                      Icons.mail_outline,
+                      size: 15.0,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, top: 11),
+                    child: Text(
+                      widget.guest.email,
+                      style: TextStyle(
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: getGuestFoodPreferences,
+                ),
+              )
+            ],
+          )),
+    );
   }
 
-  List<Widget> get getGuestFoodPreferences {
+  Widget get addToPartyGuest {
+    return GestureDetector(
+    onTap: () {
+      setState(() {
+        isAdded = !isAdded;
+      });
+      _addGuestBloc.connectUserWithParty(ConnectGuestWithParty(partyId: widget.partyId, guestId: widget.guest.guestId));
+    },
+    child: Icon(
+      isAdded ? Icons.check_circle : Icons.check_circle_outline,
+      color: isAdded ? Colors.green : Colors.black,
+      size: 20,
+    ),
+  );
+  }
+
+      Widget get editGuest =>GestureDetector(
+        onTap: () {
+
+        },
+        child: Icon(
+          MyFlutterApp.edit,
+          size: 20,
+        ),
+      );
+
+      List<Widget> get getGuestFoodPreferences {
     List<Widget> list = List<Widget>();
-    if (!(guest.foodPreferences.eggs))
+    if ((widget.guest.noEggs))
       list.add(getPreferencesIcons(MyFlutterApp.protein));
-    if (!(guest.foodPreferences.fish))
+    if ((widget.guest.noFish))
       list.add(getPreferencesIcons(MyFlutterApp.fish));
-    if (!(guest.foodPreferences.gluten))
+    if ((widget.guest.glutenFree))
       list.add(getPreferencesIcons(MyFlutterApp.wheat));
-    if (!(guest.foodPreferences.lactose))
+    if ((widget.guest.noMilk))
       list.add(getPreferencesIcons(MyFlutterApp.milk));
-    if (!(guest.foodPreferences.meat))
+    if ((widget.guest.noMeat))
       list.add(getPreferencesIcons(MyFlutterApp.meat__2_));
-    if (!(guest.foodPreferences.nuts))
+    if ((widget.guest.noNuts))
       list.add(getPreferencesIcons(MyFlutterApp.peanut));
-    if (!(guest.foodPreferences.seaFood))
+    if ((widget.guest.noSeaFood))
       list.add(getPreferencesIcons(MyFlutterApp.crab));
-    if (guest.foodPreferences.vegan)
+    if (widget.guest.vegan)
       list.add(getPreferencesIcons(MyFlutterApp.eco_24px));
     return list;
   }

@@ -1,26 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:planyoureventmobile/screens/guests/friends_group_content.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/styling/gradient_bar.dart';
 
-import 'add_guest_to_party_content.dart';
-import 'create_party_content.dart';
 
-class AddGuestToPartyScreen extends StatelessWidget {
+class FriendsGroupScreen extends StatelessWidget {
 
-  const AddGuestToPartyScreen({Key key}) : super(key: key);
+  const FriendsGroupScreen({Key key,}) : super(key: key);
 
   Widget build(BuildContext context) {
-    final partyID = ModalRoute.of(context).settings.arguments;
+    final partyId = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],
       appBar: AppBar(
         centerTitle: true,
-        title: Text(appStrings['eventDetails']),
+        title: Text(appStrings['friends']),
         flexibleSpace: getGradientBar,
       ),
-      body: AddGuestToPartyContent(partyId: partyID),
+      body: FriendsGroupContent(partyId: partyId,),
     );
   }
 }

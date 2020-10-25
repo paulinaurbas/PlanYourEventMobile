@@ -24,6 +24,18 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
   String _date = "Not set";
   String _time = "Not set";
   bool displayTime = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _addPartyBloc.partyID.listen((value) {
+      if(value != null){
+        Navigator.pushNamed(context, '/GuestDetails', arguments: value);
+      }
+    });
+
+  }
+
   bool displayDate = false;
   List<Guest> guestList = List<Guest>();
 
@@ -288,13 +300,14 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
     ),
   );
 
-  void createParty() {
+  Future<void> createParty() async {
     dropDownValue = dropDownValue.replaceAll(' ', '_');
     PlaceType _placeType = getPlaceType(dropDownValue.replaceAll(' ', '_').toUpperCase());
-    _addPartyBloc.addParty(_date, _time, _placeType, widget.partyType).then((value) {
-        Navigator.pushNamed(context, '/GuestDetails');
-    });
+    String partyID = await _addPartyBloc.addParty(_date, _time, _placeType, widget.partyType);
+    if(partyID != null){
+        Navigator.pushNamed(context, '/GuestDetails', arguments: partyID);
   }
 
+}
 }
 

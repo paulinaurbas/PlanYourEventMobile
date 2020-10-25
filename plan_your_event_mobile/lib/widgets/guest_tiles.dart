@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/models/guest.dart';
-import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/parties/add_party/create_party_screen.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
-import 'package:planyoureventmobile/styling/dictionary.dart';
 
-class GuestScrollTiles extends StatelessWidget {
+class GuestScrollTiles extends StatefulWidget {
   final List<Guest> guestList;
 
   const GuestScrollTiles({Key key, this.guestList}) : super(key: key);
 
+  @override
+  _GuestScrollTilesState createState() => _GuestScrollTilesState();
+}
+
+class _GuestScrollTilesState extends State<GuestScrollTiles> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,34 +32,41 @@ class GuestScrollTiles extends StatelessWidget {
 
   List<Widget> get _buildRowWithSmallTiles {
     List<Widget> allTiles = [];
-    if (guestList.isNotEmpty) {
-      guestList.forEach((element) {
+    if(widget.guestList == null || widget.guestList.isEmpty){
+      allTiles.add(getEmptyGuestTile);
+    } else {
+      widget.guestList.forEach((element) {
         allTiles.add(GuestTile(guest: element));
       });
+      allTiles.add(getEmptyGuestTile);
     }
-    allTiles.add(getEmptyGuestTile);
     return allTiles;
   }
 
-  Widget get getEmptyGuestTile => Padding(
-        padding: const EdgeInsets.only(left: 4.0, right: 4.0, top: 7),
-        child: Container(
-          height: 71,
-          width: 100,
-          decoration: BoxDecoration(
-              color: appColors['tiles_orange'],
-              border: Border.all(
+  Widget get getEmptyGuestTile => GestureDetector(
+    onTap: () {
+      Navigator.pushNamed(context, '/AddGuest');
+    },
+    child: Padding(
+          padding: const EdgeInsets.only(left: 4.0, right: 4.0, top: 7),
+          child: Container(
+            height: 71,
+            width: 100,
+            decoration: BoxDecoration(
                 color: appColors['tiles_orange'],
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(12))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.add),
-            ],
+                border: Border.all(
+                  color: appColors['tiles_orange'],
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(12))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.add),
+              ],
+            ),
           ),
         ),
-      );
+  );
 }
 
 class GuestTile extends StatelessWidget {
