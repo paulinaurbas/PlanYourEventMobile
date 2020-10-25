@@ -102,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, '/CreateParty');
             },
           ),
+
           ListTile(
             leading: Icon(Icons.people_outline),
             title: Text(appStrings['guests']),

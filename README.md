@@ -7,9 +7,9 @@ Ilustration: https://www.freepik.com/
 
 # Libraries
 - rxDart
-- Dio
 - Bloc provider
 - Firebase Auth
+- Firestore
 - Provider
 
 # Author
