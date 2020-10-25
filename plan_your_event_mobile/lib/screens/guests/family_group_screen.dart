@@ -7,10 +7,10 @@ import 'package:planyoureventmobile/styling/gradient_bar.dart';
 
 
 class FamilyGroupScreen extends StatelessWidget {
-
-  const FamilyGroupScreen({Key key,}) : super(key: key);
+  const FamilyGroupScreen({Key key}) : super(key: key);
 
   Widget build(BuildContext context) {
+    final isEditable = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],
       appBar: AppBar(
@@ -18,7 +18,7 @@ class FamilyGroupScreen extends StatelessWidget {
         title: Text(appStrings['family']),
         flexibleSpace: getGradientBar,
       ),
-      body: FamilyGroupContent(),
+      body: FamilyGroupContent(isEditable: isEditable),
     );
   }
 }

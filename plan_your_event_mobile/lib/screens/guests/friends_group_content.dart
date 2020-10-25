@@ -9,8 +9,8 @@ import 'package:planyoureventmobile/widgets/standard_add_card.dart';
 import 'package:planyoureventmobile/widgets/standard_rectangular_conctact_card.dart';
 
 class FriendsGroupContent extends StatefulWidget {
-
-  const FriendsGroupContent({Key key, }) : super(key: key);
+  final bool isEditable;
+  const FriendsGroupContent({Key key, this.isEditable, }) : super(key: key);
 
   @override
   _FriendsGroupContentState createState() => _FriendsGroupContentState();
@@ -46,7 +46,7 @@ class _FriendsGroupContentState extends State<FriendsGroupContent> {
       allTiles.add(StandardAddCard(route: '/AddGuest', guestType: GuestType.FRIENDS,));
     } else {
       data.forEach((element) {
-        allTiles.add(StandardContactCard(guest: element));
+        allTiles.add(StandardContactCard(guest: element, isEditable: widget.isEditable));
       });
       allTiles.add(StandardAddCard(
         route: '/AddGuest',
@@ -66,7 +66,7 @@ class _FriendsGroupContentState extends State<FriendsGroupContent> {
               children: _buildGuestListWidget(snapshot.data),
             );
           } else if (snapshot.data.isEmpty) {
-            return StandardAddCard(route: '/AddGuest', guestType: GuestType.FRIENDS,);
+            return StandardAddCard(route: '/AddGuest', guestType: GuestType.FRIENDS, );
           } else {
             return Container();
           }

@@ -9,8 +9,9 @@ import 'package:planyoureventmobile/widgets/standard_add_card.dart';
 import 'package:planyoureventmobile/widgets/standard_rectangular_conctact_card.dart';
 
 class FamilyGroupContent extends StatefulWidget {
+  final bool isEditable;
   const FamilyGroupContent({
-    Key key,
+    Key key, this.isEditable,
   }) : super(key: key);
 
   @override
@@ -71,7 +72,7 @@ class _FamilyGroupContentState extends State<FamilyGroupContent> {
   List<Widget> _buildGuestListWidget(List<Guest> data) {
     List<Widget> allTiles = [];
     data.forEach((element) {
-      allTiles.add(StandardContactCard(guest: element));
+      allTiles.add(StandardContactCard(guest: element, isEditable: widget.isEditable));
     });
     allTiles.add(StandardAddCard(
       route: '/AddGuest',

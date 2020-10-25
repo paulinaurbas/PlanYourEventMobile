@@ -71,7 +71,7 @@ class _AddGuestToPartyContentState extends State<AddGuestToPartyContent> {
                                     fontWeight: FontWeight.w600,
                                   )),
                               onTap: () {
-                                Navigator.pushNamed(context, '/GuestGroupScreen');
+                                Navigator.pushNamed(context, '/GuestGroupScreen', arguments: false);
                               },
                             ),
                           )

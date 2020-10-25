@@ -11,6 +11,7 @@ class FriendsGroupScreen extends StatelessWidget {
   const FriendsGroupScreen({Key key,}) : super(key: key);
 
   Widget build(BuildContext context) {
+    final isEditable = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],
       appBar: AppBar(
@@ -18,7 +19,7 @@ class FriendsGroupScreen extends StatelessWidget {
         title: Text(appStrings['friends']),
         flexibleSpace: getGradientBar,
       ),
-      body: FriendsGroupContent(),
+      body: FriendsGroupContent(isEditable: isEditable,),
     );
   }
 }

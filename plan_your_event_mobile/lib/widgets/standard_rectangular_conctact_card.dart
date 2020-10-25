@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/my_flutter_app_icons.dart';
 
-class StandardContactCard extends StatelessWidget {
+class StandardContactCard extends StatefulWidget {
   final Guest guest;
+  final bool isEditable;
+
   const StandardContactCard({
     Key key,
-    this.guest,
+    this.guest, this.isEditable,
   }) : super(key: key);
 
+  @override
+  _StandardContactCardState createState() => _StandardContactCardState();
+}
+
+class _StandardContactCardState extends State<StandardContactCard> {
+  bool isAdded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,7 @@ class StandardContactCard extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(14, 15, 12, 12),
-                    child: Text(guest.name + ' ' + guest.surname,
+                    child: Text(widget.guest.name + ' ' + widget.guest.surname,
                         style: TextStyle(
                           fontSize: 20,
                         )),
@@ -37,16 +45,7 @@ class StandardContactCard extends StatelessWidget {
                   Spacer(),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 5, 15, 10),
-                    child: GestureDetector(
-                      onTap: () {
-                        final snackBar = SnackBar(content: Text("hejoo"));
-                        Scaffold.of(context).showSnackBar(snackBar);
-                      },
-                      child: Icon(
-                        MyFlutterApp.edit,
-                        size: 20,
-                      ),
-                    ),
+                    child: widget.isEditable ? editGuest : addToPartyGuest,
                   ),
                 ],
               ),
@@ -64,7 +63,7 @@ class StandardContactCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Text(
-                      guest.phoneNumber,
+                      widget.guest.phoneNumber,
                       style: TextStyle(
                         fontSize: 13,
                       ),
@@ -86,7 +85,7 @@ class StandardContactCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, top: 11),
                     child: Text(
-                      guest.email,
+                      widget.guest.email,
                       style: TextStyle(
                         fontSize: 13,
                       ),
@@ -107,23 +106,48 @@ class StandardContactCard extends StatelessWidget {
     );
   }
 
-  List<Widget> get getGuestFoodPreferences {
+  Widget get addToPartyGuest {
+    return GestureDetector(
+    onTap: () {
+      setState(() {
+        isAdded = !isAdded;
+      });
+    },
+    child: Icon(
+      isAdded ? Icons.check_circle : Icons.check_circle_outline,
+      color: isAdded ? Colors.green : Colors.black,
+      size: 20,
+    ),
+  );
+  }
+
+      Widget get editGuest =>GestureDetector(
+        onTap: () {
+
+        },
+        child: Icon(
+          MyFlutterApp.edit,
+          size: 20,
+        ),
+      );
+
+      List<Widget> get getGuestFoodPreferences {
     List<Widget> list = List<Widget>();
-    if (!(guest.noEggs))
+    if (!(widget.guest.noEggs))
       list.add(getPreferencesIcons(MyFlutterApp.protein));
-    if (!(guest.noFish))
+    if (!(widget.guest.noFish))
       list.add(getPreferencesIcons(MyFlutterApp.fish));
-    if (!(guest.glutenFree))
+    if (!(widget.guest.glutenFree))
       list.add(getPreferencesIcons(MyFlutterApp.wheat));
-    if (!(guest.noMilk))
+    if (!(widget.guest.noMilk))
       list.add(getPreferencesIcons(MyFlutterApp.milk));
-    if (!(guest.noMeat))
+    if (!(widget.guest.noMeat))
       list.add(getPreferencesIcons(MyFlutterApp.meat__2_));
-    if (!(guest.noNuts))
+    if (!(widget.guest.noNuts))
       list.add(getPreferencesIcons(MyFlutterApp.peanut));
-    if (!(guest.noSeaFood))
+    if (!(widget.guest.noSeaFood))
       list.add(getPreferencesIcons(MyFlutterApp.crab));
-    if (guest.vegan)
+    if (widget.guest.vegan)
       list.add(getPreferencesIcons(MyFlutterApp.eco_24px));
     return list;
   }

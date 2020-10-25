@@ -7,10 +7,10 @@ import 'package:planyoureventmobile/styling/gradient_bar.dart';
 
 
 class GuestGroupScreen extends StatelessWidget {
-  final bool isEditable;
-  const GuestGroupScreen({Key key, this.isEditable,}) : super(key: key);
+  const GuestGroupScreen({Key key}) : super(key: key);
 
   Widget build(BuildContext context) {
+    final isEditable = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],
       appBar: AppBar(
@@ -18,7 +18,7 @@ class GuestGroupScreen extends StatelessWidget {
         title: Text(appStrings['guestGroup']),
         flexibleSpace: getGradientBar,
       ),
-      body: GuestGroupContent(),
+      body: GuestGroupContent(isEditable: isEditable),
     );
   }
 }

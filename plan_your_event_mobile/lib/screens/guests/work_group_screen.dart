@@ -11,6 +11,7 @@ class WorkGroupScreen extends StatelessWidget {
   const WorkGroupScreen({Key key, }) : super(key: key);
 
   Widget build(BuildContext context) {
+    final isEditable = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],
       appBar: AppBar(
@@ -18,7 +19,7 @@ class WorkGroupScreen extends StatelessWidget {
         title: Text(appStrings['work']),
         flexibleSpace: getGradientBar,
       ),
-      body: WorkGroupContent(),
+      body: WorkGroupContent(isEditable: isEditable),
     );
   }
 }

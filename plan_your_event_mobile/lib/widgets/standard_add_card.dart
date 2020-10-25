@@ -6,8 +6,9 @@ import 'package:planyoureventmobile/screens/guests/add_guest_screen.dart';
 class StandardAddCard extends StatelessWidget {
   final String route;
   final GuestType guestType;
+
   const StandardAddCard({
-    Key key, this.route, this.guestType
+    Key key, this.route, this.guestType,
   }) : super(key: key);
 
   @override

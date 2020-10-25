@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: Icon(Icons.people_outline),
             title: Text(appStrings['guests']),
             onTap: () {
-              Navigator.pushNamed(context, '/GuestGroupScreen');
+              Navigator.pushNamed(context, '/GuestGroupScreen', arguments: true);
             },
           ),
          /* ListTile(

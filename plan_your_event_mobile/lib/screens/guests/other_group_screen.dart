@@ -11,6 +11,7 @@ class OtherGroupScreen extends StatelessWidget {
   const OtherGroupScreen({Key key,}) : super(key: key);
 
   Widget build(BuildContext context) {
+    final isEditable = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],
       appBar: AppBar(
@@ -18,7 +19,7 @@ class OtherGroupScreen extends StatelessWidget {
         title: Text(appStrings['others']),
         flexibleSpace: getGradientBar,
       ),
-      body: OthersGroupContent(),
+      body: OthersGroupContent(isEditable: isEditable),
     );
   }
 }
