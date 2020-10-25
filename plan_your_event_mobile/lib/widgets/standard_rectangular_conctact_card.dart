@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:planyoureventmobile/bloc/add_guest_bloc.dart';
+import 'package:planyoureventmobile/models/connect_guest_with_party.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/my_flutter_app_icons.dart';
 
 class StandardContactCard extends StatefulWidget {
   final Guest guest;
-  final bool isEditable;
+  final String partyId;
 
   const StandardContactCard({
     Key key,
-    this.guest, this.isEditable,
+    this.guest, this.partyId,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,22 @@ class StandardContactCard extends StatefulWidget {
 
 class _StandardContactCardState extends State<StandardContactCard> {
   bool isAdded = false;
+  AddGuestBloc _addGuestBloc = AddGuestBloc();
+  bool isEditable = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.partyId != null){
+      setState(() {
+        isEditable = false;
+      });
+    } else{
+      setState(() {
+        isEditable = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +63,7 @@ class _StandardContactCardState extends State<StandardContactCard> {
                   Spacer(),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 5, 15, 10),
-                    child: widget.isEditable ? editGuest : addToPartyGuest,
+                    child: isEditable ? editGuest : addToPartyGuest,
                   ),
                 ],
               ),
@@ -112,6 +130,7 @@ class _StandardContactCardState extends State<StandardContactCard> {
       setState(() {
         isAdded = !isAdded;
       });
+      _addGuestBloc.connectUserWithParty(ConnectGuestWithParty(partyId: widget.partyId, guestId: widget.guest.guestId));
     },
     child: Icon(
       isAdded ? Icons.check_circle : Icons.check_circle_outline,
@@ -133,19 +152,19 @@ class _StandardContactCardState extends State<StandardContactCard> {
 
       List<Widget> get getGuestFoodPreferences {
     List<Widget> list = List<Widget>();
-    if (!(widget.guest.noEggs))
+    if ((widget.guest.noEggs))
       list.add(getPreferencesIcons(MyFlutterApp.protein));
-    if (!(widget.guest.noFish))
+    if ((widget.guest.noFish))
       list.add(getPreferencesIcons(MyFlutterApp.fish));
-    if (!(widget.guest.glutenFree))
+    if ((widget.guest.glutenFree))
       list.add(getPreferencesIcons(MyFlutterApp.wheat));
-    if (!(widget.guest.noMilk))
+    if ((widget.guest.noMilk))
       list.add(getPreferencesIcons(MyFlutterApp.milk));
-    if (!(widget.guest.noMeat))
+    if ((widget.guest.noMeat))
       list.add(getPreferencesIcons(MyFlutterApp.meat__2_));
-    if (!(widget.guest.noNuts))
+    if ((widget.guest.noNuts))
       list.add(getPreferencesIcons(MyFlutterApp.peanut));
-    if (!(widget.guest.noSeaFood))
+    if ((widget.guest.noSeaFood))
       list.add(getPreferencesIcons(MyFlutterApp.crab));
     if (widget.guest.vegan)
       list.add(getPreferencesIcons(MyFlutterApp.eco_24px));

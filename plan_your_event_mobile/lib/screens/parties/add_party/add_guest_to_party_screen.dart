@@ -8,11 +8,11 @@ import 'add_guest_to_party_content.dart';
 import 'create_party_content.dart';
 
 class AddGuestToPartyScreen extends StatelessWidget {
-  final String partyType;
 
-  const AddGuestToPartyScreen({Key key, this.partyType}) : super(key: key);
+  const AddGuestToPartyScreen({Key key}) : super(key: key);
 
   Widget build(BuildContext context) {
+    final partyID = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],
       appBar: AppBar(
@@ -20,7 +20,7 @@ class AddGuestToPartyScreen extends StatelessWidget {
         title: Text(appStrings['eventDetails']),
         flexibleSpace: getGradientBar,
       ),
-      body: AddGuestToPartyContent(partyType: partyType),
+      body: AddGuestToPartyContent(partyId: partyID),
     );
   }
 }

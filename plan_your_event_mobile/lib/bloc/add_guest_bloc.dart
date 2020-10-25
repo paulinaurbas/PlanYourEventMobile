@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planyoureventmobile/enums/guest_groups.dart';
+import 'package:planyoureventmobile/models/connect_guest_with_party.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/repository/add_guest_repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -40,6 +41,10 @@ class AddGuestBloc extends BlocProvider {
       List<Guest> response = await _addGuestRepository.getGuestList(guestType, user.uid);
       guestList.sink.add(response);
     });
+  }
+
+  connectUserWithParty(ConnectGuestWithParty connectGuestWithParty){
+    _addGuestRepository.addGuestToParty(connectGuestWithParty);
   }
 
 

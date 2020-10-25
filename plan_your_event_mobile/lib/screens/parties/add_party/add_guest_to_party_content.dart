@@ -7,9 +7,9 @@ import 'package:planyoureventmobile/widgets/guest_tiles.dart';
 import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
 
 class AddGuestToPartyContent extends StatefulWidget {
-  final String partyType;
+  final String partyId;
 
-  const AddGuestToPartyContent({Key key, this.partyType}) : super(key: key);
+  const AddGuestToPartyContent({Key key, this.partyId}) : super(key: key);
 
   @override
   _AddGuestToPartyContentState createState() => _AddGuestToPartyContentState();
@@ -71,7 +71,7 @@ class _AddGuestToPartyContentState extends State<AddGuestToPartyContent> {
                                     fontWeight: FontWeight.w600,
                                   )),
                               onTap: () {
-                                Navigator.pushNamed(context, '/GuestGroupScreen', arguments: false);
+                                Navigator.pushNamed(context, '/GuestGroupScreen', arguments: widget.partyId);
                               },
                             ),
                           )

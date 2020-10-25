@@ -16,6 +16,7 @@ class Guest {
   bool noEggs;
   bool noFish;
   GuestType guestType;
+  String guestId;
 
   Guest(
       {this.name,
@@ -31,14 +32,16 @@ class Guest {
       this.noNuts,
       this.noEggs,
       this.noFish,
-      this.guestType});
+      this.guestType, this.guestId});
 
   void addUserId(String id) {
     this.userId = id;
   }
-
+  void addGuestId(String id) {
+    this.guestId = id;
+  }
   Guest.fromJson(Map<String, dynamic> json)
-      : userId = json["id"],
+      : userId = json["user_id"],
         name = json["name"],
         surname = json["surname"],
         phoneNumber = json["phone_number"],
@@ -51,11 +54,13 @@ class Guest {
         noNuts = json["no_nuts"],
         noEggs = json["no_eggs"],
         noFish = json["no_fish"],
+        guestId = json["guest_id"],
         guestType = getGuestsType(json["guest_type"]);
 
   Map<String, dynamic> guestToJson() {
     return {
-      'id': userId,
+      'user_id': userId,
+      'guest_id': guestId,
       'name': name,
       'surname': surname,
       'phone_number': phoneNumber,
