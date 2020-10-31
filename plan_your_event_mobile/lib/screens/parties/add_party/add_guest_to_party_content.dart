@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:planyoureventmobile/bloc/add_guest_bloc.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
@@ -17,7 +18,7 @@ class AddGuestToPartyContent extends StatefulWidget {
 
 class _AddGuestToPartyContentState extends State<AddGuestToPartyContent> {
   String dropDownValue;
-  List<Guest> guestList = List<Guest>();
+  AddGuestBloc addGuestBloc = AddGuestBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -77,18 +78,33 @@ class _AddGuestToPartyContentState extends State<AddGuestToPartyContent> {
                           )
                         ]),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0, top: 14),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        GuestScrollTiles(guestList: guestList),
-                      ],
-                    ),
+                  StreamBuilder<List<Guest>>(
+                    stream: addGuestBloc.partyGuestList,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12.0, top: 14),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              GuestScrollTiles(guestList: snapshot.data),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }
                   ),
                 ],
               ),
             )));
+
+  @override
+  void initState() {
+    super.initState();
+    addGuestBloc.getPartyGuest(widget.partyId);
+  }
 
   Widget get getImage => Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +120,7 @@ class _AddGuestToPartyContentState extends State<AddGuestToPartyContent> {
       padding: const EdgeInsets.all(8.0),
       child: FlatButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/PartyDetails');
+          Navigator.pushNamed(context, '/');
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
         color: appColors['button_grey'],

@@ -20,5 +20,7 @@ const Map<String, Color> appColors = {
   'button_grey': Color.fromRGBO(229, 229, 229, 1.0),
   'sweet_green': Color.fromRGBO(160, 198, 15, 1.0),
   'pink': Color.fromRGBO(253, 130, 171, 1.0),
+  'backgound_tile': Color.fromRGBO(255, 232, 181, 0.5),
+  'amarant':  Color.fromRGBO(242, 15, 19, 0.67),
 
 };

@@ -10,5 +10,7 @@ class AddGuestRepository with ChangeNotifier {
 
   Future <List<Guest>> getGuestList(String guestType, String userId) => _addGuestApiProvider.getGuestFromGroup(guestType, userId);
 
+  Future <List<Guest>> getPartyGuestList(String partyId) => _addGuestApiProvider.getPartyGuest(partyId);
+
   Future addGuestToParty(ConnectGuestWithParty connectGuestWithParty) => _addGuestApiProvider.addGuestToParty(connectGuestWithParty);
 }

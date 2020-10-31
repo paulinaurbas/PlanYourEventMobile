@@ -20,19 +20,19 @@ const Map<String, PartyType> partyType = {
 
 getPartyType(String status){
   switch (status){
-    case 'BIRTHDAY_PARTY':
+    case 'PartyType.BIRTHDAY_PARTY':
       return PartyType.BIRTHDAY_PARTY;
-    case 'BUISNESS_METTING':
+    case 'PartyType.BUISNESS_METTING':
       return PartyType.BUISNESS_METTING;
-    case 'KINDER_BALL':
+    case 'PartyType.KINDER_BALL':
       return PartyType.KINDER_BALL;
-    case 'FAMILY_DINNER':
+    case 'PartyType.FAMILY_DINNER':
       return PartyType.FAMILY_DINNER;
-    case 'BABY_SHOWER':
+    case 'PartyType.BABY_SHOWER':
     return PartyType.BABY_SHOWER;
-    case 'BAPTISM':
+    case 'PartyType.BAPTISM':
       return PartyType.BAPTISM;
-    case 'HOLY_COMMUNION':
+    case 'PartyType.HOLY_COMMUNION':
       return PartyType.HOLY_COMMUNION;
   }
 

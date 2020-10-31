@@ -25,7 +25,6 @@ class SmallPartyScrollTiles extends StatelessWidget {
 
 
   List<Widget> get _buildRowWithSmallTiles {
-
     List<Widget> allTiles = [];
     allTiles.add(SmallPartyTile(color: appColors['dark_oragne'], icon: Icons.bubble_chart, title: appStrings['bithdayParty']));
     allTiles.add(SmallPartyTile(color: appColors['sweet_honey'], icon: Icons.bubble_chart, title: appStrings['buisnessMeeting']));

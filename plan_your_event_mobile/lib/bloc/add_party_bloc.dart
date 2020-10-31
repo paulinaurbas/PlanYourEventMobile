@@ -45,31 +45,36 @@ class AddPartyBloc extends BlocProvider {
   bool updateShouldNotify(_) => true;
 
   Future<String> addParty(String date, String time, PlaceType placeType, PartyType partyType) async {
-    DateTime dateOfEvent = validateDateAndTime(date, time);
-    FirebaseAuth.instance.currentUser().then((FirebaseUser user) async {
-      String userId;
-      if (user != null) {
-        userId = user.uid;
-      }
-      Event event = Event(
-          partyType: partyType,
-          placeType: placeType,
-          id: userId,
-          eventName: _partyName.value,
-          placeName: _placeName.value,
-          dateTime: dateOfEvent,
-          address: Address(
-              _streetName.value, _cityName.value
-          )
-      );
-      String eventID = await _addPartyRepository.addEvent(event);
-      partyID.sink.add(eventID);
-      return eventID;
-    }).catchError((e){
-      print (e);
+    try {
+      DateTime dateOfEvent = validateDateAndTime(date, time);
+      FirebaseAuth.instance.currentUser().then((FirebaseUser user) async {
+        String userId;
+        if (user != null) {
+          userId = user.uid;
+        }
+        Event event = Event(
+            partyType: partyType,
+            placeType: placeType,
+            id: userId,
+            eventName: _partyName.value,
+            placeName: _placeName.value,
+            dateTime: dateOfEvent,
+            address: Address(
+                _streetName.value, _cityName.value
+            )
+        );
+        String eventID = await _addPartyRepository.addEvent(event);
+        partyID.sink.add(eventID);
+        return eventID;
+      }).catchError((e) {
+        print(e);
+        _error.sink.addError(e);
+        return null;
+      });
+    } catch(e){
+      print(e);
       _error.sink.addError(e);
-      return null;
-    });
+    }
   }
 
   void dispose() async {
@@ -85,7 +90,9 @@ class AddPartyBloc extends BlocProvider {
   DateTime validateDateAndTime(String _date, String _time) {
     _date = _date.replaceAll(' ', '');
     _time =  _time.replaceAll(' ', '');
-    return DateTime.parse(_date + ' ' + _time );
+    _time = _time + ':00Z';
+    String _dateTime = _date + ' ' + _time;
+    return DateTime.parse(_dateTime);
   }
 
   bool validateFields() {
