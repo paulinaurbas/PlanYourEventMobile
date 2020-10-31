@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:planyoureventmobile/enums/party_type.dart';
 import 'package:planyoureventmobile/enums/place_type.dart';
 
@@ -42,10 +43,10 @@ class Event {
       :  id= json["id"],
         eventName= json["event_name"],
         placeName= json["place_name"],
-        placeType= json["place_type"],
-        partyType= json["party_type"],
+        placeType= getPlaceType(json["place_type"]),
+        partyType= getPartyType(json["party_type"]),
         address= Address.fromJson(json["address"],),
-        dateTime= json["date_time"] != null ? DateTime.parse(json["date_time"]) : null,
+        dateTime= json["date_time"] != null ? DateTime.parse((json["date_time"] as Timestamp).toDate().toString()) : null,
         guestList= json["guest_list"],
         menuList= json["menu_list"],
         isPastEvent= json["is_past_event"],
@@ -60,9 +61,24 @@ class Event {
     'user_id': id,
     'event_name': eventName,
     'place_name': placeName,
-    'partyType': partyType.toString(),
+    'party_type': partyType.toString(),
     'place_type': placeType.toString(),
-    'place_name': address.addressToJson(),
-    'dateTime': dateTime,
+    'place_name': placeName,
+    'address': address.addressToJson(),
+    'date_time': dateTime,
   };
+  int getSeconds (Map<dynamic, dynamic> json) => json["seconds"];
+
+
+  String get getFormattedData => dateTime.day.toString() + '-' + dateTime.month.toString() + '-' + dateTime.year.toString();
+
+  String get getTimeFormatted {
+    if (dateTime.minute < 10) {
+      return dateTime.hour.toString() + '.' + '0${dateTime.minute.toString()}';
+    } else {
+      return dateTime.hour.toString() + '.' + dateTime.minute.toString();
+    }
+  }
+
+
 }

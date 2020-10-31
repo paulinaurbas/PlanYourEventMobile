@@ -1,26 +1,32 @@
+import 'package:flutter/cupertino.dart';
+
 enum PlaceType {
   RESTAURANT,
   HOTEL,
   GARDEN,
-  HOME
+  HOME,
+  BUISNESS_AREA,
 }
 
 const Map<String, PlaceType> placeTypes = {
   'RESTAURANT': PlaceType.RESTAURANT,
   'HOTEL': PlaceType.HOTEL,
   'GARDEN': PlaceType.GARDEN,
-  'HOME': PlaceType.HOME
+  'HOME': PlaceType.HOME,
+  'BUISNESS_AREA': PlaceType.BUISNESS_AREA
 };
 
 getPlaceType(String status) {
   switch (status) {
-    case 'RESTAURANT':
+    case 'PlaceType.RESTAURANT':
       return PlaceType.RESTAURANT;
-    case 'HOTEL':
+    case 'PlaceType.HOTEL':
       return PlaceType.HOTEL;
-    case 'GARDEN':
+    case 'PlaceType.GARDEN':
       return PlaceType.GARDEN;
-    case 'HOME':
+    case 'PlaceType.HOME':
       return PlaceType.HOME;
+    case 'PlaceType.BUISNESS_AREA':
+      return PlaceType.BUISNESS_AREA;
   }
 }

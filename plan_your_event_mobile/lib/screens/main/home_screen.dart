@@ -2,7 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/bloc/auth_bloc.dart';
+import 'package:planyoureventmobile/bloc/party_bloc.dart';
+import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/upcoming_party_content.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/styling/gradient_bar.dart';
@@ -17,44 +20,72 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   AuthBloc _authBloc = AuthBloc();
+  PartyBloc _partyBloc = PartyBloc();
   AuthRepository _authRepository;
   FirebaseUser user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appColors['backgroud_color'],
       drawer: getDrawer,
-      appBar: AppBar(
+     appBar: AppBar(
         centerTitle: true,
         title: Text(appStrings['planEvent']),
         flexibleSpace: getGradientBar,
+       bottomOpacity: 0.0,
+       elevation: 0.0,
       ),
-      body: SingleChildScrollView(
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Column(children: [
-            PlanYourEventCard(pictureName: 'assets/images/party_welocome.png', height: 218, width: 300, title:  appStrings['letsStart'] ,),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, left: 29.0),
-              child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(appStrings['planEvent'], style: TextStyle(fontSize: 23), )),
-            ),
-            SmallPartyScrollTiles(),
-          ]),
-        ),
-      ),
+      body: getGuestStream
     );
   }
 
+  Widget get getGuestStream {
+    return StreamBuilder<List<Event>>(
+      stream: _partyBloc.userParties.stream,
+      builder: (context, AsyncSnapshot<List<Event>> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data != null && snapshot.data.length > 0) {
+            return  Column(children: [DisplayUpcomingPartyContent(event: snapshot.data.first)],);
+          } else if (snapshot.data.isEmpty) {
+            return getNoPartiesScreen;
+          } else {
+            return getNoPartiesScreen;
+          }
+        } else if (snapshot.hasError) {
+          return getNoPartiesScreen;
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
 
   @override
   void initState() {
+    super.initState();
     _authRepository = Provider.of<AuthRepository>(context, listen: false);
+    _partyBloc.getParties();
     user = _authRepository.getUser;
+
   }
+
+  Widget get getNoPartiesScreen => SingleChildScrollView(
+    child: GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Column(children: [
+        PlanYourEventCard(pictureName: 'assets/images/party_welocome.png', height: 218, width: 300, title:  appStrings['letsStart'] ,),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0, left: 29.0),
+          child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(appStrings['planEvent'], style: TextStyle(fontSize: 23), )),
+        ),
+        SmallPartyScrollTiles(),
+      ]),
+    ),
+  );
 
   Widget get getDrawer {
 

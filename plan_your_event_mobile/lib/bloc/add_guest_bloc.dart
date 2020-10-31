@@ -16,6 +16,8 @@ class AddGuestBloc extends BlocProvider {
 
   final PublishSubject<List<Guest>> guestList = PublishSubject<List<Guest>>();
 
+  final PublishSubject<List<Guest>> partyGuestList = PublishSubject<List<Guest>>();
+
   Stream<dynamic> get errorStream => _error.stream;
 
   Stream<String> get guestPhone => _guestPhone.stream;
@@ -42,6 +44,14 @@ class AddGuestBloc extends BlocProvider {
       guestList.sink.add(response);
     });
   }
+
+  getPartyGuest(String partyID) async {
+    FirebaseAuth.instance.currentUser().then((FirebaseUser user) async {
+      List<Guest> response = await _addGuestRepository.getPartyGuestList(partyID);
+      guestList.sink.add(response);
+    });
+  }
+
 
   connectUserWithParty(ConnectGuestWithParty connectGuestWithParty){
     _addGuestRepository.addGuestToParty(connectGuestWithParty);
@@ -85,6 +95,7 @@ class AddGuestBloc extends BlocProvider {
     _guestPhone.close();
     _error.close();
     guestList.close();
+    partyGuestList.close();
   }
 
   DateTime validateDateAndTime(String _date, String _time) {

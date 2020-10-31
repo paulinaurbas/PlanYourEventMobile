@@ -124,6 +124,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                 items: <String>[
                   'Restaurant',
                   'Garden',
+                  'Hotel',
                   'Home',
                   'Buissness area'
                   ].map<DropdownMenuItem<String>>((String value) {
