@@ -33,20 +33,17 @@ class FoodPreferencesTile extends StatelessWidget {
                 size: 40,
               ),
             ),
-            Expanded(
-              flex: 0,
-              child: Padding(
+            Row(
+              children: [Padding(
                 padding: const EdgeInsets.all(3.0),
-                child: Flexible(
-                  child: Text(
-                    title,
-                    style: TextStyle(fontSize: 13),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                child: Text(
+                  title,
+                  style: TextStyle(fontSize: 13),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-            )
+            ])
           ],
         ),
       ),

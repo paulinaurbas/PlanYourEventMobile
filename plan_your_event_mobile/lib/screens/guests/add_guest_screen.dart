@@ -11,6 +11,7 @@ class AddNewGuestScreen extends StatelessWidget {
   final GuestType guestType;
   const AddNewGuestScreen({Key key, this.guestType}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],

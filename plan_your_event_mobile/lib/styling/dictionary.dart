@@ -74,5 +74,5 @@ const Map<String, String> appStrings = {
   'hoursToParty': 'hours',
   'minutesToParty': 'minutes',
   'shareMessage': 'I would like to invite you to an event that will take place at <date>, <hour> \nAddress: <address>',
-
+  'partyGuest': 'Party guests',
 };

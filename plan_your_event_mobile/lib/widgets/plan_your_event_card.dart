@@ -19,28 +19,26 @@ class PlanYourEventCard extends StatelessWidget {
                 color: Colors.white,
               ),
               borderRadius: BorderRadius.all(Radius.circular(12))),
-          child: Expanded(
-            child: Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 15, 10, 0),
-                    child: Text(title, style: TextStyle(
-                      fontSize: 25,
-                    ),
-                    ),
+          child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 15, 10, 0),
+                  child: Text(title, style: TextStyle(
+                    fontSize: 23,
+                  ),
                   ),
                 ),
-                Align(
-                 alignment: Alignment.center,
-                  child: Container(
-                      height: height,
-                      width: width,
-                      child: Image.asset(pictureName)))
-              ],
-            ),
-      )
+              ),
+              Align(
+               alignment: Alignment.center,
+                child: Container(
+                    height: height,
+                    width: width,
+                    child: Image.asset(pictureName)))
+            ],
+          )
 
       ),
     );

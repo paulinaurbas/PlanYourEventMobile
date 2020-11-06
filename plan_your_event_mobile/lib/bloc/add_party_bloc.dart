@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:planyoureventmobile/enums/party_type.dart';
 import 'package:planyoureventmobile/enums/place_type.dart';
 import 'package:planyoureventmobile/models/address_model.dart';
@@ -90,9 +91,10 @@ class AddPartyBloc extends BlocProvider {
   DateTime validateDateAndTime(String _date, String _time) {
     _date = _date.replaceAll(' ', '');
     _time =  _time.replaceAll(' ', '');
-    _time = _time + ':00Z';
+    _time = _time + ':00';
     String _dateTime = _date + ' ' + _time;
-    return DateTime.parse(_dateTime);
+    DateTime tempDate = DateFormat("yyyy-MM-dd hh:mm:ss").parse(_dateTime);
+    return tempDate;
   }
 
   bool validateFields() {

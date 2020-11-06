@@ -7,6 +7,7 @@ class AddPartyApiProvider{
 
   Future <String> addParty (Event event) async {
     var newDocRef = _firestore.collection('events').document().documentID;
+    event.addEventId(newDocRef);
     _firestore.collection('events').document(newDocRef).setData(event.eventToJson());
     return newDocRef;
   }

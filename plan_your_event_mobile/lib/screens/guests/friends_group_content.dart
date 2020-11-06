@@ -48,10 +48,13 @@ class _FriendsGroupContentState extends State<FriendsGroupContent> {
       data.forEach((element) {
         allTiles.add(StandardContactCard(guest: element, partyId: widget.partyId));
       });
-      allTiles.add(StandardAddCard(
-        route: '/AddGuest',
-        guestType: GuestType.FRIENDS,
-      ));
+      if(widget.partyId == null) {
+        allTiles.add(StandardAddCard(
+          route: '/AddGuest',
+          guestType: GuestType.FAMILY,
+        ));
+      }
+
     }
     return allTiles;
   }

@@ -74,10 +74,12 @@ class _FamilyGroupContentState extends State<FamilyGroupContent> {
     data.forEach((element) {
       allTiles.add(StandardContactCard(guest: element, partyId: widget.partyID));
     });
-    allTiles.add(StandardAddCard(
-      route: '/AddGuest',
-      guestType: GuestType.FAMILY,
-    ));
+    if(widget.partyID == null) {
+      allTiles.add(StandardAddCard(
+        route: '/AddGuest',
+        guestType: GuestType.FAMILY,
+      ));
+    }
     return allTiles;
   }
 }

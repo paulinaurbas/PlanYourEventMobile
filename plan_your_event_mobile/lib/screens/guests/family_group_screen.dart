@@ -8,7 +8,7 @@ import 'package:planyoureventmobile/styling/gradient_bar.dart';
 
 class FamilyGroupScreen extends StatelessWidget {
   const FamilyGroupScreen({Key key}) : super(key: key);
-
+  @override
   Widget build(BuildContext context) {
     final partyId = ModalRoute.of(context).settings.arguments;
     return Scaffold(

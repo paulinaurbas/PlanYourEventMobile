@@ -11,6 +11,7 @@ class AddGuestToPartyScreen extends StatelessWidget {
 
   const AddGuestToPartyScreen({Key key}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     final partyID = ModalRoute.of(context).settings.arguments;
     return Scaffold(

@@ -11,7 +11,7 @@ class CreatePartyScreen extends StatelessWidget {
 final PartyType partyType;
 
   const CreatePartyScreen({Key key, this.partyType}) : super(key: key);
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],

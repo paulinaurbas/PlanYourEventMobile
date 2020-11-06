@@ -6,6 +6,7 @@ import 'package:planyoureventmobile/screens/guests/guest_groups_screen.dart';
 import 'package:planyoureventmobile/screens/guests/other_group_screen.dart';
 import 'package:planyoureventmobile/screens/guests/work_group_screen.dart';
 import 'package:planyoureventmobile/screens/main/home_screen.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/guest_confirmation/guest_confirmation_screen.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/party_inspiration_web_view.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/upcoming_party_content.dart';
 import 'package:planyoureventmobile/screens/parties/add_party/add_details_to_party_screen.dart';
@@ -25,4 +26,5 @@ var customRoutes = <String, WidgetBuilder>{
    '/UpComingParty':(context) => DisplayUpcomingPartyContent(),
    '/Home':(context) => HomeScreen(),
    '/PartyInspirationWebView': (context) => PartyInspirationWebView(),
+   '/PartyGuestsConfirmation': (context) => GuestConfirmationScreen(),
 };

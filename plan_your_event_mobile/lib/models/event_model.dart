@@ -7,6 +7,7 @@ import 'address_model.dart';
 
 class Event {
   String id;
+  String eventId;
   String eventName;
   String placeName;
   PlaceType placeType;
@@ -37,6 +38,7 @@ class Event {
       this.supliersList,
       this.documentsList,
       this.inspirationUrl,
+      this.eventId,
       this.harmonogramId});
 
   Event.fromJson(Map<String, dynamic> json)
@@ -52,6 +54,7 @@ class Event {
         isPastEvent= json["is_past_event"],
         bugdetId= json["bugdet_id"],
         supliersList= json["supliers_list"],
+        eventId = json["event_id"],
         documentsList= json["documents_list"],
         inspirationUrl= json["inspiration_url"],
         harmonogramId= json["harmonogram_id"];
@@ -66,9 +69,14 @@ class Event {
     'place_name': placeName,
     'address': address.addressToJson(),
     'date_time': dateTime,
+    'event_id': eventId
   };
+
   int getSeconds (Map<dynamic, dynamic> json) => json["seconds"];
 
+  addEventId(String id){
+    this.eventId = id;
+  }
 
   String get getFormattedData => dateTime.day.toString() + '-' + dateTime.month.toString() + '-' + dateTime.year.toString();
 

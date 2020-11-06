@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:planyoureventmobile/screens/guests/work_group_content.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/styling/gradient_bar.dart';
 
+import 'guest_confirmation_content.dart';
 
-class WorkGroupScreen extends StatelessWidget {
 
-  const WorkGroupScreen({Key key, }) : super(key: key);
+class GuestConfirmationScreen extends StatelessWidget {
+  final String partyType;
+
+  const GuestConfirmationScreen({Key key, this.partyType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,10 @@ class WorkGroupScreen extends StatelessWidget {
       backgroundColor: appColors['backgroud_color'],
       appBar: AppBar(
         centerTitle: true,
-        title: Text(appStrings['work']),
+        title: Text(appStrings['partyGuest']),
         flexibleSpace: getGradientBar,
       ),
-      body: WorkGroupContent(partyId: partyId),
+      body: GuestConfirmationContent(partyID: partyId, ),
     );
   }
 }
