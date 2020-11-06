@@ -10,7 +10,7 @@ const Map<String, GuestConfirmationStatus> partyType = {
   'DECLINE': GuestConfirmationStatus.DECLINE,
 };
 
-getPartyType(String status){
+getGuestConfirmationStatus(String status){
   switch (status){
     case 'GuestConfirmationStatus.CONFIRMED':
       return GuestConfirmationStatus.CONFIRMED;

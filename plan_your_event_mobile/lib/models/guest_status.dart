@@ -1,26 +1,31 @@
-class GuestStatus {
-  String partyId;
-  String status;
-  String guestId;
+import 'package:planyoureventmobile/enums/guest_confirmation_status.dart';
 
-  GuestStatus(
-      {this.partyId,
-        this.status,
-        this.guestId,
-      });
+class GuestStatus {
+  String guestStatusID;
+  String guestId;
+  String partyId;
+  GuestConfirmationStatus guestStatus;
+
+  GuestStatus({this.guestId, this.partyId, this.guestStatus, this.guestStatusID});
 
   GuestStatus.fromJson(Map<String, dynamic> json)
-      :
+      :  guestId = json["guest_id"],
         partyId = json["party_id"],
-        status = json["status"],
-        guestId = json["guest_id"];
+        guestStatusID =  json["guest_status_id"],
+        guestStatus = getGuestConfirmationStatus(json["guest_status"]);
 
-
-  Map<String, dynamic> guestToJson() {
-    return {
-      'guest_id': guestId,
-      'status': partyId,
-      'party_id': status,
-    };
+  void addStatusID(String id){
+    this.guestStatusID = id;
   }
+
+  Map<String, dynamic> userToJson() => {
+    'guest_id': guestId,
+    'party_id': partyId,
+    'guest_status_id' : guestStatusID,
+    'guest_status': guestStatus.toString(),
+  };
+
+  Map<String, dynamic> statusToJson() => {
+    'guest_status': guestStatus.toString(),
+  };
 }

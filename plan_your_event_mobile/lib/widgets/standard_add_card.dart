@@ -6,9 +6,10 @@ import 'package:planyoureventmobile/screens/guests/add_guest_screen.dart';
 class StandardAddCard extends StatelessWidget {
   final String route;
   final GuestType guestType;
+  final String partyId;
 
   const StandardAddCard({
-    Key key, this.route, this.guestType,
+    Key key, this.route, this.guestType, this.partyId,
   }) : super(key: key);
 
   @override
@@ -18,13 +19,16 @@ class StandardAddCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 19, right: 19, top: 25.0, bottom: 25.0),
       child: GestureDetector(
         onTap: (){
-          if(route.contains('/AddGuest')){
+          if(route.contains('/AddGuest') && partyId == null){
             Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => AddNewGuestScreen(guestType: guestType,),
                 ));
-          } else {
+          } else if(partyId != null) {
+            Navigator.pushNamed(context, '/GuestGroupScreen', arguments: partyId);
+
+          } else{
             Navigator.pushNamed(context, route);
           }
         },

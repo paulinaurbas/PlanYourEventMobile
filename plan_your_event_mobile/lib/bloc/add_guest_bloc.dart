@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planyoureventmobile/enums/guest_confirmation_status.dart';
 import 'package:planyoureventmobile/enums/guest_groups.dart';
-import 'package:planyoureventmobile/models/connect_guest_with_party.dart';
 import 'package:planyoureventmobile/models/guest.dart';
+import 'package:planyoureventmobile/models/guest_status.dart';
 import 'package:planyoureventmobile/repository/add_guest_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -46,17 +47,17 @@ class AddGuestBloc extends BlocProvider {
   }
 
   getPartyGuest(String partyID) async {
-    FirebaseAuth.instance.currentUser().then((FirebaseUser user) async {
       List<Guest> response = await _addGuestRepository.getPartyGuestList(partyID);
       guestList.sink.add(response);
-    });
   }
 
-
-  connectUserWithParty(ConnectGuestWithParty connectGuestWithParty){
+  connectUserWithParty(GuestStatus connectGuestWithParty){
     _addGuestRepository.addGuestToParty(connectGuestWithParty);
   }
 
+  editGuestStatus(GuestStatus guestStatus){
+    _addGuestRepository.editGuestStatus(guestStatus);
+  }
 
   Future<String> addGuest(bool noMilk, bool glutenFree, bool noMeat, bool noSeaFood, bool vegan, bool noNuts, bool noEggs, bool noFish, GuestType guestType) async {
     FirebaseAuth.instance.currentUser().then((FirebaseUser user) {

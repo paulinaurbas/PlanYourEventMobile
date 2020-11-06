@@ -69,10 +69,12 @@ class _OthersGroupContentState extends State<OthersGroupContent> {
     data.forEach((element) {
       allTiles.add(StandardContactCard(guest: element, partyId: widget.partyId));
     });
-    allTiles.add(StandardAddCard(
-      route: '/AddGuest',
-      guestType: GuestType.OTHERS,
-    ));
+    if(widget.partyId == null) {
+      allTiles.add(StandardAddCard(
+        route: '/AddGuest',
+        guestType: GuestType.FAMILY,
+      ));
+    }
     return allTiles;
   }
 }

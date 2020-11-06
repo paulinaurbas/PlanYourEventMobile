@@ -39,7 +39,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
         Column(children: [
           getNameAndSurnameBox,
           getContactBox,
-          getGroupTiles,
+         getGroupTiles,
           getPreferencesTiles,
           getButton
         ])
@@ -60,32 +60,28 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Flexible(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        labelText: 'Name',
-                        contentPadding: EdgeInsets.only(top: 2.0)),
-                    keyboardType: TextInputType.text,
-                    onChanged: _addGuestBloc.changeGuestName,
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter(RegExp("[a-z A-Z á-ú Á-Ú]"))
-                    ],
-                  ),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                      labelText: 'Name',
+                      contentPadding: EdgeInsets.only(top: 2.0)),
+                  keyboardType: TextInputType.text,
+                  onChanged: _addGuestBloc.changeGuestName,
+                  inputFormatters: [
+                    WhitelistingTextInputFormatter(RegExp("[a-z A-Z á-ú Á-Ú]"))
+                  ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Flexible(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        labelText: 'Surname',
-                        contentPadding: EdgeInsets.only(top: 2.0)),
-                    keyboardType: TextInputType.text,
-                    onChanged: _addGuestBloc.changeGuestSurname,
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter(RegExp("[a-z A-Z á-ú Á-Ú]"))
-                    ],
-                  ),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                      labelText: 'Surname',
+                      contentPadding: EdgeInsets.only(top: 2.0)),
+                  keyboardType: TextInputType.text,
+                  onChanged: _addGuestBloc.changeGuestSurname,
+                  inputFormatters: [
+                    WhitelistingTextInputFormatter(RegExp("[a-z A-Z á-ú Á-Ú]"))
+                  ],
                 ),
               ),
             ],

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:planyoureventmobile/datasources/guests/guest_api_provider.dart';
-import 'package:planyoureventmobile/models/connect_guest_with_party.dart';
+import 'package:planyoureventmobile/enums/guest_confirmation_status.dart';
 import 'package:planyoureventmobile/models/guest.dart';
+import 'package:planyoureventmobile/models/guest_status.dart';
 
 class AddGuestRepository with ChangeNotifier {
   final _addGuestApiProvider = AddGuestApiProvider();
@@ -12,5 +13,9 @@ class AddGuestRepository with ChangeNotifier {
 
   Future <List<Guest>> getPartyGuestList(String partyId) => _addGuestApiProvider.getPartyGuest(partyId);
 
-  Future addGuestToParty(ConnectGuestWithParty connectGuestWithParty) => _addGuestApiProvider.addGuestToParty(connectGuestWithParty);
+  Future <List<GuestStatus>> getPartyGuestStatusList(String partyId) => _addGuestApiProvider.getPartyGuestStatus(partyId);
+
+  Future addGuestToParty(GuestStatus connectGuestWithParty) => _addGuestApiProvider.addGuestToParty(connectGuestWithParty);
+
+  Future editGuestStatus(GuestStatus guestStatus) => _addGuestApiProvider.editGuestStatus(guestStatus);
 }

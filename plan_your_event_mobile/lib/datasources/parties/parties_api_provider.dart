@@ -46,7 +46,7 @@ class PartiesApiProvider{
       CollectionReference ref = Firestore.instance.collection('guest_status');
       QuerySnapshot eventsQuery = await ref
           .where("party_id", isEqualTo: partyID)
-          .where("status", isEqualTo: guestConfirmationStatus)
+          .where("guest_status", isEqualTo: guestConfirmationStatus.toString())
           .getDocuments();
       HashMap<int, GuestStatus> eventsHashMap = new HashMap<int, GuestStatus>();
       int i = 0;
@@ -54,6 +54,7 @@ class PartiesApiProvider{
         eventsHashMap.putIfAbsent(i, () => GuestStatus.fromJson(document.data));
         i++;
       });
+      int idNumber = 0;
       return eventsHashMap.values.toList().length;
     } catch (e) {
       print(e);

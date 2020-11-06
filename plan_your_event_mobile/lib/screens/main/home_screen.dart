@@ -120,12 +120,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          ListTile(
+          /* ListTile(
             leading: Icon(Icons.access_alarm),
             title: Text(appStrings['nextParty']),
             onTap: () {
             },
-          ),
+          ), */
           ListTile(
             leading: Icon(Icons.add),
             title: Text(appStrings['createNewParty']),

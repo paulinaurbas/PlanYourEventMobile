@@ -1,8 +1,6 @@
 import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:planyoureventmobile/models/connect_guest_with_party.dart';
+import 'package:planyoureventmobile/enums/guest_confirmation_status.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/models/guest_status.dart';
 
@@ -52,13 +50,22 @@ class AddGuestApiProvider{
     }
   }
 
+  Future<List<String>> getGuestID(String partyID) async {
+    List <GuestStatus> guest = await getPartyGuestStatus(partyID);
+    List <String> guestID = List<String>();
+    guest.forEach((element) {
+      guestID.add(element.guestId);
+    });
+    return guestID;
+  }
+
   Future <List<Guest>> getPartyGuest (String partyID) async {
     try {
-      List <GuestStatus> guest = await getPartyGuestStatus(partyID);
+      List <String> guestId = await getGuestID(partyID);
       CollectionReference ref = Firestore.instance.collection('guests');
-      String guestID =  guest.last.guestId;
+
       QuerySnapshot eventsQuery = await ref
-            .where("guest_id", isEqualTo: guestID)
+            .where("guest_id", whereIn: guestId)
             .getDocuments();
 
       HashMap<int, Guest> eventsHashMap = new HashMap<int, Guest>();
@@ -73,11 +80,14 @@ class AddGuestApiProvider{
     }
   }
 
-
-
-  Future <String> addGuestToParty (ConnectGuestWithParty connectGuestWithParty) async {
-    return _firestore.collection('guest_status').add(connectGuestWithParty.userToJson()).then((docRef) {
-      return docRef.documentID;
-    });
+  Future <void> addGuestToParty (GuestStatus connectGuestWithParty) async {
+    var newDocRef = _firestore.collection('guest_status').document().documentID;
+    connectGuestWithParty.addStatusID(newDocRef);
+    return _firestore.collection('guest_status').document(newDocRef).setData(connectGuestWithParty.userToJson());
   }
+
+  editGuestStatus(GuestStatus guestStatus) async {
+    _firestore.collection('guest_status').document(guestStatus.guestStatusID).updateData(guestStatus.statusToJson());
+  }
+
 }

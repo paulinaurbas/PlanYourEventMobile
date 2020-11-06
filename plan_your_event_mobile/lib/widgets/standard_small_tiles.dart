@@ -12,11 +12,9 @@ class SmallPartyScrollTiles extends StatelessWidget {
       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-           child: Flexible(
-             child: Row(
-               children:
-                _buildRowWithSmallTiles,
-             ),
+           child: Row(
+             children:
+              _buildRowWithSmallTiles,
            ),
         )
       ]),
@@ -78,13 +76,11 @@ class SmallPartyTile extends StatelessWidget {
                   flex: 0,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
-                    child: Flexible(
-                      child: Text(
-                        title,
-                        style: TextStyle(fontSize: 13),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    child: Text(
+                      title,
+                      style: TextStyle(fontSize: 13),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 )

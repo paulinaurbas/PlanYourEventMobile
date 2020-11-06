@@ -26,15 +26,17 @@ class _AddGuestToPartyContentState extends State<AddGuestToPartyContent> {
       backgroundColor: appColors['backgroud_color'],
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Column(children: [
-              getGuestList,
-              getButton,
-              getImage,
-            ])
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Column(children: [
+                getGuestList,
+                getButton,
+                getImage,
+              ])
+            ],
+          ),
         ),
       ),
     );

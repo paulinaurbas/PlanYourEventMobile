@@ -9,11 +9,9 @@ import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
-import 'package:planyoureventmobile/styling/gradient_bar.dart';
 import 'package:planyoureventmobile/utils/clipper.dart';
 import 'package:planyoureventmobile/utils/standard_time_counter.dart';
 import 'package:planyoureventmobile/widgets/standard_big_colorful_tiles.dart';
-import 'package:planyoureventmobile/widgets/standard_small_tiles.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
@@ -28,7 +26,6 @@ class DisplayUpcomingPartyContent extends StatefulWidget {
 
 class _DisplayUpcomingPartyContentState
     extends State<DisplayUpcomingPartyContent> {
-  AuthBloc _authBloc = AuthBloc();
   PartyBloc _partyBloc = PartyBloc();
   AuthRepository _authRepository;
   FirebaseUser user;
@@ -40,10 +37,12 @@ class _DisplayUpcomingPartyContentState
     _authRepository = Provider.of<AuthRepository>(context, listen: false);
     _partyBloc.getParties();
     user = _authRepository.getUser;
-    timer = Timer.periodic(Duration(seconds: 30), (time) {
-     setState(() {
-
-     });
+    _partyBloc.getPartyGuestStatusConfirmed(widget.event.eventId);
+    _partyBloc.getPartyGuestStatusWaiting(widget.event.eventId);
+     timer = Timer.periodic(Duration(seconds: 30), (time) {
+       _partyBloc.getPartyGuestStatusConfirmed(widget.event.eventId);
+       _partyBloc.getPartyGuestStatusWaiting(widget.event.eventId);
+      setState(() {});
     });
   }
 
@@ -52,7 +51,11 @@ class _DisplayUpcomingPartyContentState
     return Column(children: <Widget>[
       getCircle,
       getInformationBox,
-      getScrollHorizontalWithTiles,
+      Row(
+        children: [
+          getScrollHorizontalWithTiles,
+        ],
+      ),
       getGuestBox
     ]);
   }
@@ -77,19 +80,22 @@ class _DisplayUpcomingPartyContentState
               Expanded(
                   child: Stack(
                 children: <Widget>[
-                  Positioned(
-                    top: 5,
-                    left: 50,
-                    child: Text(
-                      appStrings["timeLeft"],
-                      style: TextStyle(color: Colors.black, fontSize: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          appStrings["timeLeft"],
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        ),
+                      ],
                     ),
                   ),
                   Stack(
                     children: <Widget>[
-                      Positioned(
-                        top: 38,
-                        left: 80,
+                      Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 80.0, vertical: 50),
                         child: Container(
                           width: 115.0,
                           height: 115.0,
@@ -101,8 +107,10 @@ class _DisplayUpcomingPartyContentState
                             child: Text(
                               getDiffrenceToPartyStart(widget.event.dateTime),
                               textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -181,21 +189,20 @@ class _DisplayUpcomingPartyContentState
       );
 
   Widget get getScrollHorizontalWithTiles =>
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 18.0, top: 10),
-          child: Flexible(
+      Expanded(
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 18.0, top: 10),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(children: [
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Share.share(appStrings['shareMessage']
                         .replaceAll('<date>', widget.event.getFormattedData)
                         .replaceAll('<hour>', widget.event.getTimeFormatted)
-                        .replaceAll('<address>', widget.event.address.getStringWithAddress));
+                        .replaceAll('<address>',
+                            widget.event.address.getStringWithAddress));
                   },
                   child: StandardBigColorfulTiles(
                       color: appColors['amarant'],
@@ -207,7 +214,7 @@ class _DisplayUpcomingPartyContentState
                       title: appStrings['share']),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.pushNamed(context, '/PartyInspirationWebView');
                   },
                   child: StandardBigColorfulTiles(
@@ -221,104 +228,107 @@ class _DisplayUpcomingPartyContentState
                 ),
               ]),
             ),
-          ),
-        )
-      ]);
+          )
+        ]),
+      );
 
-  Widget get getGuestBox => Padding(
-      padding: const EdgeInsets.fromLTRB(18, 26, 18, 5),
-      child: Container(
-        decoration: BoxDecoration(
-            color: appColors['backgound_tile'],
-            border: Border.all(
-              color: appColors['backgound_tile'],
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(12))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Icon(Icons.people_outline, size: 42,),
-            ),
-            Column(
+  Widget get getGuestBox => GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/PartyGuestsConfirmation', arguments: widget.event.eventId);
+      },
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(18, 26, 18, 5),
+          child: Container(
+            decoration: BoxDecoration(
+                color: appColors['backgound_tile'],
+                border: Border.all(
+                  color: appColors['backgound_tile'],
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(12))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                      Text(appStrings["guest"], style: TextStyle(
-                        fontSize: 18
-                      ),),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: StreamBuilder<int>(
-                            stream: _partyBloc.confirmedGuest,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(appStrings["confirmed"]),
-                                    Text(snapshot.data.toString(), style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                  ],
-                                );
-                              } else {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(appStrings["confirmed"]),
-                                    Text("0", style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                  ],
-                                );
-                              }
-                            }
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: StreamBuilder<int>(
-                            stream: _partyBloc.waitingGuest,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(appStrings["waiting"]),
-                                    Text(snapshot.data.toString(),
-                                        style: TextStyle(
-                                            color: Colors.red,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold)),
-                                  ],
-                                );
-                              } else {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(appStrings["confirmed"]),
-                                    Text("0", style: TextStyle(
-                                        color: Colors.green,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                  ],
-                                );
-                              }
-                            }
-                          ),
-                        )
-                  ]),
+                  padding: const EdgeInsets.all(16.0),
+                  child: Icon(
+                    Icons.people_outline,
+                    size: 42,
+                  ),
                 ),
+                Column(children: [getConfirmationRow, getWaitingRow]),
               ],
             ),
-          ],
+          )));
+  Widget get getConfirmationRow => Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        Text(
+          appStrings["guest"],
+          style: TextStyle(fontSize: 18),
         ),
-      ));
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: StreamBuilder<int>(
+              stream: _partyBloc.confirmedGuest,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(appStrings["confirmed"]),
+                      Text(snapshot.data.toString(),
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  );
+                } else {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(appStrings["confirmed"]),
+                      Text("0",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  );
+                }
+              }),
+        )
+      ]));
+  Widget get getWaitingRow => Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: StreamBuilder<int>(
+            stream: _partyBloc.waitingGuest,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(appStrings["waiting"]),
+                    Text(snapshot.data.toString(),
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                );
+              } else {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(appStrings["waiting"]),
+                    Text("0",
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                );
+              }
+            }),
+      );
 }

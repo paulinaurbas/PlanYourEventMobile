@@ -30,7 +30,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
     super.initState();
     _addPartyBloc.partyID.listen((value) {
       if(value != null){
-        Navigator.pushNamed(context, '/GuestDetails', arguments: value);
+        Navigator.pushNamed(context, '/GuestGroupScreen', arguments: value);
       }
     });
 
@@ -305,9 +305,6 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
     dropDownValue = dropDownValue.replaceAll(' ', '_');
     PlaceType _placeType = getPlaceType(dropDownValue.replaceAll(' ', '_').toUpperCase());
     String partyID = await _addPartyBloc.addParty(_date, _time, _placeType, widget.partyType);
-    if(partyID != null){
-        Navigator.pushNamed(context, '/GuestDetails', arguments: partyID);
-  }
 
 }
 }
