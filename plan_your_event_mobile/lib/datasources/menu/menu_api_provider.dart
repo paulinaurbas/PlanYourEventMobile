@@ -14,7 +14,7 @@ class MenuApiProvider {
           .document()
           .documentID;
       menu.addId(newDocRef);
-      _firestore.collection('events').document(newDocRef).setData(menu.menuToJson());
+      _firestore.collection('menu').document(newDocRef).setData(menu.menuToJson());
       return newDocRef;
     } catch (e) {
       print(e);
@@ -23,7 +23,7 @@ class MenuApiProvider {
 
   Future <List<Menu>> getPartyMenu(String partyId) async {
     try {
-      CollectionReference ref = Firestore.instance.collection('guests');
+      CollectionReference ref = Firestore.instance.collection('menu');
       QuerySnapshot eventsQuery = await ref
           .where("party_id", isEqualTo: partyId)
           .getDocuments();

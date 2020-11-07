@@ -8,9 +8,9 @@ import 'package:rxdart/rxdart.dart';
 class MenuBloc extends BlocProvider {
   MenuRepository menuRepository = MenuRepository();
   final _price = BehaviorSubject<String>();
-  final _amount = BehaviorSubject<int>();
+  final _amount = BehaviorSubject<String>();
   final _description = BehaviorSubject<String>();
-  final _drinkAmount = BehaviorSubject<int>();
+  final _drinkAmount = BehaviorSubject<String>();
   PublishSubject <String> partyID = PublishSubject();
   final PublishSubject<List<Menu>> menuList = PublishSubject<List<Menu>>();
   Stream <List<Menu>> get menuListStream => menuList.stream;
@@ -21,19 +21,19 @@ class MenuBloc extends BlocProvider {
 
   Stream <String> get descriptionName => _description.stream;
 
-  Stream<int> get drinkName => _drinkAmount.stream;
+  Stream<String> get drinkName => _drinkAmount.stream;
 
   Stream<String> get priceName => _price.stream;
 
-  Stream<int> get amountName => _amount.stream;
+  Stream<String> get amountName => _amount.stream;
 
   Function(String) get changeDescription => _description.sink.add;
 
-  Function(int) get changeDrinkAmount => _drinkAmount.sink.add;
+  Function(String) get changeDrinkAmount => _drinkAmount.sink.add;
 
   Function(String) get changePrice => _price.sink.add;
 
-  Function(int) get changeAmount => _amount.sink.add;
+  Function(String) get changeAmount => _amount.sink.add;
 
 
   bool updateShouldNotify(_) => true;
@@ -52,7 +52,7 @@ class MenuBloc extends BlocProvider {
         }
         Menu menu = Menu(
           type: type,
-          amount: _amount.value,
+          amount: int.parse(_amount.value),
           description: _description.value,
           vegan: vegan,
           vegetarian: vegetarian,
@@ -60,7 +60,7 @@ class MenuBloc extends BlocProvider {
           seaFood: seaFood,
           noFish: noFish,
           glutenFree: glutenFree,
-          drink: Drink(amount: _drinkAmount.value, type: drinkType),
+          drink: Drink(amount:  int.parse(_drinkAmount.value), type: drinkType),
           partyId: partyId,
         );
         return menuRepository.addMenu(menu);
@@ -87,7 +87,7 @@ class MenuBloc extends BlocProvider {
     if (_price.value != null &&
         _price.value.isNotEmpty &&
         _amount.value != null &&
-        !_amount.value.isNaN) {
+        !_amount.value.isNotEmpty) {
       _error.sink.addError('ValueNotNull');
       return true;
     } else {

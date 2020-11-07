@@ -78,6 +78,36 @@ class _AddMenuContentState extends State<AddMenuContent> {
     child: Container(
       width: 80,
       child: TextFormField(
+        onChanged: _bloc.changeAmount,
+        decoration: const InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(12.0),
+              ),
+              borderSide: BorderSide(color: Colors.black, width: 1.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(12.0),
+              ),
+              borderSide: BorderSide(color: Colors.black, width: 1.0),
+            ),
+            labelText: 'Amount',
+            contentPadding: EdgeInsets.all(10)),
+        keyboardType: TextInputType.number,
+        inputFormatters: [
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
+      ),
+    ),
+  );
+
+  Widget get getDrinkAmountTextInput => Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      width: 80,
+      child: TextFormField(
+        onChanged: _bloc.changeDrinkAmount,
         decoration: const InputDecoration(
             focusedBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(
@@ -104,6 +134,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
   Widget get getPriceTextInput => Container(
     width: 80,
     child: TextFormField(
+      onChanged: _bloc.changePrice,
       decoration: const InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(
@@ -171,6 +202,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
+                onChanged: _bloc.changeDescription,
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(

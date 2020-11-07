@@ -28,7 +28,7 @@ class Menu {
         glutenFree = json["gluten_free"],
         partyId = json["party_id"],
         menuId = json["menu_id"],
-        drink = json["drink"];
+        drink = Drink.fromJson(json["drink"]);
 
   Menu({
       this.id,

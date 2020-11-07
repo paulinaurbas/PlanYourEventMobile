@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/bloc/menu_bloc.dart';
 import 'package:planyoureventmobile/bloc/party_bloc.dart';
 import 'package:planyoureventmobile/models/menu.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/menu/widgets/menu_card.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
 import 'package:planyoureventmobile/widgets/standard_add_card.dart';
@@ -74,7 +75,7 @@ class _MenuContentState extends State<MenuContent> {
   List<Widget> _buildGuestListWidget(List<Menu> data) {
     List<Widget> allTiles = [];
     data.forEach((element) {
-      allTiles.add(Container());
+      allTiles.add(MenuCard(menu: element));
     });
     allTiles.add(StandardAddCard(
         route: '/AddMenu', partyId: widget.partyID));
