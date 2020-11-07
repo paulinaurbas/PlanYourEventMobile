@@ -20,7 +20,6 @@ class GuestGroupContent extends StatefulWidget {
 class _GuestGroupContentState extends State<GuestGroupContent> {
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context).settings.arguments;
     return Column(children: [
       Expanded(
         flex:  4,
@@ -92,6 +91,7 @@ class _GuestGroupContentState extends State<GuestGroupContent> {
                 onPressed: () {
                   Navigator.pushNamed(context, '/Home',
                       arguments: widget.partyId);
+
                 },
                 color: appColors['buttons_orange'],
                 splashColor: appColors['gradinet_bright_color'],

@@ -25,6 +25,8 @@ class StandardAddCard extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => AddNewGuestScreen(guestType: guestType,),
                 ));
+          } else if(partyId != null && route.contains('/AddMenu')) {
+            Navigator.pushNamed(context, '/AddMenu', arguments: partyId);
           } else if(partyId != null) {
             Navigator.pushNamed(context, '/GuestGroupScreen', arguments: partyId);
 

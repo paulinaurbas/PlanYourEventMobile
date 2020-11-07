@@ -29,11 +29,10 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
   void initState() {
     super.initState();
     _addPartyBloc.partyID.listen((value) {
-      if(value != null){
+      if (value != null) {
         Navigator.pushNamed(context, '/GuestGroupScreen', arguments: value);
       }
     });
-
   }
 
   bool displayDate = false;
@@ -114,8 +113,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                   height: 2,
                   color: appColors['gradinet_dark_color'],
                 ),
-                onChanged:
-                    (String newValue) {
+                onChanged: (String newValue) {
                   setState(() {
                     dropDownValue = newValue;
                     _addPartyBloc.changePlaceTypeName;
@@ -127,13 +125,12 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                   'Hotel',
                   'Home',
                   'Buissness area'
-                  ].map<DropdownMenuItem<String>>((String value) {
+                ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
-  value: value,
-  child: Text(value),
-  );
-  }).toList(),
-
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
               )
             ],
           ),
@@ -214,10 +211,12 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(displayDate ?_date : 'Date' ),
-                    displayDate ?  Container() : Icon(
-                      Icons.date_range,
-                    ) ,
+                    Text(displayDate ? _date : 'Date'),
+                    displayDate
+                        ? Container()
+                        : Icon(
+                            Icons.date_range,
+                          ),
                   ],
                 ),
                 onPressed: () {
@@ -250,11 +249,12 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(displayTime ?  _time : 'Time'),
-                      displayTime ?  Container() :
-                      Icon(
-                        Icons.access_time,
-                      )
+                      Text(displayTime ? _time : 'Time'),
+                      displayTime
+                          ? Container()
+                          : Icon(
+                              Icons.access_time,
+                            )
                     ],
                   ),
                   onPressed: () {
@@ -263,7 +263,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                           containerHeight: 210.0,
                         ),
                         showTitleActions: true, onConfirm: (time) {
-                      if(time.minute < 10){
+                      if (time.minute < 10) {
                         _time = '${time.hour} : 0${time.minute}';
                       } else {
                         _time = '${time.hour} : ${time.minute}';
@@ -279,33 +279,31 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
         ]),
       ));
 
-
   Widget get getButton => Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: RaisedButton(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      onPressed: (){
-        if (_addPartyBloc.validateFields()) {
-          createParty();
-        } else {
-          String message = appStrings["smtWentWrong"];
-          displaySnackbar(context, message);
-        }
-
-      },
-      color: appColors['buttons_orange'],
-      splashColor: appColors['gradinet_bright_color'],
-      child: Text(appStrings['next'] ),
-    ),
-  );
+        padding: const EdgeInsets.all(8.0),
+        child: RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          onPressed: () {
+            if (_addPartyBloc.validateFields()) {
+              createParty();
+            } else {
+              String message = appStrings["smtWentWrong"];
+              displaySnackbar(context, message);
+            }
+          },
+          color: appColors['buttons_orange'],
+          splashColor: appColors['gradinet_bright_color'],
+          child: Text(appStrings['next']),
+        ),
+      );
 
   Future<void> createParty() async {
     dropDownValue = dropDownValue.replaceAll(' ', '_');
-    PlaceType _placeType = getPlaceType(dropDownValue.replaceAll(' ', '_').toUpperCase());
-    String partyID = await _addPartyBloc.addParty(_date, _time, _placeType, widget.partyType);
-
+    PlaceType _placeType =
+        getPlaceType(dropDownValue.replaceAll(' ', '_').toUpperCase());
+    String partyID = await _addPartyBloc.addParty(
+        _date, _time, _placeType, widget.partyType);
+  }
 }
-}
-

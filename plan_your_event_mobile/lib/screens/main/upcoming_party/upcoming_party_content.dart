@@ -198,6 +198,20 @@ class _DisplayUpcomingPartyContentState
               child: Row(children: [
                 GestureDetector(
                   onTap: () {
+                    Navigator.pushNamed(context, '/MenuDetails',
+                        arguments: widget.event.eventId);
+                  },
+                  child: StandardBigColorfulTiles(
+                      color: appColors['pink'],
+                      iconSize: 40,
+                      height: 78,
+                      width: 82,
+                      padding: 5,
+                      icon: Icons.bubble_chart,
+                      title: appStrings['menu']),
+                ),
+                GestureDetector(
+                  onTap: () {
                     Share.share(appStrings['shareMessage']
                         .replaceAll('<date>', widget.event.getFormattedData)
                         .replaceAll('<hour>', widget.event.getTimeFormatted)
@@ -231,6 +245,7 @@ class _DisplayUpcomingPartyContentState
           )
         ]),
       );
+
 
   Widget get getGuestBox => GestureDetector(
       onTap: () {
