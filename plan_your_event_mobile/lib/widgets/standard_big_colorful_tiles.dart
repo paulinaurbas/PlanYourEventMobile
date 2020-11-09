@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class StandardBigColorfulTiles extends StatelessWidget {
   final Color color;
@@ -9,8 +10,9 @@ class StandardBigColorfulTiles extends StatelessWidget {
   final double height;
   final double iconSize;
   final double padding;
+  final bool border;
 
-  const StandardBigColorfulTiles({Key key, this.color, this.icon, this.title, this.width, this.height, this.iconSize, this.padding}) : super(key: key);
+  const StandardBigColorfulTiles({Key key, this.color, this.icon, this.title, this.width, this.height, this.iconSize, this.padding, this.border}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,9 @@ class StandardBigColorfulTiles extends StatelessWidget {
         width: width == null ? 124 : width,
         height: height == null ? 111 : height,
         decoration: BoxDecoration(
-            color: color,
+            color: border != null ? Colors.white : color,
             border: Border.all(
-              color:color,
+              color: border != null ? Colors.black :color,
             ),
             borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Column(
@@ -39,15 +41,17 @@ class StandardBigColorfulTiles extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(2.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(fontSize: 13),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  Flexible(
+                    child: Text(
+                      title,
+                      style: TextStyle(fontSize: 13),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),

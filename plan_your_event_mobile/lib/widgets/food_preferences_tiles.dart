@@ -7,8 +7,9 @@ import 'package:planyoureventmobile/styling/dictionary.dart';
 class FoodPreferencesTile extends StatelessWidget {
   final IconData icon;
   final String title;
+  final bool border;
 
-  const FoodPreferencesTile({Key key, this.icon, this.title}) : super(key: key);
+  const FoodPreferencesTile({Key key, this.icon, this.title, this.border}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class FoodPreferencesTile extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
-              color: Colors.white,
+              color: border == null ? Colors.white : Colors.black,
             ),
             borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Column(
@@ -34,6 +35,7 @@ class FoodPreferencesTile extends StatelessWidget {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [Padding(
                 padding: const EdgeInsets.all(3.0),
                 child: Text(
