@@ -83,5 +83,5 @@ const Map<String, String> appStrings = {
   'alcohol': 'Alcohol',
   'drinks': 'Drinks',
   'servings': '<amount> servings',
-
+  'addSupplier': 'Add supplier',
 };
