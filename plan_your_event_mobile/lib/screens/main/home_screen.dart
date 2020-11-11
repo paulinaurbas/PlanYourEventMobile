@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               showAboutDialog(context: context,
                   applicationName: "Plan your event",
-                  applicationVersion: "version 1.0",
+                  applicationVersion: "version 2.0",
                   useRootNavigator: true,
                   children: <Widget> [
                     Column(

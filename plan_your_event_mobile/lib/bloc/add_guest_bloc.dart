@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:planyoureventmobile/enums/guest_confirmation_status.dart';
 import 'package:planyoureventmobile/enums/guest_groups.dart';
 import 'package:planyoureventmobile/models/guest.dart';
 import 'package:planyoureventmobile/models/guest_status.dart';

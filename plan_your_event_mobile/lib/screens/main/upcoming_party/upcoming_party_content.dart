@@ -198,6 +198,19 @@ class _DisplayUpcomingPartyContentState
               child: Row(children: [
                 GestureDetector(
                   onTap: () {
+                    Navigator.pushNamed(context, '/Supliers', arguments: widget.event.eventId);
+                  },
+                  child: StandardBigColorfulTiles(
+                      color: appColors['sweet_honey'],
+                      iconSize: 40,
+                      height: 78,
+                      width: 82,
+                      padding: 5,
+                      icon: Icons.bubble_chart,
+                      title: appStrings['supliers']),
+                ),
+                GestureDetector(
+                  onTap: () {
                     Navigator.pushNamed(context, '/MenuDetails',
                         arguments: widget.event.eventId);
                   },

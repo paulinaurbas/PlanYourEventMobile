@@ -27,9 +27,10 @@ class StandardAddCard extends StatelessWidget {
                 ));
           } else if(partyId != null && route.contains('/AddMenu')) {
             Navigator.pushNamed(context, '/AddMenu', arguments: partyId);
+          } else if(partyId != null && route.contains('/AddSupplier')) {
+            Navigator.pushNamed(context, '/AddSupplier', arguments: partyId);
           } else if(partyId != null) {
             Navigator.pushNamed(context, '/GuestGroupScreen', arguments: partyId);
-
           } else{
             Navigator.pushNamed(context, route);
           }
