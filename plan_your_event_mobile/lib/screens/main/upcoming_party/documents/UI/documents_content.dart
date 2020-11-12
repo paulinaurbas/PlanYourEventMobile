@@ -31,6 +31,11 @@ class _DocumentsContentState extends State<DocumentsContent> {
   void initState() {
     super.initState();
     _bloc.getPartyDocuments(widget.partyID);
+    _bloc.supplierListStream.listen((event) {
+      if(mounted){
+        setState(() {});
+      }
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -79,9 +84,9 @@ class _DocumentsContentState extends State<DocumentsContent> {
   List<Widget> _buildDocumentsListWidget(List<Document> data) {
     List<Widget> allTiles = [];
     data.forEach((element) {
-      allTiles.add(DocumentRowItem(element));
+      allTiles.add(DocumentRowItem(element, _bloc));
     });
-    allTiles.add(AddDocumentRow(partyId: widget.partyID));
+    allTiles.add(AddDocumentRow(partyId: widget.partyID, bloc: _bloc,));
     return allTiles;
   }
 

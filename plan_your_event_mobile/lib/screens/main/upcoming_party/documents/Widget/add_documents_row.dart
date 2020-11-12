@@ -8,15 +8,23 @@ import 'package:planyoureventmobile/styling/dictionary.dart';
 
 class AddDocumentRow extends StatefulWidget {
   final String partyId;
+  final DocumentsBloc bloc;
 
-  const AddDocumentRow({Key key, this.partyId}) : super(key: key);
+  const AddDocumentRow({Key key, this.partyId, this.bloc}) : super(key: key);
 
   @override
   _AddDocumentRowState createState() => _AddDocumentRowState();
 }
 
 class _AddDocumentRowState extends State<AddDocumentRow> {
-  DocumentsBloc _bloc = DocumentsBloc();
+  DocumentsBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = widget.bloc;
+  }
+
   String documentInsert;
   @override
   Widget build(BuildContext context) {
@@ -64,8 +72,8 @@ class _AddDocumentRowState extends State<AddDocumentRow> {
               child: Text(appStrings["addNewDocument"], textAlign: TextAlign.center,),
               onPressed: () {
                 _bloc.addDocuments(widget.partyId, documentInsert);
-                Navigator.pushNamed(context, '/Documents',
-                    arguments: widget.partyId);
+                _bloc.refreshRepo(widget.partyId);
+                Navigator.pop(context);
               },
             ),
           ],

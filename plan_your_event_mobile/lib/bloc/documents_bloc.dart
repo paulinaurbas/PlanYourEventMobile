@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planyoureventmobile/models/document_model.dart';
@@ -44,6 +46,9 @@ class DocumentsBloc extends BlocProvider {
       return null;
     });
     return null;
+  }
+  refreshRepo(String partyId){
+    getPartyDocuments(partyId);
   }
 
   void dispose() async {

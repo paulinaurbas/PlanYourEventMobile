@@ -7,21 +7,23 @@ import 'package:planyoureventmobile/styling/colors.dart';
 
 class DocumentRowItem extends StatefulWidget{
   final Document document;
+  final DocumentsBloc documnetBloc;
 
-  DocumentRowItem(this.document);
+  DocumentRowItem(this.document, this.documnetBloc);
 
   @override
   _DocumentRowItemState createState() => _DocumentRowItemState();
 }
 
 class _DocumentRowItemState extends State<DocumentRowItem> {
-  DocumentsBloc documentsBloc = DocumentsBloc();
+  DocumentsBloc documentsBloc;
 
   bool isChecked = false;
 
   @override
   void initState() {
     super.initState();
+    documentsBloc = widget.documnetBloc;
     isChecked = widget.document.isDone;
   }
 
