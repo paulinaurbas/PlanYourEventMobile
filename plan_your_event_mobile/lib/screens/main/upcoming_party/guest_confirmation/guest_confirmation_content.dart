@@ -10,17 +10,17 @@ import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
 import 'package:planyoureventmobile/widgets/standard_add_card.dart';
 import 'package:planyoureventmobile/widgets/standard_rectangular_conctact_card.dart';
 
-class GuestConfirmationContent extends StatefulWidget {
+class DocumentsContent extends StatefulWidget {
   final String partyID;
-  const GuestConfirmationContent({
+  const DocumentsContent({
     Key key, this.partyID
   }) : super(key: key);
 
   @override
-  _GuestConfirmationContentState createState() => _GuestConfirmationContentState();
+  _DocumentsContentState createState() => _DocumentsContentState();
 }
 
-class _GuestConfirmationContentState extends State<GuestConfirmationContent> {
+class _DocumentsContentState extends State<DocumentsContent> {
  PartyBloc partyBloc = PartyBloc();
 
   @override

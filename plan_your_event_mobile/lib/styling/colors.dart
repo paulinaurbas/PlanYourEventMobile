@@ -22,5 +22,5 @@ const Map<String, Color> appColors = {
   'pink': Color.fromRGBO(253, 130, 171, 1.0),
   'backgound_tile': Color.fromRGBO(255, 232, 181, 0.5),
   'amarant':  Color.fromRGBO(242, 15, 19, 0.67),
-
+'documents_background': Color.fromRGBO(255, 232, 181,  0.56)
 };

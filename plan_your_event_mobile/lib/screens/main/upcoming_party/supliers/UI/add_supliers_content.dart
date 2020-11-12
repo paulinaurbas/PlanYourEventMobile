@@ -352,7 +352,8 @@ class _AddSuplierContentState extends State<AddSuplierContent> {
     child: FlatButton(
       onPressed: () {
         saveSupplier();
-        Navigator.pushNamed(context, '/Supliers', arguments: widget.partyId);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false, arguments: widget.partyId);
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       color: appColors['button_grey'],
