@@ -42,7 +42,9 @@ class _DisplayUpcomingPartyContentState
      timer = Timer.periodic(Duration(seconds: 30), (time) {
        _partyBloc.getPartyGuestStatusConfirmed(widget.event.eventId);
        _partyBloc.getPartyGuestStatusWaiting(widget.event.eventId);
-      setState(() {});
+       if(mounted) {
+         setState(() {});
+       }
     });
   }
 
@@ -222,6 +224,20 @@ class _DisplayUpcomingPartyContentState
                       padding: 5,
                       icon: Icons.bubble_chart,
                       title: appStrings['menu']),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/Documents',
+                        arguments: widget.event.eventId);
+                  },
+                  child: StandardBigColorfulTiles(
+                      color: appColors['sweet_blue'],
+                      iconSize: 40,
+                      height: 78,
+                      width: 82,
+                      padding: 5,
+                      icon: Icons.bubble_chart,
+                      title: appStrings['documents']),
                 ),
                 GestureDetector(
                   onTap: () {

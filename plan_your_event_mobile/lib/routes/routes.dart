@@ -6,6 +6,7 @@ import 'package:planyoureventmobile/screens/guests/guest_groups_screen.dart';
 import 'package:planyoureventmobile/screens/guests/other_group_screen.dart';
 import 'package:planyoureventmobile/screens/guests/work_group_screen.dart';
 import 'package:planyoureventmobile/screens/main/home_screen.dart';
+import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/main/upcoming_party/documents/UI/documents_screen.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/guest_confirmation/guest_confirmation_screen.dart';
 import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/main/upcoming_party/menu/UI/add_menu_screen.dart';
 import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/main/upcoming_party/menu/UI/menu_screen.dart';
@@ -34,5 +35,6 @@ var customRoutes = <String, WidgetBuilder>{
    '/MenuDetails': (context) => MenuScreen(),
    '/AddMenu': (context) => AddMenuScreen(),
    '/Supliers': (context) => SupliersScreen(),
-   '/AddSupplier':(context) => AddSupliersScreen()
+   '/AddSupplier':(context) => AddSupliersScreen(),
+   '/Documents': (context) => DocumentsScreen(),
 };
