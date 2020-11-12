@@ -37,4 +37,5 @@ var customRoutes = <String, WidgetBuilder>{
    '/Supliers': (context) => SupliersScreen(),
    '/AddSupplier':(context) => AddSupliersScreen(),
    '/Documents': (context) => DocumentsScreen(),
+   '/AddSupplier':(context) => AddSupliersScreen()
 };
