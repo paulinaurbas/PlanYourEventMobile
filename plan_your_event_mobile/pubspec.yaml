@@ -35,6 +35,7 @@ dependencies:
   intl: ^0.16.0
   share: ^0.6.5+4
   webview_flutter: ^1.0.5
+  fl_chart: ^0.12.0
 
 dev_dependencies:
   flutter_test:

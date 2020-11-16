@@ -83,7 +83,7 @@ class AddGuestApiProvider{
   Future <void> addGuestToParty (GuestStatus connectGuestWithParty) async {
     var newDocRef = _firestore.collection('guest_status').document().documentID;
     connectGuestWithParty.addStatusID(newDocRef);
-    return _firestore.collection('guest_status').document(newDocRef).setData(connectGuestWithParty.userToJson());
+    return _firestore.collection('guest_status').document(newDocRef).setData(connectGuestWithParty.guestToJson());
   }
 
   editGuestStatus(GuestStatus guestStatus) async {

@@ -58,7 +58,14 @@ class _DisplayUpcomingPartyContentState
           getScrollHorizontalWithTiles,
         ],
       ),
-      getGuestBox
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          getToDoBox,
+          getGuestBox,
+
+        ],
+      ),
     ]);
   }
 
@@ -281,7 +288,7 @@ class _DisplayUpcomingPartyContentState
         Navigator.pushNamed(context, '/PartyGuestsConfirmation', arguments: widget.event.eventId);
       },
       child: Padding(
-          padding: const EdgeInsets.fromLTRB(18, 26, 18, 5),
+          padding: const EdgeInsets.fromLTRB(10, 26, 0, 5),
           child: Container(
             decoration: BoxDecoration(
                 color: appColors['backgound_tile'],
@@ -292,6 +299,7 @@ class _DisplayUpcomingPartyContentState
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: 120,),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Icon(
@@ -303,6 +311,82 @@ class _DisplayUpcomingPartyContentState
               ],
             ),
           )));
+
+  Widget get getToDoBox => GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/ToDo', arguments: widget.event.eventId);
+      },
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(8, 26, 2, 5),
+          child: Container(
+            decoration: BoxDecoration(
+                color: appColors['backgound_tile'],
+                border: Border.all(
+                  color: appColors['backgound_tile'],
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(12))),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 0, 3.0, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(width: 130,),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(appStrings["partyStatus"],style: TextStyle(fontSize: 18), textAlign: TextAlign.start,),
+                      ],
+                    ),
+                  ),
+                  getToDoLabel,
+                  getInProgressLabel,
+                  getDoneLabel
+                ],
+              ),
+            ),
+          )));
+
+  Widget get getToDoLabel => Padding(
+    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+    child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('5', style: TextStyle(color: Colors.pink, fontWeight: FontWeight.bold), textAlign: TextAlign.justify,),
+        ),
+        Text(appStrings["toDo"],),
+      ],
+    ),
+  );
+
+  Widget get getInProgressLabel => Padding(
+    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+    child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('5', style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),),
+        ),
+        Text(appStrings["inProgress"],),
+      ],
+    ),
+  );
+
+  Widget get getDoneLabel => Padding(
+    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+    child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('5', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),),
+        ),
+        Text(appStrings["done"],),
+      ],
+    ),
+  );
+
   Widget get getConfirmationRow => Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [

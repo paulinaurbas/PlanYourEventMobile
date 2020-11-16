@@ -18,7 +18,7 @@ class GuestStatus {
     this.guestStatusID = id;
   }
 
-  Map<String, dynamic> userToJson() => {
+  Map<String, dynamic> guestToJson() => {
     'guest_id': guestId,
     'party_id': partyId,
     'guest_status_id' : guestStatusID,

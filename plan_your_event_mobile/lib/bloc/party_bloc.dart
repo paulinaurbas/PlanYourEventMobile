@@ -88,7 +88,7 @@ class PartyBloc extends BlocProvider {
     });
   }
 
-  void dispose() async {
+  void dispose() {
     userParties.close();
     partyGuestConfirmed.close();
     confirmedGuest.close();

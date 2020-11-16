@@ -12,6 +12,7 @@ import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_eve
 import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/main/upcoming_party/menu/UI/menu_screen.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/party_inspiration_web_view.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/supliers/UI/add_suppliers_screen.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/to_do/UI/to_do_screen.dart';
 import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/main/upcoming_party/supliers/UI/supliers_screen.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/upcoming_party_content.dart';
 import 'package:planyoureventmobile/screens/parties/add_party/add_details_to_party_screen.dart';
@@ -37,4 +38,5 @@ var customRoutes = <String, WidgetBuilder>{
    '/Supliers': (context) => SupliersScreen(),
    '/AddSupplier':(context) => AddSupliersScreen(),
    '/Documents': (context) => DocumentsScreen(),
+   '/ToDo': (context) => ToDoScreen(),
 };
