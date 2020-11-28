@@ -5,7 +5,7 @@ import 'package:planyoureventmobile/bloc/auth_bloc.dart';
 import 'package:planyoureventmobile/bloc/party_bloc.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
-import 'package:planyoureventmobile/screens/main/upcoming_party/upcoming_party_content.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/screens/upcoming_party_content.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/styling/gradient_bar.dart';

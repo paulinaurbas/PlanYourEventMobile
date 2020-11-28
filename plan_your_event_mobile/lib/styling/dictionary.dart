@@ -86,5 +86,11 @@ const Map<String, String> appStrings = {
   'addSupplier': 'Add supplier',
   'close': 'Close',
   'addNewDocument': 'Add new document',
-  'documentDescription': 'Document description'
+  'documentDescription': 'Document description',
+  'addNewToDo': 'Add new thing to do',
+  'thingStatus': 'Add thing status',
+  'toDo': 'To do',
+  'inProgress': 'In progress',
+  'done': 'Done',
+  'partyStatus': 'Party status',
 };

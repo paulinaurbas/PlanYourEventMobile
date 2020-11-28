@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:planyoureventmobile/bloc/auth_bloc.dart';
 import 'package:planyoureventmobile/bloc/party_bloc.dart';
+import 'package:planyoureventmobile/bloc/to_do_bloc.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/to_do/UI/to_do_screen.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/widgets/information_box.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/utils/clipper.dart';
@@ -27,21 +29,34 @@ class DisplayUpcomingPartyContent extends StatefulWidget {
 class _DisplayUpcomingPartyContentState
     extends State<DisplayUpcomingPartyContent> {
   PartyBloc _partyBloc = PartyBloc();
+  ToDoBloc _toDoBloc = ToDoBloc();
   AuthRepository _authRepository;
   FirebaseUser user;
   Timer timer;
+  int toDoCounter;
+  int inProgressCounter;
+  double toDoLenght;
+  double inProgressLenght;
+  double doneLength;
+
 
   @override
   void initState() {
     super.initState();
     _authRepository = Provider.of<AuthRepository>(context, listen: false);
     _partyBloc.getParties();
+    _toDoBloc.getPartyToDoLengthThings(widget.event.eventId);
+    _toDoBloc.getPartyInProgressLengthThings(widget.event.eventId);
+    _toDoBloc.getPartyDoneLengthThings(widget.event.eventId);
     user = _authRepository.getUser;
     _partyBloc.getPartyGuestStatusConfirmed(widget.event.eventId);
     _partyBloc.getPartyGuestStatusWaiting(widget.event.eventId);
-     timer = Timer.periodic(Duration(seconds: 30), (time) {
+    timer = Timer.periodic(Duration(seconds: 4), (time) {
        _partyBloc.getPartyGuestStatusConfirmed(widget.event.eventId);
        _partyBloc.getPartyGuestStatusWaiting(widget.event.eventId);
+       _toDoBloc.getPartyToDoLengthThings(widget.event.eventId);
+       _toDoBloc.getPartyInProgressLengthThings(widget.event.eventId);
+       _toDoBloc.getPartyDoneLengthThings(widget.event.eventId);
        if(mounted) {
          setState(() {});
        }
@@ -52,13 +67,20 @@ class _DisplayUpcomingPartyContentState
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       getCircle,
-      getInformationBox,
+      InformationBox(event: widget.event,),
       Row(
         children: [
           getScrollHorizontalWithTiles,
         ],
       ),
-      getGuestBox
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          getToDoBox,
+          getGuestBox,
+
+        ],
+      ),
     ]);
   }
 
@@ -124,71 +146,6 @@ class _DisplayUpcomingPartyContentState
             ]),
       ));
 
-  Widget get getInformationBox => Padding(
-      padding: const EdgeInsets.fromLTRB(18, 0, 18, 5),
-      child: Container(
-        decoration: BoxDecoration(
-            color: appColors['backgound_tile'],
-            border: Border.all(
-              color: appColors['backgound_tile'],
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(12))),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            getDateTimeColumn,
-            getPlaceColumn,
-          ],
-        ),
-      ));
-
-  Widget get getDateTimeColumn => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(Icons.calendar_today),
-                ),
-                Text(widget.event.getFormattedData)
-              ]),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(Icons.access_time),
-                ),
-                Text(widget.event.getTimeFormatted)
-              ]),
-            ),
-          ],
-        ),
-      );
-  Widget get getPlaceColumn => Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(Icons.location_on_outlined),
-                ),
-                Text(widget.event.address.getStringWithAddress)
-              ]),
-            ),
-          ],
-        ),
-      );
 
   Widget get getScrollHorizontalWithTiles =>
       Expanded(
@@ -281,7 +238,7 @@ class _DisplayUpcomingPartyContentState
         Navigator.pushNamed(context, '/PartyGuestsConfirmation', arguments: widget.event.eventId);
       },
       child: Padding(
-          padding: const EdgeInsets.fromLTRB(18, 26, 18, 5),
+          padding: const EdgeInsets.fromLTRB(10, 26, 0, 5),
           child: Container(
             decoration: BoxDecoration(
                 color: appColors['backgound_tile'],
@@ -292,6 +249,7 @@ class _DisplayUpcomingPartyContentState
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: 120,),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Icon(
@@ -303,6 +261,146 @@ class _DisplayUpcomingPartyContentState
               ],
             ),
           )));
+
+  Widget get getToDoBox => GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            new MaterialPageRoute(builder: (context) => ToDoScreen(partyType: widget.event.eventId,
+              toDoBloc: _toDoBloc, toDo: toDoLenght, inProgress: inProgressLenght, done: doneLength,)));
+      },
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(8, 26, 2, 5),
+          child: Container(
+            decoration: BoxDecoration(
+                color: appColors['backgound_tile'],
+                border: Border.all(
+                  color: appColors['backgound_tile'],
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(12))),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 0, 3.0, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(width: 130,),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(appStrings["partyStatus"],style: TextStyle(fontSize: 18), textAlign: TextAlign.start,),
+                      ],
+                    ),
+                  ),
+                  getToDoLabel,
+                  getInProgressLabel,
+                  getDoneLabel
+                ],
+              ),
+            ),
+          )));
+
+  Widget get getToDoLabel => Padding(
+    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+    child: StreamBuilder<int>(
+      stream:  _toDoBloc.toDoLenght.stream,
+      builder: (context, snapshot) {
+        if(snapshot.hasData) {
+            toDoLenght = snapshot.data.toDouble();
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(snapshot.data.toString(), style: TextStyle(
+                    color: Colors.pink, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.justify,),
+              ),
+              Text(appStrings["toDo"],),
+            ],
+          );
+        } else {
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('0', style: TextStyle(
+                    color: Colors.pink, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.justify,),
+              ),
+              Text(appStrings["toDo"],),
+            ],
+          );
+        }
+      }
+    ),
+  );
+
+  Widget get getInProgressLabel => Padding(
+    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+    child: StreamBuilder<int>(
+      stream: _toDoBloc.inProgressLength.stream,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+            inProgressLenght = snapshot.data.toDouble();
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(snapshot.data.toString(), style: TextStyle(
+                    color: Colors.orange, fontWeight: FontWeight.bold),),
+              ),
+              Text(appStrings["inProgress"],),
+            ],
+          );
+        } else {
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('0', style: TextStyle(
+                    color: Colors.orange, fontWeight: FontWeight.bold),),
+              ),
+              Text(appStrings["inProgress"],),
+            ],
+          );
+        }
+      }
+    ),
+  );
+
+  Widget get getDoneLabel => Padding(
+    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+    child: StreamBuilder<int>(
+      stream: _toDoBloc.doneLenght.stream,
+      builder: (context, snapshot) {
+        if(snapshot.hasData) {
+          doneLength = snapshot.data.toDouble();
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(snapshot.data.toString(), style: TextStyle(
+                    color: Colors.green, fontWeight: FontWeight.bold),),
+              ),
+              Text(appStrings["done"],),
+            ],
+          );
+        } else {
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('0', style: TextStyle(
+                    color: Colors.green, fontWeight: FontWeight.bold),),
+              ),
+              Text(appStrings["done"],),
+            ],
+          );
+        }
+      }
+    ),
+  );
+
   Widget get getConfirmationRow => Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [

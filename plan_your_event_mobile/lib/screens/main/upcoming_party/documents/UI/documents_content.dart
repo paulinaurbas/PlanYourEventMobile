@@ -8,7 +8,7 @@ import 'package:planyoureventmobile/models/document_model.dart';
 import 'package:planyoureventmobile/models/menu.dart';
 import 'package:planyoureventmobile/models/supplier_model.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/documents/Widget/add_documents_row.dart';
-import 'file:///C:/Users/User/Documents/GitHub/PlanYourEventMobile/plan_your_event_mobile/lib/screens/main/upcoming_party/documents/Widget/documents_row_item.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/documents/Widget/documents_row_item.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/menu/widgets/menu_card.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/supliers/widgets/supliers_card.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
