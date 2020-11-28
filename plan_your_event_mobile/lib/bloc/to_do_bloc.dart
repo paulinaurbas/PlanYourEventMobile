@@ -36,6 +36,7 @@ class ToDoBloc extends BlocProvider {
           partyId: partyID);
       _doRepository.addToDo(toDoItem);
     }
+    refreshRepo(partyID);
   }
 
   addToDoStatus(ToDoType toDoType) async {

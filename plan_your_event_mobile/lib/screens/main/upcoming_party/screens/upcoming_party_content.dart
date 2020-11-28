@@ -8,6 +8,7 @@ import 'package:planyoureventmobile/bloc/to_do_bloc.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/to_do/UI/to_do_screen.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/widgets/information_box.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/utils/clipper.dart';
@@ -66,7 +67,7 @@ class _DisplayUpcomingPartyContentState
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       getCircle,
-      getInformationBox,
+      InformationBox(event: widget.event,),
       Row(
         children: [
           getScrollHorizontalWithTiles,
@@ -145,71 +146,6 @@ class _DisplayUpcomingPartyContentState
             ]),
       ));
 
-  Widget get getInformationBox => Padding(
-      padding: const EdgeInsets.fromLTRB(18, 0, 18, 5),
-      child: Container(
-        decoration: BoxDecoration(
-            color: appColors['backgound_tile'],
-            border: Border.all(
-              color: appColors['backgound_tile'],
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(12))),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            getDateTimeColumn,
-            getPlaceColumn,
-          ],
-        ),
-      ));
-
-  Widget get getDateTimeColumn => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(Icons.calendar_today),
-                ),
-                Text(widget.event.getFormattedData)
-              ]),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(Icons.access_time),
-                ),
-                Text(widget.event.getTimeFormatted)
-              ]),
-            ),
-          ],
-        ),
-      );
-  Widget get getPlaceColumn => Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(Icons.location_on_outlined),
-                ),
-                Text(widget.event.address.getStringWithAddress)
-              ]),
-            ),
-          ],
-        ),
-      );
 
   Widget get getScrollHorizontalWithTiles =>
       Expanded(
