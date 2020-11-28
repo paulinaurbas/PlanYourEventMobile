@@ -4,7 +4,7 @@ class ToDoStatus {
   String toDoStatusId;
   String toDoID;
   String partyId;
-  ToDoStatus toDoStatus;
+  ToDoType toDoStatus;
   ToDoStatus({this.partyId, this.toDoStatus, this.toDoID, this.toDoStatusId});
 
   ToDoStatus.fromJson(Map<String, dynamic> json)

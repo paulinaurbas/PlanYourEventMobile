@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:planyoureventmobile/bloc/auth_bloc.dart';
 import 'package:planyoureventmobile/bloc/party_bloc.dart';
+import 'package:planyoureventmobile/bloc/to_do_bloc.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/to_do/UI/to_do_screen.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/utils/clipper.dart';
@@ -27,21 +28,34 @@ class DisplayUpcomingPartyContent extends StatefulWidget {
 class _DisplayUpcomingPartyContentState
     extends State<DisplayUpcomingPartyContent> {
   PartyBloc _partyBloc = PartyBloc();
+  ToDoBloc _toDoBloc = ToDoBloc();
   AuthRepository _authRepository;
   FirebaseUser user;
   Timer timer;
+  int toDoCounter;
+  int inProgressCounter;
+  double toDoLenght;
+  double inProgressLenght;
+  double doneLength;
+
 
   @override
   void initState() {
     super.initState();
     _authRepository = Provider.of<AuthRepository>(context, listen: false);
     _partyBloc.getParties();
+    _toDoBloc.getPartyToDoLengthThings(widget.event.eventId);
+    _toDoBloc.getPartyInProgressLengthThings(widget.event.eventId);
+    _toDoBloc.getPartyDoneLengthThings(widget.event.eventId);
     user = _authRepository.getUser;
     _partyBloc.getPartyGuestStatusConfirmed(widget.event.eventId);
     _partyBloc.getPartyGuestStatusWaiting(widget.event.eventId);
-     timer = Timer.periodic(Duration(seconds: 30), (time) {
+    timer = Timer.periodic(Duration(seconds: 4), (time) {
        _partyBloc.getPartyGuestStatusConfirmed(widget.event.eventId);
        _partyBloc.getPartyGuestStatusWaiting(widget.event.eventId);
+       _toDoBloc.getPartyToDoLengthThings(widget.event.eventId);
+       _toDoBloc.getPartyInProgressLengthThings(widget.event.eventId);
+       _toDoBloc.getPartyDoneLengthThings(widget.event.eventId);
        if(mounted) {
          setState(() {});
        }
@@ -314,7 +328,9 @@ class _DisplayUpcomingPartyContentState
 
   Widget get getToDoBox => GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/ToDo', arguments: widget.event.eventId);
+        Navigator.push(context,
+            new MaterialPageRoute(builder: (context) => ToDoScreen(partyType: widget.event.eventId,
+              toDoBloc: _toDoBloc, toDo: toDoLenght, inProgress: inProgressLenght, done: doneLength,)));
       },
       child: Padding(
           padding: const EdgeInsets.fromLTRB(8, 26, 2, 5),
@@ -350,40 +366,102 @@ class _DisplayUpcomingPartyContentState
 
   Widget get getToDoLabel => Padding(
     padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-    child: Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('5', style: TextStyle(color: Colors.pink, fontWeight: FontWeight.bold), textAlign: TextAlign.justify,),
-        ),
-        Text(appStrings["toDo"],),
-      ],
+    child: StreamBuilder<int>(
+      stream:  _toDoBloc.toDoLenght.stream,
+      builder: (context, snapshot) {
+        if(snapshot.hasData) {
+            toDoLenght = snapshot.data.toDouble();
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(snapshot.data.toString(), style: TextStyle(
+                    color: Colors.pink, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.justify,),
+              ),
+              Text(appStrings["toDo"],),
+            ],
+          );
+        } else {
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('0', style: TextStyle(
+                    color: Colors.pink, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.justify,),
+              ),
+              Text(appStrings["toDo"],),
+            ],
+          );
+        }
+      }
     ),
   );
 
   Widget get getInProgressLabel => Padding(
     padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-    child: Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('5', style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),),
-        ),
-        Text(appStrings["inProgress"],),
-      ],
+    child: StreamBuilder<int>(
+      stream: _toDoBloc.inProgressLength.stream,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+            inProgressLenght = snapshot.data.toDouble();
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(snapshot.data.toString(), style: TextStyle(
+                    color: Colors.orange, fontWeight: FontWeight.bold),),
+              ),
+              Text(appStrings["inProgress"],),
+            ],
+          );
+        } else {
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('0', style: TextStyle(
+                    color: Colors.orange, fontWeight: FontWeight.bold),),
+              ),
+              Text(appStrings["inProgress"],),
+            ],
+          );
+        }
+      }
     ),
   );
 
   Widget get getDoneLabel => Padding(
     padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-    child: Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('5', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),),
-        ),
-        Text(appStrings["done"],),
-      ],
+    child: StreamBuilder<int>(
+      stream: _toDoBloc.doneLenght.stream,
+      builder: (context, snapshot) {
+        if(snapshot.hasData) {
+          doneLength = snapshot.data.toDouble();
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(snapshot.data.toString(), style: TextStyle(
+                    color: Colors.green, fontWeight: FontWeight.bold),),
+              ),
+              Text(appStrings["done"],),
+            ],
+          );
+        } else {
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('0', style: TextStyle(
+                    color: Colors.green, fontWeight: FontWeight.bold),),
+              ),
+              Text(appStrings["done"],),
+            ],
+          );
+        }
+      }
     ),
   );
 

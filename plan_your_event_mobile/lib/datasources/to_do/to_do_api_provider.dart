@@ -12,7 +12,7 @@ class ToDoApiProvider {
       CollectionReference ref = Firestore.instance.collection('to_do_items');
       QuerySnapshot eventsQuery = await ref
           .where("party_id", isEqualTo: partyID)
-          .where("to_do_status", isEqualTo: toDoStatus.toString())
+          .where("to_do_type", isEqualTo: toDoStatus.toString())
           .getDocuments();
       HashMap<int, ToDoStatus> eventsHashMap = new HashMap<int, ToDoStatus>();
       int i = 0;
@@ -40,12 +40,12 @@ class ToDoApiProvider {
     return _firestore.collection('to_do_items').document(newDocRef).setData(toDoItem.toDoItemToJson());
   }
 
-  Future <List<ToDoItem>> getToDo(String partyID, ToDoType toDoStatus) async {
+  Future <List<ToDoItem>> getToDo(String partyID, String toDoStatus) async {
     try {
       CollectionReference ref = Firestore.instance.collection('to_do_items');
       QuerySnapshot eventsQuery = await ref
           .where("party_id", isEqualTo: partyID)
-          .where("to_do_status", isEqualTo: toDoStatus.toString())
+          .where("to_do_type", isEqualTo: toDoStatus)
           .getDocuments();
       HashMap<int, ToDoItem> eventsHashMap = new HashMap<int, ToDoItem>();
       int i = 0;
@@ -58,5 +58,9 @@ class ToDoApiProvider {
       print(e);
       return null;
     }
+  }
+
+  editToDoStatus(ToDoItem toDoStatus) async {
+      _firestore.collection('to_do_items').document(toDoStatus.toDoItemId).updateData(toDoStatus.statusToJson());
   }
 }

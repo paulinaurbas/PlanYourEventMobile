@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:planyoureventmobile/bloc/to_do_bloc.dart';
 import 'package:planyoureventmobile/enums/to_do_categories.dart';
 import 'package:planyoureventmobile/models/menu.dart';
 import 'package:planyoureventmobile/models/to_do_item.dart';
@@ -10,8 +11,9 @@ import 'package:planyoureventmobile/styling/dictionary.dart';
 class ToDoCard extends StatefulWidget {
   final String toDoType;
   final List<ToDoItem> toDoList;
+  final  ToDoBloc toDoBloc;
   const ToDoCard({
-    Key key, this.toDoType, this.toDoList,
+    Key key, this.toDoType, this.toDoList, this.toDoBloc,
   }) : super(key: key);
 
   @override
@@ -19,15 +21,15 @@ class ToDoCard extends StatefulWidget {
 }
 
 class _ToDoCardState extends State<ToDoCard> {
+  ToDoBloc toDoBloc;
   @override
   void initState() {
     super.initState();
-
+    toDoBloc = widget.toDoBloc;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> preferencesList = List<Widget>();
     return Padding(
       padding: const EdgeInsets.only(left: 19, right: 19, top: 10.0),
       child: Container(
@@ -50,18 +52,17 @@ class _ToDoCardState extends State<ToDoCard> {
                         )),
                   ),
                   Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 5, 15, 10),
-                    child: Row(
-                      children:
-                        _buildGuestListWidget(widget.toDoList),
-                    ),
-                  ),
                 ],
               ),
               Column(
                 children: [
-
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 5, 15, 10),
+                    child: Column(
+                      children:
+                      _buildGuestListWidget(widget.toDoList),
+                    ),
+                  ),
                 ],
               )
     ])));
@@ -69,10 +70,12 @@ class _ToDoCardState extends State<ToDoCard> {
 
   List<Widget> _buildGuestListWidget(List<ToDoItem> data) {
     List<Widget> allTiles = [];
-    data.forEach((element) {
-      allTiles.add(ToDoItemRow(todo: element));
-    });
-    return allTiles;
+    if (data != null) {
+      data.forEach((element) {
+        allTiles.add(ToDoItemRow(todo: element, bloc: toDoBloc,));
+      });
+      return allTiles;
+    }
   }
 
 }

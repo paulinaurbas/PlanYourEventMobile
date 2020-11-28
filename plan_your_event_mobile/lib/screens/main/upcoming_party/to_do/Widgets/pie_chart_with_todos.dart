@@ -8,11 +8,16 @@ import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'indicatior.dart';
 
 class ToDoChartPie extends StatefulWidget {
+  final double toDoValue;
+  final double inProgressValue;
+  final double doneValue;
+  const ToDoChartPie({Key key, this.toDoValue, this.inProgressValue, this.doneValue,}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => RoDoChartState();
+  State<StatefulWidget> createState() => ToDoChartPieState();
 }
 
-class RoDoChartState extends State {
+class ToDoChartPieState extends State<ToDoChartPie>  {
   int touchedIndex;
 
   @override
@@ -96,7 +101,7 @@ class RoDoChartState extends State {
         case 0:
           return PieChartSectionData(
             color: Colors.pink,
-            value: 40,
+            value: widget.toDoValue ?? 0 ,
             title: 'To do',
             showTitle: false,
             radius: radius,
@@ -106,7 +111,7 @@ class RoDoChartState extends State {
         case 1:
           return PieChartSectionData(
             color: Colors.green,
-            value: 30,
+            value: widget.doneValue ?? 0,
             title: 'Done',
             showTitle: false,
             radius: radius,
@@ -116,7 +121,7 @@ class RoDoChartState extends State {
         case 2:
           return PieChartSectionData(
             color: Colors.orange,
-            value: 15,
+            value: widget.inProgressValue ?? 0,
             showTitle: false,
             radius: radius,
             titleStyle: TextStyle(

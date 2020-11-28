@@ -1,19 +1,19 @@
 enum ToDoType{
   TODO, INPROGRESS, DONE
 }
-const Map<String, ToDoType> guestType = {
-  'TODO': ToDoType.TODO,
-  'INPROGRESS': ToDoType.INPROGRESS,
-  'DONE': ToDoType.DONE,
+const Map<String, ToDoType> toDoType = {
+  'ToDoType.TODO': ToDoType.TODO,
+  'ToDoType.INPROGRESS': ToDoType.INPROGRESS,
+  'ToDoType.DONE': ToDoType.DONE,
 };
 
 getToDoType(String status){
   switch (status){
-    case 'TODO':
+    case 'ToDoType.TODO':
       return ToDoType.TODO;
-    case 'INPROGRESS':
+    case 'ToDoType.INPROGRESS':
       return ToDoType.INPROGRESS;
-    case 'DONE':
+    case 'ToDoType.DONE':
       return ToDoType.DONE;
   }
 
