@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/bloc/party_bloc.dart';
 import 'package:planyoureventmobile/bloc/to_do_bloc.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
+import 'package:planyoureventmobile/my_flutter_app_icons.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/to_do/UI/to_do_screen.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/widgets/information_box.dart';
@@ -165,7 +166,7 @@ class _DisplayUpcomingPartyContentState
                       height: 78,
                       width: 82,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon:  MyFlutterApp.high_five,
                       title: appStrings['supliers']),
                 ),
                 GestureDetector(
@@ -179,7 +180,7 @@ class _DisplayUpcomingPartyContentState
                       height: 78,
                       width: 82,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.menu,
                       title: appStrings['menu']),
                 ),
                 GestureDetector(
@@ -193,7 +194,7 @@ class _DisplayUpcomingPartyContentState
                       height: 78,
                       width: 82,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.paper,
                       title: appStrings['documents']),
                 ),
                 GestureDetector(
@@ -206,11 +207,11 @@ class _DisplayUpcomingPartyContentState
                   },
                   child: StandardBigColorfulTiles(
                       color: appColors['amarant'],
-                      iconSize: 40,
+                      iconSize: 35,
                       height: 78,
                       width: 82,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.share,
                       title: appStrings['share']),
                 ),
                 GestureDetector(
@@ -223,7 +224,7 @@ class _DisplayUpcomingPartyContentState
                       height: 78,
                       width: 82,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon:  MyFlutterApp.inspiration,
                       title: appStrings['inspiration']),
                 ),
               ]),
@@ -253,8 +254,8 @@ class _DisplayUpcomingPartyContentState
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Icon(
-                    Icons.people_outline,
-                    size: 42,
+                    MyFlutterApp.group,
+                    size: 60,
                   ),
                 ),
                 Column(children: [getConfirmationRow, getWaitingRow]),

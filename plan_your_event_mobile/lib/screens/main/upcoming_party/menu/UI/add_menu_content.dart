@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:planyoureventmobile/bloc/menu_bloc.dart';
 import 'package:planyoureventmobile/enums/drop_down_values_drinks.dart';
+import 'package:planyoureventmobile/my_flutter_app_icons.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/widgets/food_preferences_tiles.dart';
@@ -246,8 +247,8 @@ class _AddMenuContentState extends State<AddMenuContent> {
                           },
                           child: FoodPreferencesTile(
                               border: true,
-                              icon: Icons.bubble_chart,
-                              title: appStrings['noFish'])),
+                              icon: MyFlutterApp.fish,
+                              title: appStrings['fish'])),
                       noFish
                           ? Icon(
                         Icons.check_circle_outline,
@@ -272,7 +273,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
                           },
                           child: FoodPreferencesTile(
                               border: true,
-                              icon: Icons.bubble_chart,
+                              icon: MyFlutterApp.teddy_bear,
                               title: appStrings['kids'])),
                       kids
                           ? Icon(
@@ -298,7 +299,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
                           },
                           child: FoodPreferencesTile(
                               border: true,
-                              icon: Icons.bubble_chart,
+                              icon: MyFlutterApp.wheat,
                               title: appStrings['glutenFree'])),
                       glutenFree
                           ? Icon(
@@ -330,8 +331,8 @@ class _AddMenuContentState extends State<AddMenuContent> {
                           },
                           child: FoodPreferencesTile(
                               border: true,
-                              icon: Icons.bubble_chart,
-                              title: appStrings['noSeaFood'])),
+                              icon: MyFlutterApp.crab,
+                              title: appStrings['seaFood'])),
                       noSeaFood
                           ? Icon(
                         Icons.check_circle_outline,
@@ -356,7 +357,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
                           },
                           child: FoodPreferencesTile(
                               border: true,
-                              icon: Icons.bubble_chart,
+                              icon: MyFlutterApp.eco_24px,
                               title: appStrings['vegan'])),
                       vegan
                           ? Icon(
@@ -382,8 +383,8 @@ class _AddMenuContentState extends State<AddMenuContent> {
                           },
                           child: FoodPreferencesTile(
                               border: true,
-                              icon: Icons.bubble_chart,
-                              title: appStrings['noMeat'])),
+                              icon: MyFlutterApp.meat__2_,
+                              title: appStrings['meat'])),
                       noMeat
                           ? Icon(
                         Icons.check_circle_outline,
@@ -429,7 +430,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
                   child: StandardBigColorfulTiles(
                       color: appColors['dark_oragne'],
                       border: true,
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.water_bottle,
                       iconSize: 18,
                       height: 57,
                       width: 60,
@@ -465,7 +466,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
                       height: 57,
                       padding: 5,
                       width: 60,
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.coffee_cup,
                       title: appStrings['hotDrinks']),
                 ),
                 hotDrinks
@@ -497,7 +498,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
                       height: 57,
                       width: 60,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.cold_drink,
                       title: appStrings['coldDrinks']),
                 ),
                 coldDrinks
@@ -529,7 +530,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
                       height: 57,
                       width: 60,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.wine,
                       title: appStrings['alcohol']),
                 ),
                 alcohol

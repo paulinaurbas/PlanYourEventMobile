@@ -31,7 +31,7 @@ class StandardBigColorfulTiles extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
-              padding: const EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(4.0),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Icon(

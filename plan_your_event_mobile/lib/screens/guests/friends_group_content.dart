@@ -29,7 +29,7 @@ class _FriendsGroupContentState extends State<FriendsGroupContent> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(children: [
-        PlanYourEventCard(pictureName: 'assets/images/party_welocome.png',
+        PlanYourEventCard(pictureName: 'assets/images/happy_friends.png',
           height: 180,
           width: 300,
           title: appStrings['friends'],),

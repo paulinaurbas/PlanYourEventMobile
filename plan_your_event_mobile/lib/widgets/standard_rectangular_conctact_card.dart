@@ -57,9 +57,9 @@ class _StandardContactCardState extends State<StandardContactCard> {
     if (guestConfirmationStatus == GuestConfirmationStatus.CONFIRMED) {
       return Icon(Icons.check_circle_outline, color: Colors.green);
     } else if (guestConfirmationStatus == GuestConfirmationStatus.WAITING) {
-      return Icon(Icons.wifi_tethering, color: Colors.amber);
+      return Icon( MyFlutterApp.question_circle_o, color: Colors.amber);
     } else {
-      return Icon(Icons.work_outline_rounded, color: Colors.red);
+      return Icon( MyFlutterApp.cross_circle, color: Colors.red);
     }
   }
 
@@ -107,7 +107,7 @@ class _StandardContactCardState extends State<StandardContactCard> {
                 },
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.wifi_tethering, color: Colors.amber),
+                    Icon( MyFlutterApp.question_circle_o, color: Colors.amber),
                     Text('Waiting'),
                   ],
                 )),
@@ -129,7 +129,7 @@ class _StandardContactCardState extends State<StandardContactCard> {
                 },
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.work_outline_rounded, color: Colors.red),
+                    Icon( MyFlutterApp.cross_circle, color: Colors.red),
                     Text('Decline'),
                   ],
                 )),
