@@ -6,6 +6,7 @@ import 'package:planyoureventmobile/screens/guests/guest_groups_screen.dart';
 import 'package:planyoureventmobile/screens/guests/other_group_screen.dart';
 import 'package:planyoureventmobile/screens/guests/work_group_screen.dart';
 import 'package:planyoureventmobile/screens/main/home_screen.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/bugdet/UI/budget_screen.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/documents/UI/documents_screen.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/guest_confirmation/guest_confirmation_screen.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/menu/UI/add_menu_screen.dart';
@@ -39,4 +40,5 @@ var customRoutes = <String, WidgetBuilder>{
    '/AddSupplier':(context) => AddSupliersScreen(),
    '/Documents': (context) => DocumentsScreen(),
    '/ToDo': (context) => ToDoScreen(),
+   '/Budget': (context) => BudgetScreen(),
 };

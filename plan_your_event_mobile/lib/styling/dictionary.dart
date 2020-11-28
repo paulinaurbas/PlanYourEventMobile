@@ -93,4 +93,12 @@ const Map<String, String> appStrings = {
   'inProgress': 'In progress',
   'done': 'Done',
   'partyStatus': 'Party status',
+  'budgetDescription': 'Here you can control your budget',
+  'youSpent': 'You spend:',
+  'limit': 'Limit:',
+  'addNewItem': 'Add new item to the bugdet!',
+  'description': 'Description',
+  'amount': 'Amount',
+  'addNewBudgetItem' :'Add new budget item',
+  'addLimit': 'Add limit',
 };
