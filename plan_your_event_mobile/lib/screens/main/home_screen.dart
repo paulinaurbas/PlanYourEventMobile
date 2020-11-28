@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/bloc/auth_bloc.dart';
 import 'package:planyoureventmobile/bloc/party_bloc.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
+import 'package:planyoureventmobile/my_flutter_app_icons.dart';
 import 'package:planyoureventmobile/repository/auth_repository.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/screens/upcoming_party_content.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
@@ -135,18 +136,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           ListTile(
-            leading: Icon(Icons.people_outline),
+            leading: Icon(MyFlutterApp.group),
             title: Text(appStrings['guests']),
             onTap: () {
               Navigator.pushNamed(context, '/GuestGroupScreen', arguments: null);
             },
           ),
-         /* ListTile(
-            leading: Icon(Icons.av_timer),
-            title: Text(appStrings['pastParties']),
-            onTap: () {
-            },
-          ), */
           ListTile(
             leading: Icon(Icons.info_outline),
             title: Text(appStrings['about']),

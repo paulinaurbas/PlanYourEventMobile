@@ -93,4 +93,7 @@ const Map<String, String> appStrings = {
   'inProgress': 'In progress',
   'done': 'Done',
   'partyStatus': 'Party status',
+  'seaFood': 'Sea food',
+  'fish':'Fish',
+  'meat': 'Meat',
 };

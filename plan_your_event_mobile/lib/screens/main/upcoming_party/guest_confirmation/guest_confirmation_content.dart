@@ -36,7 +36,7 @@ class _DocumentsContentState extends State<DocumentsContent> {
     return SingleChildScrollView(
       child: Column(children: [
         PlanYourEventCard(
-          pictureName: 'assets/images/party_welocome.png',
+          pictureName: 'assets/images/party_guests.PNG',
           height: 180,
           width: 300,
           title: appStrings['partyGuest'],
