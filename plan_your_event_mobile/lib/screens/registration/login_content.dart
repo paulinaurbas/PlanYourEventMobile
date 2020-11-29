@@ -130,8 +130,11 @@ class _LoginContentState extends State<LoginContent> {
     dynamic result;
     try {
      AuthRepository _authRepository = Provider.of<AuthRepository>(context, listen: false);
-     if(_authMode == AuthMode.LOGIN){
+     if(isLogin){
        _bloc.auth.signInWithEmailAndPassword(email, password, _authRepository);
+     } else {
+       _bloc.auth.registerWithEmailAndPassword(
+           email, password, _authRepository);
      }
     } catch(e){
       String message = errorHandler(e);

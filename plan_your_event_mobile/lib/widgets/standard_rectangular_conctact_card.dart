@@ -265,6 +265,7 @@ class _StandardContactCardState extends State<StandardContactCard> {
         onTap: () {},
         child: Icon(
           MyFlutterApp.edit,
+          color: Colors.transparent,
           size: 20,
         ),
       );
@@ -273,14 +274,14 @@ class _StandardContactCardState extends State<StandardContactCard> {
     List<Widget> list = List<Widget>();
     if ((widget.guest.noEggs))
       list.add(getPreferencesIcons(MyFlutterApp.protein));
-    if ((widget.guest.noFish)) list.add(getPreferencesIcons(MyFlutterApp.fish));
+    if ((widget.guest.noFish)) list.add(getPreferencesIcons(MyFlutterApp.no));
     if ((widget.guest.glutenFree))
       list.add(getPreferencesIcons(MyFlutterApp.wheat));
-    if ((widget.guest.noMilk)) list.add(getPreferencesIcons(MyFlutterApp.milk));
+    if ((widget.guest.noMilk)) list.add(getPreferencesIcons(MyFlutterApp.dairy));
     if ((widget.guest.noMeat))
-      list.add(getPreferencesIcons(MyFlutterApp.meat__2_));
+      list.add(getPreferencesIcons(MyFlutterApp.meat));
     if ((widget.guest.noNuts))
-      list.add(getPreferencesIcons(MyFlutterApp.peanut));
+      list.add(getPreferencesIcons(MyFlutterApp.nut));
     if ((widget.guest.noSeaFood))
       list.add(getPreferencesIcons(MyFlutterApp.crab));
     if (widget.guest.vegan)
