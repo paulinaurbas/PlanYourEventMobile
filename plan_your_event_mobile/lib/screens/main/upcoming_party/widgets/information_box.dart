@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/models/event_model.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 
+import '../../../../my_flutter_app_icons.dart';
+
 class InformationBox extends StatelessWidget{
   Event event;
 
@@ -40,7 +42,7 @@ class InformationBox extends StatelessWidget{
           child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
-              child: Icon(Icons.calendar_today),
+              child: Icon( MyFlutterApp.home),
             ),
             Text(event.getFormattedData)
           ]),

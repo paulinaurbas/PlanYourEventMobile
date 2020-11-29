@@ -57,9 +57,9 @@ class _StandardContactCardState extends State<StandardContactCard> {
     if (guestConfirmationStatus == GuestConfirmationStatus.CONFIRMED) {
       return Icon(Icons.check_circle_outline, color: Colors.green);
     } else if (guestConfirmationStatus == GuestConfirmationStatus.WAITING) {
-      return Icon(Icons.wifi_tethering, color: Colors.amber);
+      return Icon( MyFlutterApp.question_circle_o, color: Colors.amber);
     } else {
-      return Icon(Icons.work_outline_rounded, color: Colors.red);
+      return Icon( MyFlutterApp.cross_circle, color: Colors.red);
     }
   }
 
@@ -107,7 +107,7 @@ class _StandardContactCardState extends State<StandardContactCard> {
                 },
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.wifi_tethering, color: Colors.amber),
+                    Icon( MyFlutterApp.question_circle_o, color: Colors.amber),
                     Text('Waiting'),
                   ],
                 )),
@@ -129,7 +129,7 @@ class _StandardContactCardState extends State<StandardContactCard> {
                 },
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.work_outline_rounded, color: Colors.red),
+                    Icon( MyFlutterApp.cross_circle, color: Colors.red),
                     Text('Decline'),
                   ],
                 )),
@@ -265,6 +265,7 @@ class _StandardContactCardState extends State<StandardContactCard> {
         onTap: () {},
         child: Icon(
           MyFlutterApp.edit,
+          color: Colors.transparent,
           size: 20,
         ),
       );
@@ -273,14 +274,14 @@ class _StandardContactCardState extends State<StandardContactCard> {
     List<Widget> list = List<Widget>();
     if ((widget.guest.noEggs))
       list.add(getPreferencesIcons(MyFlutterApp.protein));
-    if ((widget.guest.noFish)) list.add(getPreferencesIcons(MyFlutterApp.fish));
+    if ((widget.guest.noFish)) list.add(getPreferencesIcons(MyFlutterApp.no));
     if ((widget.guest.glutenFree))
       list.add(getPreferencesIcons(MyFlutterApp.wheat));
-    if ((widget.guest.noMilk)) list.add(getPreferencesIcons(MyFlutterApp.milk));
+    if ((widget.guest.noMilk)) list.add(getPreferencesIcons(MyFlutterApp.dairy));
     if ((widget.guest.noMeat))
-      list.add(getPreferencesIcons(MyFlutterApp.meat__2_));
+      list.add(getPreferencesIcons(MyFlutterApp.meat));
     if ((widget.guest.noNuts))
-      list.add(getPreferencesIcons(MyFlutterApp.peanut));
+      list.add(getPreferencesIcons(MyFlutterApp.nut));
     if ((widget.guest.noSeaFood))
       list.add(getPreferencesIcons(MyFlutterApp.crab));
     if (widget.guest.vegan)

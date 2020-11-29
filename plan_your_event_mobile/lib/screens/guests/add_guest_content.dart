@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:planyoureventmobile/bloc/add_guest_bloc.dart';
 import 'package:planyoureventmobile/enums/guest_groups.dart';
+import 'package:planyoureventmobile/my_flutter_app_icons.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/utils/standard_error_hanler.dart';
@@ -62,8 +63,20 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
                   decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(12.0),
+                        ),
+                        borderSide: BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(12.0),
+                        ),
+                        borderSide: BorderSide(color: Colors.black, width: 1.0),
+                      ),
                       labelText: 'Name',
-                      contentPadding: EdgeInsets.only(top: 2.0)),
+                      contentPadding: EdgeInsets.all(10)),
                   keyboardType: TextInputType.text,
                   onChanged: _addGuestBloc.changeGuestName,
                   inputFormatters: [
@@ -75,8 +88,20 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
                   decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(12.0),
+                        ),
+                        borderSide: BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(12.0),
+                        ),
+                        borderSide: BorderSide(color: Colors.black, width: 1.0),
+                      ),
                       labelText: 'Surname',
-                      contentPadding: EdgeInsets.only(top: 2.0)),
+                      contentPadding: EdgeInsets.all(10)),
                   keyboardType: TextInputType.text,
                   onChanged: _addGuestBloc.changeGuestSurname,
                   inputFormatters: [
@@ -114,8 +139,20 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                   Flexible(
                     child: TextFormField(
                       decoration: const InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(12.0),
+                            ),
+                            borderSide: BorderSide(color: Colors.black, width: 1.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(12.0),
+                            ),
+                            borderSide: BorderSide(color: Colors.black, width: 1.0),
+                          ),
                           labelText: 'Email',
-                          contentPadding: EdgeInsets.only(top: 2.0)),
+                          contentPadding: EdgeInsets.all(10)),
                       keyboardType: TextInputType.text,
                       onChanged: _addGuestBloc.guestEmail,
                     ),
@@ -130,8 +167,20 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                     child: Flexible(
                       child: TextFormField(
                         decoration: const InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(12.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.black, width: 1.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(12.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.black, width: 1.0),
+                            ),
                             labelText: 'Phone',
-                            contentPadding: EdgeInsets.only(top: 0.0)),
+                            contentPadding: EdgeInsets.all(10)),
                         keyboardType: TextInputType.phone,
                         onChanged: _addGuestBloc.changePhone,
                         inputFormatters: [
@@ -172,7 +221,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                   },
                   child: StandardBigColorfulTiles(
                       color: appColors['dark_oragne'],
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.family,
                       iconSize: 18,
                       height: 57,
                       width: 72,
@@ -207,7 +256,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                       height: 57,
                       padding: 5,
                       width: 72,
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.high_five,
                       title: appStrings['friends']),
                 ),
                 friends
@@ -238,7 +287,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                       height: 57,
                       width: 72,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon: MyFlutterApp.team,
                       title: appStrings['work']),
                 ),
                 work
@@ -269,7 +318,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                       height: 57,
                       width: 72,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon:  MyFlutterApp.group,
                       title: appStrings['others']),
                 ),
                 others
@@ -309,7 +358,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                           });
                         },
                         child: FoodPreferencesTile(
-                            icon: Icons.bubble_chart,
+                            icon: MyFlutterApp.no,
                             title: appStrings['noFish'])),
                     noFish
                         ? Icon(
@@ -331,7 +380,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                           });
                         },
                         child: FoodPreferencesTile(
-                            icon: Icons.bubble_chart,
+                            icon: MyFlutterApp.dairy,
                             title: appStrings['noMilk'])),
                     noMilk
                         ? Icon(
@@ -353,7 +402,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                           });
                         },
                         child: FoodPreferencesTile(
-                            icon: Icons.bubble_chart,
+                            icon: MyFlutterApp.wheat,
                             title: appStrings['glutenFree'])),
                     glutenFree
                         ? Icon(
@@ -375,7 +424,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                           });
                         },
                         child: FoodPreferencesTile(
-                            icon: Icons.bubble_chart,
+                            icon:MyFlutterApp.meat,
                             title: appStrings['noMeat'])),
                     noMeat
                         ? Icon(
@@ -399,7 +448,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                           });
                         },
                         child: FoodPreferencesTile(
-                            icon: Icons.bubble_chart,
+                            icon: MyFlutterApp.crab,
                             title: appStrings['noSeaFood'])),
                     noSeaFood
                         ? Icon(
@@ -421,7 +470,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                           });
                         },
                         child: FoodPreferencesTile(
-                            icon: Icons.bubble_chart,
+                            icon: MyFlutterApp.eco_24px,
                             title: appStrings['vegan'])),
                     vegan
                         ? Icon(
@@ -443,7 +492,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                           });
                         },
                         child: FoodPreferencesTile(
-                            icon: Icons.bubble_chart,
+                            icon: MyFlutterApp.nut,
                             title: appStrings['noNuts'])),
                     noNuts
                         ? Icon(
@@ -465,7 +514,7 @@ class _AddNewGuestContentState extends State<AddNewGuestContent> {
                           });
                         },
                         child: FoodPreferencesTile(
-                            icon: Icons.bubble_chart,
+                            icon: MyFlutterApp.protein,
                             title: appStrings['noEggs'])),
                     noEggs
                         ? Icon(

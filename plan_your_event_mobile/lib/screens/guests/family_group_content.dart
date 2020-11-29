@@ -32,7 +32,7 @@ class _FamilyGroupContentState extends State<FamilyGroupContent> {
     return SingleChildScrollView(
       child: Column(children: [
         PlanYourEventCard(
-          pictureName: 'assets/images/party_welocome.png',
+          pictureName: 'assets/images/family.png',
           height: 180,
           width: 300,
           title: appStrings['family'],

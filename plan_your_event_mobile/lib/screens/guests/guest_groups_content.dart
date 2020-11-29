@@ -5,6 +5,8 @@ import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
 import 'package:planyoureventmobile/widgets/standard_big_colorful_tiles.dart';
 
+import '../../my_flutter_app_icons.dart';
+
 class GuestGroupContent extends StatefulWidget {
   final String partyId;
 
@@ -24,7 +26,7 @@ class _GuestGroupContentState extends State<GuestGroupContent> {
       Expanded(
         flex:  4,
         child: PlanYourEventCard(
-          pictureName: 'assets/images/party_welocome.png',
+          pictureName: 'assets/images/family_group.png',
           height: widget.partyId == null ? 145 : 130,
           width: 300,
           title: appStrings['guestGroupsLabel'],
@@ -40,7 +42,7 @@ class _GuestGroupContentState extends State<GuestGroupContent> {
               },
               child: StandardBigColorfulTiles(
                   color: appColors['dirty_orage'],
-                  icon: Icons.bubble_chart,
+                  icon:  MyFlutterApp.family,
                   title: appStrings['family'])),
           GestureDetector(
               onTap: () {
@@ -49,7 +51,7 @@ class _GuestGroupContentState extends State<GuestGroupContent> {
               },
               child: StandardBigColorfulTiles(
                   color: appColors['sweet_honey'],
-                  icon: Icons.bubble_chart,
+                  icon:  MyFlutterApp.high_five,
                   title: appStrings['friends'])),
         ]),
       ),
@@ -63,7 +65,7 @@ class _GuestGroupContentState extends State<GuestGroupContent> {
               },
               child: StandardBigColorfulTiles(
                   color: appColors['pink'],
-                  icon: Icons.bubble_chart,
+                  icon:  MyFlutterApp.team,
                   title: appStrings['work'])),
           GestureDetector(
               onTap: () {
@@ -72,7 +74,7 @@ class _GuestGroupContentState extends State<GuestGroupContent> {
               },
               child: StandardBigColorfulTiles(
                   color: appColors['sweet_green'],
-                  icon: Icons.bubble_chart,
+                  icon:  MyFlutterApp.group,
                   title: appStrings['others'])),
         ]),
       ),

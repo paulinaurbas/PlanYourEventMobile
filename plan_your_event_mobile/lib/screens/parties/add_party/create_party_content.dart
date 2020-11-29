@@ -9,6 +9,8 @@ import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/utils/standard_error_hanler.dart';
 
+import '../../../my_flutter_app_icons.dart';
+
 class CreatePartyContent extends StatefulWidget {
   final PartyType partyType;
 
@@ -77,7 +79,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8.0, top: 20.0),
                       child: Icon(
-                        Icons.home,
+                        MyFlutterApp.home,
                       ),
                     ),
                   ),
@@ -155,7 +157,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 8.0, top: 20.0),
                   child: Icon(
-                    Icons.location_on,
+                      Icons.location_on_outlined
                   ),
                 ),
               ),
@@ -215,7 +217,7 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
                     displayDate
                         ? Container()
                         : Icon(
-                            Icons.date_range,
+                      MyFlutterApp.calendar,
                           ),
                   ],
                 ),

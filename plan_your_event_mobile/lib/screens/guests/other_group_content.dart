@@ -28,7 +28,7 @@ class _OthersGroupContentState extends State<OthersGroupContent> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(children: [
-        PlanYourEventCard(pictureName: 'assets/images/party_welocome.png',
+        PlanYourEventCard(pictureName: 'assets/images/friends.png',
           height: 180,
           width: 300,
           title: appStrings['others'],),

@@ -32,7 +32,7 @@ class _MenuContentState extends State<MenuContent> {
     return SingleChildScrollView(
       child: Column(children: [
         PlanYourEventCard(
-          pictureName: 'assets/images/party_welocome.png',
+          pictureName: 'assets/images/lunch_with_friends.png',
           height: 180,
           width: 300,
           title: appStrings['menu'],
