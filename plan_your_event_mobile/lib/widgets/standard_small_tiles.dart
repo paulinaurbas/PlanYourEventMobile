@@ -4,6 +4,8 @@ import 'package:planyoureventmobile/screens/parties/add_party/create_party_scree
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 
+import '../my_flutter_app_icons.dart';
+
 class SmallPartyScrollTiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,13 +26,13 @@ class SmallPartyScrollTiles extends StatelessWidget {
 
   List<Widget> get _buildRowWithSmallTiles {
     List<Widget> allTiles = [];
-    allTiles.add(SmallPartyTile(color: appColors['dark_oragne'], icon: Icons.bubble_chart, title: appStrings['bithdayParty']));
-    allTiles.add(SmallPartyTile(color: appColors['sweet_honey'], icon: Icons.bubble_chart, title: appStrings['buisnessMeeting']));
-    allTiles.add(SmallPartyTile(color: appColors['dirty_orage'], icon: Icons.bubble_chart, title: appStrings['kinderBall']));
-    allTiles.add(SmallPartyTile(color: appColors['sweet_blue'], icon: Icons.bubble_chart, title: appStrings['familyMeeting']));
-    allTiles.add(SmallPartyTile(color: appColors['sea_blue'], icon: Icons.bubble_chart, title: appStrings['babyShower']));
-    allTiles.add(SmallPartyTile(color: appColors['baptism_blue'], icon: Icons.bubble_chart, title: appStrings['baptism']));
-    allTiles.add(SmallPartyTile(color: appColors['light_blue'], icon: Icons.bubble_chart, title: appStrings['holyCommunion']));
+    allTiles.add(SmallPartyTile(color: appColors['dark_oragne'], icon: MyFlutterApp.balloons, title: appStrings['bithdayParty']));
+    allTiles.add(SmallPartyTile(color: appColors['sweet_honey'], icon: MyFlutterApp.stats, title: appStrings['buisnessMeeting']));
+    allTiles.add(SmallPartyTile(color: appColors['dirty_orage'], icon: MyFlutterApp.teddy_bear, title: appStrings['kinderBall']));
+    allTiles.add(SmallPartyTile(color: appColors['sweet_blue'], icon: MyFlutterApp.christmas_dinner, title: appStrings['familyMeeting']));
+    allTiles.add(SmallPartyTile(color: appColors['sea_blue'], icon: MyFlutterApp.balloons_1, title: appStrings['babyShower']));
+    allTiles.add(SmallPartyTile(color: appColors['baptism_blue'], icon: MyFlutterApp.church, title: appStrings['baptism']));
+    allTiles.add(SmallPartyTile(color: appColors['light_blue'], icon: MyFlutterApp.cross, title: appStrings['holyCommunion']));
 
     return allTiles;
   }
@@ -40,8 +42,9 @@ class SmallPartyTile extends StatelessWidget {
   final Color color;
   final IconData icon;
   final String title;
+  final double iconSize;
 
-  const SmallPartyTile({Key key, this.color, this.icon, this.title}) : super(key: key);
+  const SmallPartyTile({Key key, this.color, this.icon, this.title, this.iconSize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +71,7 @@ class SmallPartyTile extends StatelessWidget {
                     alignment: Alignment.topRight,
                     child: Icon(
                       icon,
-                      size: 40,
+                      size: iconSize != null ? iconSize : 40,
                     ),
                   ),
                 ),
