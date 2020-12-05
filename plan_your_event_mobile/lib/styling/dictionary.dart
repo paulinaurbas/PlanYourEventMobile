@@ -46,7 +46,7 @@ const Map<String, String> appStrings = {
   'about': 'About app',
   'allList': 'All list',
   'aboutAppTitle': 'App to help with party planning',
-  'aboutAppResources': 'All pictures and icons are from stocks',
+  'aboutAppResources': 'All pictures and icons are from free stocks. Icons: https://www.flaticon.com/ Ilustration: https://www.freepik.com/',
   'guestGroup': 'Guests',
   'guestGroupsLabel': 'Here you find your guest list',
   'family': 'Family',
