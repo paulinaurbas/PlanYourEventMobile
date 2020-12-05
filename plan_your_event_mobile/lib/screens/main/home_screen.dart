@@ -121,12 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          /* ListTile(
-            leading: Icon(Icons.access_alarm),
-            title: Text(appStrings['nextParty']),
-            onTap: () {
-            },
-          ), */
           ListTile(
             leading: Icon(Icons.add),
             title: Text(appStrings['createNewParty']),
@@ -134,7 +128,6 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, '/CreateParty');
             },
           ),
-
           ListTile(
             leading: Icon(MyFlutterApp.group),
             title: Text(appStrings['guests']),
@@ -151,13 +144,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   applicationVersion: "version 2.0",
                   useRootNavigator: true,
                   children: <Widget> [
-                    Column(
-                      children: [
-                        Padding(padding: EdgeInsets.only(top: 15),
-                          child: Text(appStrings['aboutAppTitle']),
-                        ),
-                        Text(appStrings['aboutAppResources']),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(appStrings['aboutAppResources']),
+                          ),
+                        ],
+                      ),
                     )
                   ]
               );
@@ -170,7 +167,6 @@ class _HomeScreenState extends State<HomeScreen> {
               AuthRepository _authRepository = Provider.of<AuthRepository>(context, listen: false);
               await _authBloc.auth.signOut(_authRepository);
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-
             },
           ),
         ],
