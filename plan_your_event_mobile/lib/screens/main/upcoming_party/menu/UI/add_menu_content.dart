@@ -34,6 +34,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
   String type;
   String drinkType;
   MenuBloc _bloc = MenuBloc();
+  String drinkAmount;
 
   @override
   void initState() {
@@ -109,7 +110,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
     child: Container(
       width: 80,
       child: TextFormField(
-        onChanged: _bloc.changeDrinkAmount,
+        onChanged: _bloc.changeAmountDrinks,
         decoration: const InputDecoration(
             focusedBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(
@@ -556,7 +557,7 @@ class _AddMenuContentState extends State<AddMenuContent> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         getTypeDropDown,
-        getAmountTextInput
+        getDrinkAmountTextInput
       ],
     ),
   );
