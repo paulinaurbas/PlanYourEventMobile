@@ -10,7 +10,9 @@ class MenuBloc extends BlocProvider {
   final _price = BehaviorSubject<String>();
   final _amount = BehaviorSubject<String>();
   final _description = BehaviorSubject<String>();
-  final _drinkAmount = BehaviorSubject<String>();
+
+  final _amountOfDrinks = BehaviorSubject<String>();
+
   PublishSubject <String> partyID = PublishSubject();
   final PublishSubject<List<Menu>> menuList = PublishSubject<List<Menu>>();
   Stream <List<Menu>> get menuListStream => menuList.stream;
@@ -21,20 +23,19 @@ class MenuBloc extends BlocProvider {
 
   Stream <String> get descriptionName => _description.stream;
 
-  Stream<String> get drinkName => _drinkAmount.stream;
-
   Stream<String> get priceName => _price.stream;
 
   Stream<String> get amountName => _amount.stream;
 
-  Function(String) get changeDescription => _description.sink.add;
+  Stream<String> get _amountOfDrinksName => _amountOfDrinks.stream;
 
-  Function(String) get changeDrinkAmount => _drinkAmount.sink.add;
+  Function(String) get changeDescription => _description.sink.add;
 
   Function(String) get changePrice => _price.sink.add;
 
   Function(String) get changeAmount => _amount.sink.add;
 
+  Function(String) get changeAmountDrinks => _amountOfDrinks.sink.add;
 
   bool updateShouldNotify(_) => true;
 
@@ -60,7 +61,7 @@ class MenuBloc extends BlocProvider {
           seaFood: seaFood,
           noFish: noFish,
           glutenFree: glutenFree,
-          drink: Drink(amount:  int.parse(_drinkAmount.value), type: drinkType),
+          drink: Drink(amount:  int.parse(_amountOfDrinks.value), type: drinkType),
           partyId: partyId,
         );
         return menuRepository.addMenu(menu);
@@ -77,7 +78,6 @@ class MenuBloc extends BlocProvider {
     _price.close();
     _amount.close();
     _description.close();
-    _drinkAmount.close();
     _error.close();
     partyID.close();
     menuList.close();
@@ -87,7 +87,7 @@ class MenuBloc extends BlocProvider {
     if (_price.value != null &&
         _price.value.isNotEmpty &&
         _amount.value != null &&
-        !_amount.value.isNotEmpty) {
+        !_amount.value.isNotEmpty && _amountOfDrinks.value!= null && ! _amountOfDrinks.value.isNotEmpty) {
       _error.sink.addError('ValueNotNull');
       return true;
     } else {

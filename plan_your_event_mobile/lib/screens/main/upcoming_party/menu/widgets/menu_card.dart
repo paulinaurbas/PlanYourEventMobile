@@ -57,28 +57,34 @@ class _MenuCardState extends State<MenuCard> {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child:  Text(
-                      widget.menu.description,
-                      style: TextStyle(
-                        fontSize: 13,
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15.0),
+                      child:  Text(
+                        widget.menu.description,
+                        style: TextStyle(
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(appStrings['servings'].replaceAll('<amount>', widget.menu.amount.toString()),
-                      style: TextStyle(
-                        fontSize: 13,
+                  Spacer(flex: 2),
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(appStrings['servings'].replaceAll('<amount>', widget.menu.amount.toString()),
+                        style: TextStyle(
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ),
-                  Spacer(),
+                  Spacer(flex: 2),
                 ],
               ),
               Row(
@@ -101,25 +107,31 @@ class _MenuCardState extends State<MenuCard> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, top: 12),
-                    child: Text(
-                      widget.menu.drink.type,
-                      style: TextStyle(
-                        fontSize: 13,
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15.0, top: 12),
+                      child: Text(
+                        widget.menu.drink.type,
+                        style: TextStyle(
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0,  top: 12),
-                    child: Text(appStrings['servings'].replaceAll('<amount>', widget.menu.amount.toString()),
-                      style: TextStyle(
-                        fontSize: 13,
+                  Spacer(flex: 2),
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0,  top: 12),
+                      child: Text(appStrings['servings'].replaceAll('<amount>', widget.menu.amount.toString()),
+                        style: TextStyle(
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ),
-                  Spacer(),
+                  Spacer(flex: 2),
                 ],
               ),
               Padding(
@@ -142,6 +154,7 @@ class _MenuCardState extends State<MenuCard> {
     child: Icon(
       MyFlutterApp.edit,
       size: 20,
+      color: Colors.transparent,
     ),
   );
 
