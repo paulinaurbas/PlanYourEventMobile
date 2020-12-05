@@ -11,7 +11,7 @@ String getDiffrenceToPartyStart(DateTime dateTime){
   final differenceInHours = dateTimeNow.difference(dateTime).inHours;
   final differenceInMinutes = dateTimeNow.difference(dateTime).inMinutes;
 
-  if(differenceInDays > 0){
+  if(differenceInDays < 0){
     return  differenceInDays.toString().replaceAll('-', '') + ' ' + appStrings['daysToParty'];
   } else if (differenceInHours < 0){
     return  differenceInHours.toString().replaceAll('-', '') + ' ' + appStrings['hoursToParty'];
