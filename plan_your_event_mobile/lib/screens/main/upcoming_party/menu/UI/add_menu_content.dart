@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:planyoureventmobile/bloc/menu_bloc.dart';
 import 'package:planyoureventmobile/enums/drop_down_values_drinks.dart';
-import 'package:planyoureventmobile/my_flutter_app_icons.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/widgets/food_preferences_tiles.dart';
 import 'package:planyoureventmobile/widgets/standard_big_colorful_tiles.dart';
+
+import '../../../../../my_flutter_app_icons.dart';
 
 class AddMenuContent extends StatefulWidget {
   final String partyID;

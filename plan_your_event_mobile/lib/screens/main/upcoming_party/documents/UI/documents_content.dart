@@ -1,19 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:planyoureventmobile/bloc/documents_bloc.dart';
-import 'package:planyoureventmobile/bloc/menu_bloc.dart';
-import 'package:planyoureventmobile/bloc/party_bloc.dart';
-import 'package:planyoureventmobile/bloc/suppliers_bloc.dart';
 import 'package:planyoureventmobile/models/document_model.dart';
-import 'package:planyoureventmobile/models/menu.dart';
-import 'package:planyoureventmobile/models/supplier_model.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/documents/Widget/add_documents_row.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/documents/Widget/documents_row_item.dart';
-import 'package:planyoureventmobile/screens/main/upcoming_party/menu/widgets/menu_card.dart';
-import 'package:planyoureventmobile/screens/main/upcoming_party/supliers/widgets/supliers_card.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
 import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
-import 'package:planyoureventmobile/widgets/standard_add_card.dart';
 
 class DocumentsContent extends StatefulWidget {
   final String partyID;
@@ -49,14 +41,14 @@ class _DocumentsContentState extends State<DocumentsContent> {
         ),
         Column(
           children: [
-            getGuestStream
+            getDocumentsStream
           ],
         )
       ]),
     );
   }
 
-  Widget get getGuestStream {
+  Widget get getDocumentsStream {
     return StreamBuilder<List<Document>>(
       stream: _bloc.documentsList.stream,
       builder: (context, AsyncSnapshot<List<Document>> snapshot) {

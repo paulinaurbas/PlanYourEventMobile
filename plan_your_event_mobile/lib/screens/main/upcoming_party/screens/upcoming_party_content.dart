@@ -171,6 +171,19 @@ class _DisplayUpcomingPartyContentState
                 ),
                 GestureDetector(
                   onTap: () {
+                    Navigator.pushNamed(context, '/Budget', arguments: widget.event.eventId);
+                  },
+                  child: StandardBigColorfulTiles(
+                      color: appColors['sweet_green'],
+                      iconSize: 40,
+                      height: 78,
+                      width: 82,
+                      padding: 5,
+                      icon: Icons.attach_money,
+                      title: appStrings['budget']),
+                ),
+                GestureDetector(
+                  onTap: () {
                     Navigator.pushNamed(context, '/MenuDetails',
                         arguments: widget.event.eventId);
                   },
