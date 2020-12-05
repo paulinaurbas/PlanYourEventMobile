@@ -104,4 +104,7 @@ const Map<String, String> appStrings = {
   'seaFood': 'Sea food',
   'fish':'Fish',
   'meat': 'Meat',
+  'addNewBudget': 'Add new budget',
+  'budgetItemDescription': 'Budget item description',
+  'price': 'Price',
 };

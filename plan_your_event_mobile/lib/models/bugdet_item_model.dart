@@ -2,7 +2,7 @@
 class BudgetItem {
   String id;
   String budgetItem;
-  int price;
+  double price;
   String partyId;
   String budgetId;
 

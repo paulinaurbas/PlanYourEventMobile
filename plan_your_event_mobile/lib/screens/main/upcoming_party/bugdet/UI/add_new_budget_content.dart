@@ -8,8 +8,9 @@ import 'package:planyoureventmobile/styling/dictionary.dart';
 
 class AddNewBudgetContent extends StatefulWidget {
   final String partyID;
+  final BudgetBloc bloc;
   const AddNewBudgetContent({
-    Key key, this.partyID
+    Key key, this.partyID, this.bloc
   }) : super(key: key);
 
   @override
@@ -17,10 +18,16 @@ class AddNewBudgetContent extends StatefulWidget {
 }
 
 class _AddNewBudgetContentState extends State<AddNewBudgetContent> {
-  BudgetBloc _bloc = BudgetBloc();
+  BudgetBloc _bloc;
   @override
   void initState() {
     super.initState();
+    _bloc = widget.bloc;
+    _bloc.budget.stream?.listen((event) {
+      setState(() {
+
+      });
+    });
   }
 
   @override

@@ -1,52 +1,60 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:planyoureventmobile/bloc/budget_bloc.dart';
 import 'package:planyoureventmobile/bloc/documents_bloc.dart';
+import 'package:planyoureventmobile/models/budget_model.dart';
+import 'package:planyoureventmobile/models/bugdet_item_model.dart';
 import 'package:planyoureventmobile/models/document_model.dart';
 import 'package:planyoureventmobile/styling/colors.dart';
 
-class DocumentRowItem extends StatefulWidget{
-  final Document document;
-  final DocumentsBloc documnetBloc;
+class BudgetRowItem extends StatefulWidget{
+  final BudgetItem budgetItem;
+  final BudgetBloc budgetBloc;
 
-  DocumentRowItem(this.document, this.documnetBloc);
+  BudgetRowItem(this.budgetItem, this.budgetBloc);
 
   @override
-  _DocumentRowItemState createState() => _DocumentRowItemState();
+  _BudgetRowItemState createState() => _BudgetRowItemState();
 }
 
-class _DocumentRowItemState extends State<DocumentRowItem> {
-  DocumentsBloc documentsBloc;
-
-  bool isChecked = false;
+class _BudgetRowItemState extends State<BudgetRowItem> {
+  BudgetBloc budgetBloc;
 
   @override
   void initState() {
     super.initState();
-    documentsBloc = widget.documnetBloc;
-    isChecked = widget.document.isDone;
+    budgetBloc = widget.budgetBloc;
   }
 
   @override
   Widget build(BuildContext context) {
-    return widget.document.documentItem != null ? Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(10, 8, 8, 8.0),
-          child: Container(
-              width: 266,
-              height: 60,
-              decoration: BoxDecoration(
-                  color:  Colors.white,
-                  border: Border.all(
-                    color: Colors.white,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(12))),
-              child: Center(child: Text(widget.document.documentItem))),
+    return widget.budgetItem.budgetItem != null ? Padding(
+      padding: const EdgeInsets.only(left: 19, right: 19, top: 5.0, bottom: 5.0),
+      child: Container(
+        height: 50,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color:  Colors.white,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(12))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(widget.budgetItem.price.toString() + ' PLN'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(widget.budgetItem.budgetItem),
+            ),
+
+          ],
         ),
-      ],
+      ),
     ) : Container();
   }
 }

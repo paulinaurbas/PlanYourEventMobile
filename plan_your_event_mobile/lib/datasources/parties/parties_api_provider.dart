@@ -1,5 +1,3 @@
-
-
 import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,6 +25,7 @@ class PartiesApiProvider{
       print(e);
     }
   }
+
   Future <List<Guest>> getPartyGuest (String partyId) async {
       CollectionReference ref = Firestore.instance.collection('guest_status');
       QuerySnapshot eventsQuery = await ref

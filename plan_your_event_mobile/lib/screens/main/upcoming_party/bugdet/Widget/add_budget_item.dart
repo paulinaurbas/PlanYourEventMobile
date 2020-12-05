@@ -1,31 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:planyoureventmobile/bloc/documents_bloc.dart';
-import 'package:planyoureventmobile/models/document_model.dart';
-import 'package:planyoureventmobile/styling/colors.dart';
+import 'package:flutter/services.dart';
+import 'package:planyoureventmobile/bloc/budget_bloc.dart';
+import 'package:planyoureventmobile/models/budget_model.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
-
 
 class AddBugdetRow extends StatefulWidget {
   final String partyId;
- // final DocumentsBloc bloc;
+  final Budget budget;
+  final BudgetBloc bloc;
 
-  const AddBugdetRow({Key key, this.partyId, }) : super(key: key);
+  const AddBugdetRow({Key key, this.partyId, this.bloc, this.budget, }) : super(key: key);
 
   @override
   _AddBugdetRowState createState() => _AddBugdetRowState();
 }
 
 class _AddBugdetRowState extends State<AddBugdetRow> {
-  //DocumentsBloc _bloc;
+  BudgetBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-   // _bloc = widget.bloc;
+   _bloc = widget.bloc;
   }
 
   String documentInsert;
+  String price;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -53,7 +55,7 @@ class _AddBugdetRowState extends State<AddBugdetRow> {
     showDialog(
         context: context,
         builder: (_) =>  AlertDialog(
-          title: Text("Add new document"),
+          title: Text(appStrings["addNewBudget"]),
           content: getPopUpContent,
           actions: <Widget>[
             FlatButton(
@@ -63,24 +65,41 @@ class _AddBugdetRowState extends State<AddBugdetRow> {
               },
             ),
             FlatButton(
-              child: Text(appStrings["addNewDocument"], textAlign: TextAlign.center,),
+              child: Text(appStrings["addNewBudget"], textAlign: TextAlign.center,),
               onPressed: () {
-               // _bloc.addDocuments(widget.partyId, documentInsert);
-               // _bloc.refreshRepo(widget.partyId);
-                Navigator.pop(context);
+                if(widget.partyId != null && documentInsert != null && price != null) {
+                  _bloc.addBudgetItem(widget.partyId, documentInsert, price, widget.budget);
+                  }
+                Navigator.of(context).pop();
               },
             ),
           ],
         ));
   }
 
-  Widget get getPopUpContent => TextField(
-    autofocus: true,
-    onChanged: (input) {
-      documentInsert = input;
-    },
-    decoration: new InputDecoration(
-      labelText: appStrings['documentDescription'],
+  Widget get getPopUpContent => Column(
+    children: [
+      TextField(
+      autofocus: true,
+      onChanged: (input) {
+        documentInsert = input;
+      },
+      decoration: new InputDecoration(
+        labelText: appStrings['budgetItemDescription'],
+      ),
     ),
-  );
+      Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: TextField(
+          autofocus: true,
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
+          onChanged: (input) {
+            price = input;
+          },
+          decoration: new InputDecoration(
+            labelText: appStrings['price'],
+          ),
+        ),
+      ),
+  ]);
 }

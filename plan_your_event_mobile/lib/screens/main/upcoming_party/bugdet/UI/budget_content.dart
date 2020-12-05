@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:planyoureventmobile/bloc/documents_bloc.dart';
-import 'package:planyoureventmobile/models/document_model.dart';
+import 'package:planyoureventmobile/bloc/budget_bloc.dart';
+import 'package:planyoureventmobile/models/budget_model.dart';
+import 'package:planyoureventmobile/models/bugdet_item_model.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/bugdet/Widget/add_budget_item.dart';
+import 'package:planyoureventmobile/screens/main/upcoming_party/bugdet/Widget/budget_items_row.dart';
 import 'package:planyoureventmobile/screens/main/upcoming_party/bugdet/Widget/card_with_progress.dart';
-import 'package:planyoureventmobile/screens/main/upcoming_party/documents/Widget/add_documents_row.dart';
-import 'package:planyoureventmobile/screens/main/upcoming_party/documents/Widget/documents_row_item.dart';
 import 'package:planyoureventmobile/styling/dictionary.dart';
-import 'package:planyoureventmobile/widgets/plan_your_event_card.dart';
 
 import 'add_new_budget_content.dart';
 
@@ -22,10 +21,13 @@ class BudgetContent extends StatefulWidget {
 }
 
 class _BudgetContentState extends State<BudgetContent> {
-  DocumentsBloc _bloc = DocumentsBloc();
+  BudgetBloc _bloc = BudgetBloc();
   @override
   void initState() {
     super.initState();
+    _bloc.getPartyBudget(widget.partyID);
+    _bloc.getPartyBudgetItems(widget.partyID);
+
   }
 
   @override
@@ -44,17 +46,19 @@ class _BudgetContentState extends State<BudgetContent> {
 
 
   Widget get getBudgetStream {
-    return StreamBuilder<List<Document>>(
-      stream: _bloc.documentsList.stream,
-      builder: (context, AsyncSnapshot<List<Document>> snapshot) {
-        if (snapshot.data != null) {
+    return StreamBuilder<Budget>(
+      stream: _bloc.budget?.stream,
+      builder: (context, AsyncSnapshot<Budget> snapshot) {
+        if(snapshot == null) {
+        return AddNewBudgetContent(partyID: widget.partyID, bloc: _bloc,);
+        }else if (snapshot.data != null || snapshot.hasData) {
           return Column(
             children: [
-              getItemsBudgetStream
+              getItemsBudgetStream(snapshot.data)
             ],
           );
         } else {
-          return AddNewBudgetContent(partyID: widget.partyID,);
+          return AddNewBudgetContent(partyID: widget.partyID, bloc: _bloc,);
         }
       }
     );
@@ -62,10 +66,10 @@ class _BudgetContentState extends State<BudgetContent> {
 
 
 
-  Widget get getItemsBudgetStream {
-    return StreamBuilder<List<Document>>(
-      stream: _bloc.documentsList.stream,
-      builder: (context, AsyncSnapshot<List<Document>> snapshot) {
+  Widget getItemsBudgetStream (Budget budget){
+    return StreamBuilder<List<BudgetItem>>(
+      stream: _bloc.budgetItemsListStream,
+      builder: (context, AsyncSnapshot<List<BudgetItem>> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data != null) {
             return Column(
@@ -73,22 +77,40 @@ class _BudgetContentState extends State<BudgetContent> {
                 BudgetProgressCard(
                   height: 180,
                   width: 300,
+                  budget: budget,
+                  bloc: _bloc,
                   title: appStrings['budget'],
                 ),
                 Column(
-                  children: _buildDocumentsListWidget(snapshot.data),
+                  children: _buildDocumentsListWidget(snapshot.data, budget),
                 ),
               ],
             );
           } else if (snapshot.data.isEmpty) {
+            _bloc.refreshRepo(widget.partyID);
             return Container();
           } else {
+            _bloc.refreshRepo(widget.partyID);
             return Container();
           }
         } else if (snapshot.hasError) {
           return Container();
         } else if (snapshot.data == null || snapshot.data.isEmpty) {
-          return AddBugdetRow(partyId: widget.partyID);
+          _bloc.refreshRepo(widget.partyID);
+          return Column(
+            children: [
+              BudgetProgressCard(
+                height: 180,
+                width: 300,
+                title: appStrings['budget'],
+                budget: budget,
+                bloc: _bloc,
+              ),
+              Column(
+                children: [AddBugdetRow(partyId: widget.partyID, bloc: _bloc, budget: budget,)]
+              ),
+            ],
+          );
         } else {
           return CircularProgressIndicator();
         }
@@ -96,13 +118,12 @@ class _BudgetContentState extends State<BudgetContent> {
     );
   }
 
-  List<Widget> _buildDocumentsListWidget(List<Document> data) {
+  List<Widget> _buildDocumentsListWidget(List<BudgetItem> data, Budget budget) {
     List<Widget> allTiles = [];
     data.forEach((element) {
-      allTiles.add(DocumentRowItem(element, _bloc));
+      allTiles.add(BudgetRowItem(element, _bloc));
     });
-    allTiles.add(AddBugdetRow(partyId: widget.partyID,));
+    allTiles.add(AddBugdetRow(partyId: widget.partyID, bloc: _bloc, budget: budget,));
     return allTiles;
   }
-
 }

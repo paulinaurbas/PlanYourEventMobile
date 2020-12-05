@@ -7,9 +7,8 @@ import 'package:planyoureventmobile/styling/gradient_bar.dart';
 import 'budget_content.dart';
 
 class BudgetScreen extends StatelessWidget {
-  final String partyType;
 
-  const BudgetScreen({Key key, this.partyType}) : super(key: key);
+  const BudgetScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,4 +23,6 @@ class BudgetScreen extends StatelessWidget {
       body: BudgetContent(partyID: partyId, ),
     );
   }
+
 }
+

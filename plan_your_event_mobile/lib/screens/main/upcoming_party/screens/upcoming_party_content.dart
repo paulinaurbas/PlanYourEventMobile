@@ -171,7 +171,7 @@ class _DisplayUpcomingPartyContentState
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/Budget');
+                    Navigator.pushNamed(context, '/Budget', arguments: widget.event.eventId);
                   },
                   child: StandardBigColorfulTiles(
                       color: appColors['sweet_green'],
@@ -179,7 +179,7 @@ class _DisplayUpcomingPartyContentState
                       height: 78,
                       width: 82,
                       padding: 5,
-                      icon: Icons.bubble_chart,
+                      icon: Icons.attach_money,
                       title: appStrings['budget']),
                 ),
                 GestureDetector(
