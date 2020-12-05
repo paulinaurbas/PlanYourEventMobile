@@ -29,6 +29,10 @@ class _LoginContentState extends State<LoginContent> {
   void initState() {
     AuthRepository authRepository = Provider.of<AuthRepository>(context, listen: false);
     _bloc.auth.initializeCurrentUser(authRepository);
+    _bloc.auth.errorStream.listen((event) {
+      String message = errorHandler(event);
+      displaySnackbar(context, message);
+    });
     super.initState();
   }
 
@@ -127,20 +131,14 @@ class _LoginContentState extends State<LoginContent> {
   }
 
   void _submitForm(){
-    dynamic result;
-    try {
      AuthRepository _authRepository = Provider.of<AuthRepository>(context, listen: false);
      if(isLogin){
-       _bloc.auth.signInWithEmailAndPassword(email, password, _authRepository);
+         _bloc.auth.signInWithEmailAndPassword(
+             email, password, _authRepository);
      } else {
        _bloc.auth.registerWithEmailAndPassword(
            email, password, _authRepository);
      }
-    } catch(e){
-      String message = errorHandler(e);
-      displaySnackbar(context, message);
-    }
-
   }
 
   String errorHandler (dynamic e){
