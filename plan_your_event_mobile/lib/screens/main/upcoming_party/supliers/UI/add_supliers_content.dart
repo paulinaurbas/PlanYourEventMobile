@@ -22,24 +22,29 @@ class _AddSuplierContentState extends State<AddSuplierContent> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
+      child: GestureDetector(
+        onTap: (){
+          FocusScope.of(context).unfocus();
+        },
+        child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Container(
+                decoration: BoxDecoration(
                     color: Colors.white,
+                    border: Border.all(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(12))),
+                child: Center(
+                  child: Column(
+                    children: [
+                      getTypeDropDownRow,
+                      getNameTextInput, getStreetTextInput, getCityTextInput,
+                      getNumberTextInput, getMailTextInput, getPersonResponsibleTextInput,
+                      getStaffFromSupplierTextInput, getButton],
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(12))),
-              child: Center(
-                child: Column(
-                  children: [
-                    getTypeDropDownRow,
-                    getNameTextInput, getStreetTextInput, getCityTextInput,
-                    getNumberTextInput, getMailTextInput, getPersonResponsibleTextInput,
-                    getStaffFromSupplierTextInput, getButton],
-                ),
-              ))),
+                ))),
+      ),
     );
   }
 

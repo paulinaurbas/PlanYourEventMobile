@@ -45,16 +45,21 @@ class _CreatePartyContentState extends State<CreatePartyContent> {
     return Scaffold(
       backgroundColor: appColors['backgroud_color'],
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(children: [
-              getPlaceBox,
-              getAddressBox,
-              getDataTimeWidget,
-              getButton
-            ])
-          ],
+        child: GestureDetector(
+          onTap: (){
+            FocusScope.of(context).unfocus();
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(children: [
+                getPlaceBox,
+                getAddressBox,
+                getDataTimeWidget,
+                getButton
+              ])
+            ],
+          ),
         ),
       ),
     );
