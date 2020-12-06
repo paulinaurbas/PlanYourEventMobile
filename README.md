@@ -22,9 +22,13 @@ Ilustration: https://www.freepik.com/
 
 # Functions
 - create party
+
+
 ![Screenshot_20201205-171958](https://user-images.githubusercontent.com/32485281/101280049-12e5c600-37c7-11eb-8c3b-0b56a006f4f1.png)
 
 - display information
+
+
 ![Screenshot_20201206-124925](https://user-images.githubusercontent.com/32485281/101280301-b5527900-37c8-11eb-9d79-360eccc6ac30.png)
 ![Screenshot_20201206-124932](https://user-images.githubusercontent.com/32485281/101280302-b71c3c80-37c8-11eb-9c38-30044a485d78.png)
 
