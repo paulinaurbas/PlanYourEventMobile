@@ -22,7 +22,9 @@ Ilustration: https://www.freepik.com/
 
 # Functions
 - create party
+
 - display information
+![Screenshot_20201205-170322](https://user-images.githubusercontent.com/32485281/101279964-7ae7dc80-37c6-11eb-933b-cc1d97b0195e.png)
 - add supliers to party
 - add menu and drinks to party
 - add nessesary documents to party
