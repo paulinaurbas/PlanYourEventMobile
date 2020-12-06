@@ -72,6 +72,11 @@ Ilustration: https://www.freepik.com/
 
 
 ![Screenshot_20201205-172307](https://user-images.githubusercontent.com/32485281/101280076-49bbdc00-37c7-11eb-897d-261d114d2fe5.png)
+![Screenshot_20201205-172243](https://user-images.githubusercontent.com/32485281/101285273-94981c80-37e4-11eb-8ba9-30ce56852393.png)
+![Screenshot_20201205-172251](https://user-images.githubusercontent.com/32485281/101285274-9661e000-37e4-11eb-8496-f65aee11368e.png)
+![Screenshot_20201205-172329](https://user-images.githubusercontent.com/32485281/101285279-995cd080-37e4-11eb-810a-a93db72216f2.png)
+
+
 
 - add guest to party and confirm their status
 
