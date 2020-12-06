@@ -55,7 +55,6 @@ Ilustration: https://www.freepik.com/
 
 - add guest to party and confirm their status
 ![Screenshot_20201205-172710](https://user-images.githubusercontent.com/32485281/101280374-06fb0380-37c9-11eb-8da0-9dcb4a47419f.png)
-![Screenshot_20201205-172719](https://user-images.githubusercontent.com/32485281/101280375-07939a00-37c9-11eb-8a38-58a45358e60e.png)
 
 - add guest to app, their food preferences, emails and phone 
 
