@@ -35,16 +35,25 @@ Ilustration: https://www.freepik.com/
 
 
 - add supliers to party
+
+
+
 ![Screenshot_20201205-172500](https://user-images.githubusercontent.com/32485281/101280320-ca2f0c80-37c8-11eb-8f5c-7c1276c90e5e.png)
 
 
 
 - add menu and drinks to party
+
+
+
 ![Screenshot_20201205-172549](https://user-images.githubusercontent.com/32485281/101280332-dadf8280-37c8-11eb-89ab-d9dcc4831d25.png)
 
 
 
 - add nessesary documents to party
+
+
+
 ![Screenshot_20201205-172631](https://user-images.githubusercontent.com/32485281/101280351-ec288f00-37c8-11eb-823e-126f525f5616.png)
 ![Screenshot_20201205-172644](https://user-images.githubusercontent.com/32485281/101280353-ed59bc00-37c8-11eb-90b5-efad93620d30.png)
 
@@ -55,14 +64,21 @@ Ilustration: https://www.freepik.com/
 - view inspiration 
 
 - add things to do, in progress, done
+
+
+
 ![Screenshot_20201205-172307](https://user-images.githubusercontent.com/32485281/101280076-49bbdc00-37c7-11eb-897d-261d114d2fe5.png)
 
 - add guest to party and confirm their status
+
+
 ![Screenshot_20201205-172710](https://user-images.githubusercontent.com/32485281/101280374-06fb0380-37c9-11eb-8da0-9dcb4a47419f.png)
 
 - add guest to app, their food preferences, emails and phone 
 
 - display guest in app, their food preferences, emails and phone 
+
+
 ![Screenshot_20201205-172209](https://user-images.githubusercontent.com/32485281/101280289-9eac2200-37c8-11eb-8fe6-5e3ccfad5aff.png)
 ![Screenshot_20201205-172159](https://user-images.githubusercontent.com/32485281/101280285-9a800480-37c8-11eb-9b76-31eef7606293.png)
 
