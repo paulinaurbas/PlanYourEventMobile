@@ -36,17 +36,17 @@ Ilustration: https://www.freepik.com/
 
 - add supliers to party
 
-
-
+![Screenshot_20201206-163947](https://user-images.githubusercontent.com/32485281/101285119-d7a5c000-37e3-11eb-8931-a090983c38db.png)
 ![Screenshot_20201205-172500](https://user-images.githubusercontent.com/32485281/101280320-ca2f0c80-37c8-11eb-8f5c-7c1276c90e5e.png)
 
 
 
-- add menu and drinks to party
+- add menu and drinks to party, display menu 
 
 
 
 ![Screenshot_20201205-172549](https://user-images.githubusercontent.com/32485281/101280332-dadf8280-37c8-11eb-89ab-d9dcc4831d25.png)
+![Screenshot_20201206-135340](https://user-images.githubusercontent.com/32485281/101285112-d2e10c00-37e3-11eb-96b9-b631ac3ca6c3.png)
 
 
 
@@ -63,6 +63,10 @@ Ilustration: https://www.freepik.com/
 
 - view inspiration 
 
+![Screenshot_20201206-135248](https://user-images.githubusercontent.com/32485281/101285109-cd83c180-37e3-11eb-9a4f-9bc628653084.png)
+
+
+
 - add things to do, in progress, done
 
 
@@ -76,11 +80,35 @@ Ilustration: https://www.freepik.com/
 
 - add guest to app, their food preferences, emails and phone 
 
+
+![Screenshot_20201206-135142](https://user-images.githubusercontent.com/32485281/101285080-acbb6c00-37e3-11eb-8b15-d99db13de8d1.png)
+![Screenshot_20201206-135150](https://user-images.githubusercontent.com/32485281/101285082-ad540280-37e3-11eb-85af-37158a7b17dd.png)
+
+
+
 - display guest in app, their food preferences, emails and phone 
 
 
+
+
+![Screenshot_20201206-135134](https://user-images.githubusercontent.com/32485281/101285075-a6c58b00-37e3-11eb-808e-805412bccbd4.png)
+![Screenshot_20201206-164040](https://user-images.githubusercontent.com/32485281/101285127-dbd1dd80-37e3-11eb-90bb-c54ff48d345c.png)
 ![Screenshot_20201205-172209](https://user-images.githubusercontent.com/32485281/101280289-9eac2200-37c8-11eb-8fe6-5e3ccfad5aff.png)
 ![Screenshot_20201205-172159](https://user-images.githubusercontent.com/32485281/101280285-9a800480-37c8-11eb-9b76-31eef7606293.png)
+
+
+- add budget and display budget status
+
+![Screenshot_20201206-134507](https://user-images.githubusercontent.com/32485281/101285046-7847b000-37e3-11eb-87e7-4f2385bf16ab.png)
+![Screenshot_20201206-134519](https://user-images.githubusercontent.com/32485281/101285049-7a117380-37e3-11eb-9e8b-81abcd87f095.png)
+![Screenshot_20201206-135215](https://user-images.githubusercontent.com/32485281/101285101-c65cb380-37e3-11eb-9c93-0f5ff32ace02.png)
+
+
+
+- display app info
+
+
+![Screenshot_20201206-135159](https://user-images.githubusercontent.com/32485281/101285090-b80e9780-37e3-11eb-8257-f852abf34e15.png)
 
 
 
